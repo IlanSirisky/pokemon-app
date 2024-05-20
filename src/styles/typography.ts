@@ -160,19 +160,3 @@ export const XSmallRegular = styled.p`
   line-height: 16px;
   color: ${COLORS.Neutrals.N500};
 `;
-
-export const ButtonMediumBig = styled.button`
-  font-family: 'Mulish', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  color: ${COLORS.Neutrals.N500};
-`;
-
-export const ButtonSmall = styled.button`
-  font-family: 'Mulish', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 14px;
-  color: ${COLORS.Neutrals.N500};
-`;
