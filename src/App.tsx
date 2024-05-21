@@ -1,11 +1,20 @@
 import TestButtons from "./components/testComponents/TestButtons";
 import TestTypography from "./components/testComponents/TestTypography";
-import Avatar from "./components/Avatar/Avatar";
+import DropdownItem from "./components/DropdownItem/DropdownItem";
 
 function App() {
   return (
     <>
-      <Avatar image="https://www.w3schools.com/howto/img_avatar.png" />
+      <DropdownItem
+        text="Power (High to low)"
+        onClick={() => console.log("Sort option clicked")}
+      />
+      <DropdownItem
+        avatar="https://www.w3schools.com/howto/img_avatar.png"
+        text="Avatar"
+        power={22}
+        onClick={() => console.log("Caterpie clicked")}
+      />
       <TestButtons />
       <TestTypography />
     </>
