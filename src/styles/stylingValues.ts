@@ -13,3 +13,14 @@ export const cssFontWeights = {
     medium: 500,
     bold: 700,
 };
+
+export const cssFontSizes = {
+    f11 : "11px",
+    f12 : "12px",
+    f14 : "14px",
+    f16 : "16px",
+    f18 : "18px",
+    f20 : "20px",
+    f24 : "24px",
+    f28 : "28px",
+}
