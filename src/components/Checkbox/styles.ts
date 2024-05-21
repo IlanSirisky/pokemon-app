@@ -25,7 +25,7 @@ export const StyledCheckbox = styled.input.attrs({
   transition: background-color 300ms ease-out, border-color 300ms ease-out;
 
   &:hover:not(:checked):not(:disabled):before {
-    content: '';
+    content: "";
     position: absolute;
     top: -4px;
     left: -4px;
@@ -51,7 +51,6 @@ export const StyledCheckbox = styled.input.attrs({
       border: solid white;
       border-width: 0 1px 1px 0;
       transform: translate(-50%, -50%) rotate(45deg);
-      transition: border-color 300ms ease-out;
     }
   }
 `;
