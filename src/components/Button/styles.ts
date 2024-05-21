@@ -62,7 +62,7 @@ const buttonSizeStyles = {
   small: {
     fontSize: "14px",
     lineHeight: `${cssSpacings.s14}`,
-    padding: "$9px 16px",
+    padding: "9px 16px",
   },
   medium: {
     fontSize: "16px",
