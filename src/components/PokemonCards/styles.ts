@@ -14,6 +14,10 @@ export const StyledBasicCard = styled(flexColumn)`
   gap: ${cssSpacings.s10};
 `;
 
+export const StyledFightCard = styled(StyledBasicCard)`
+  align-items: center;
+`;
+
 export const ImagePowerContainer = styled.div`
   position: relative;
 `;
@@ -35,4 +39,15 @@ export const StyledPokemonImage = styled.img`
   height: 188px;
   border-radius: 2px;
   position: relative;
+`;
+
+export const HPbar = styled.div`
+  border: 10px solid #87c877;
+  border-radius: 10px;
+  width: 255px;
+`;
+
+export const HPContainer = styled(flexRow)`
+  gap: ${cssSpacings.s4};
+  align-items: center;
 `;
