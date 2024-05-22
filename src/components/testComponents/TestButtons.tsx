@@ -5,69 +5,69 @@ const TestButtons: React.FC = () => {
   return (
     <div>
       <Button type="primary" size="small">
-        Primary
+        Button
       </Button>
       <Button type="primary" size="medium">
-        Primary
+        Button
       </Button>
       <Button type="primary" size="large">
-        Primary
+        Button
       </Button>
       <Button type="primary" size="large" disabled>
-        Primary
+        Button
       </Button>
 
       <br />
       <Button type="secondary" size="small">
-        Secondary
+        Button
       </Button>
       <Button type="secondary" size="medium">
-        Secondary
+        Button
       </Button>
       <Button type="secondary" size="large">
-        Secondary
+        Button
       </Button>
       <Button type="secondary" size="large" disabled>
-        Secondary
+        Button
       </Button>
       <br />
       <Button type="secondary-gray" size="small">
-        Secondary-Gray
+        Button
       </Button>
       <Button type="secondary-gray" size="medium">
-        Secondary-Gray
+        Button
       </Button>
       <Button type="secondary-gray" size="large">
-        Secondary-Gray
+        Button
       </Button>
       <Button type="secondary-gray" size="large" disabled>
-        Secondary-Gray
+        Button
       </Button>
       <br />
       <Button type="tertiary" size="small">
-        Tertiary
+        Button
       </Button>
       <Button type="tertiary" size="medium">
-        Tertiary
+        Button
       </Button>
       <Button type="tertiary" size="large">
-        Tertiary
+        Button
       </Button>
       <Button type="tertiary" size="large" disabled>
-        Tertiary
+        Button
       </Button>
       <br />
       <Button type="tertiary-gray" size="small">
-        Tertiary-Gray
+        Button
       </Button>
       <Button type="tertiary-gray" size="medium">
-        Tertiary-Gray
+        Button
       </Button>
       <Button type="tertiary-gray" size="large">
-        Tertiary-Gray
+        Button
       </Button>
       <Button type="tertiary-gray" size="large" disabled>
-        Tertiary-Gray
+        Button
       </Button>
     </div>
   );
