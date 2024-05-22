@@ -1,7 +1,7 @@
 import React from "react";
-import { buttonType, buttonSize} from "./types";
+import { buttonType, buttonSize } from "./types";
 import { StyledButton } from "./styles";
-import {CSSProperties} from "styled-components";
+import { CSSProperties } from "styled-components";
 
 interface ButtonProps {
   onClick?: () => void;
