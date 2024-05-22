@@ -4,29 +4,28 @@ import { COLORS } from "../../styles/colors";
 
 const { Neutrals } = COLORS;
 
-export const FilterContainer = styled.button<{$isActive: boolean}>`
+export const FilterContainer = styled.button<{ $isActive: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-around;
   gap: ${cssSpacings.s16};
   padding: ${cssSpacings.s8} ${cssSpacings.s12};
-  border: 1px solid ${Neutrals.N200};
+  border: 1px solid;
   border-radius: ${cssSpacings.s8};
-  background-color: transparent;
   cursor: pointer;
   transition: background-color 300ms ease-out, border-color 300ms ease-out;
-  color: ${Neutrals.N200};
 
-  &:hover {
-    background-color: ${Neutrals.N100};
-    border-color: ${Neutrals.N300};
-    color: ${Neutrals.N300};
-  }
+  background-color: ${({ $isActive }) =>
+    $isActive ? Neutrals.N100 : "transparent"};
+  color: ${({ $isActive }) => ($isActive ? Neutrals.N500 : Neutrals.N200)};
+  border-color: ${({ $isActive }) =>
+    $isActive ? Neutrals.N500 : Neutrals.N200};
 
-  &:focus {
+  &:hover:not(:disabled) {
     background-color: ${Neutrals.N100};
-    border-color: ${Neutrals.N500};
-    color: ${Neutrals.N500};
+    border-color: ${({ $isActive }) =>
+      $isActive ? Neutrals.N500 : Neutrals.N300};
+    color: ${({ $isActive }) => ($isActive ? Neutrals.N500 : Neutrals.N300)};
   }
 
   &:disabled {

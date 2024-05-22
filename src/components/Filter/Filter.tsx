@@ -6,7 +6,7 @@ import ActiveFilterArrow from "../../assets/Icons/ActiveFilterArrow.svg";
 interface FilterProps {
   label: string;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (isActive: boolean) => void;
 }
 
 const Filter: React.FC<FilterProps> = ({
@@ -17,12 +17,8 @@ const Filter: React.FC<FilterProps> = ({
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    if (!disabled) {
-      setIsActive(!isActive);
-      if (onClick) {
-        onClick();
-      }
-    }
+    setIsActive(!isActive);
+    if (onClick) onClick(!isActive);
   };
 
   return (
@@ -31,7 +27,10 @@ const Filter: React.FC<FilterProps> = ({
       disabled={disabled}
       onClick={handleClick}>
       {label}
-      <img src={isActive ? ActiveFilterArrow : FilterArrow} alt="Filter arrow icon" />
+      <img
+        src={isActive ? ActiveFilterArrow : FilterArrow}
+        alt="Filter arrow icon"
+      />
     </FilterContainer>
   );
 };
