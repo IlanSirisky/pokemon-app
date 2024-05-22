@@ -6,33 +6,36 @@ import {
   ImagePowerContainer,
 } from "./styles";
 import { HeadingLargeRegular, XSmallRegular } from "../../styles/typography";
+import { CSSProperties } from "styled-components";
 
 interface BasicCardProps {
-  name: string;
+  cardTitle: string;
   image: string;
-  id: string;
-  power: number;
-  powerIcon: string;
+  subheadText?: string;
+  cornerText?: string;
+  topCornerIcon?: string;
+  style?: CSSProperties;
 }
 
 const PokemonBasicCard = ({
-  name,
+  cardTitle,
   image,
-  id,
-  power,
-  powerIcon,
+  subheadText,
+  cornerText,
+  topCornerIcon,
+  style,
 }: BasicCardProps) => {
   return (
-    <StyledBasicCard>
+    <StyledBasicCard style={style}>
       <ImagePowerContainer>
-        <StyledPokemonImage src={image} alt={name} />
+        <StyledPokemonImage src={image} alt={cardTitle} />
         <PowerContainer>
-          <XSmallRegular>{power}px</XSmallRegular>
-          <img src={powerIcon} alt="power icon" />
+          {cornerText && <XSmallRegular>{cornerText}</XSmallRegular>}
+          {topCornerIcon && <img src={topCornerIcon} alt={cardTitle} />}
         </PowerContainer>
       </ImagePowerContainer>
-      <StyledIdText>#{id}</StyledIdText>
-      <HeadingLargeRegular>{name}</HeadingLargeRegular>
+      {subheadText && <StyledIdText>{subheadText}</StyledIdText>}
+      <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
     </StyledBasicCard>
   );
 };

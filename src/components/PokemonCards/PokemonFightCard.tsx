@@ -12,38 +12,41 @@ import {
   XSmallRegular,
   HeadingLargeBold,
 } from "../../styles/typography";
+import { CSSProperties } from "styled-components";
 
 interface FightCardProps {
-  pokemonName: string;
+  cardTitle: string;
   image: string;
-  id: string;
-  power: number;
-  powerIcon: string;
   hp: number;
   playerName: string;
+  subheadText?: string;
+  cornerText?: number;
+  topCornerIcon?: string;
+  style?: CSSProperties;
 }
 
 const PokemonFightCard = ({
-  pokemonName,
+  cardTitle,
   image,
-  id,
-  power,
-  playerName,
-  powerIcon,
   hp,
+  playerName,
+  subheadText,
+  cornerText,
+  topCornerIcon,
+  style,
 }: FightCardProps) => {
   return (
-    <StyledFightCard>
+    <StyledFightCard style={style}>
       <HeadingLargeBold>{playerName}</HeadingLargeBold>
       <ImagePowerContainer>
-        <StyledPokemonImage src={image} alt={pokemonName} />
+        <StyledPokemonImage src={image} alt={cardTitle} />
         <PowerContainer>
-          <XSmallRegular>{power}px</XSmallRegular>
-          <img src={powerIcon} alt="power icon" />
+          {cornerText && <XSmallRegular>{cornerText}</XSmallRegular>}
+          {topCornerIcon && <img src={topCornerIcon} alt={cardTitle} />}
         </PowerContainer>
       </ImagePowerContainer>
-      <StyledIdText>#{id}</StyledIdText>
-      <HeadingLargeRegular>{pokemonName}</HeadingLargeRegular>
+      {subheadText && <StyledIdText>{subheadText}</StyledIdText>}
+      <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
       <HPContainer>
         <HPbar></HPbar>
         <XSmallRegular>{hp} HP</XSmallRegular>
