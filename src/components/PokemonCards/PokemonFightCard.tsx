@@ -1,18 +1,7 @@
-import {
-  StyledFightCard,
-  PowerContainer,
-  StyledIdText,
-  StyledPokemonImage,
-  ImagePowerContainer,
-  HPbar,
-  HPContainer,
-} from "./styles";
-import {
-  HeadingLargeRegular,
-  XSmallRegular,
-  HeadingLargeBold,
-} from "../../styles/typography";
+import { StyledFightCard, HPbar, HPContainer } from "./styles";
+import { XSmallRegular, HeadingLargeBold } from "../../styles/typography";
 import { CSSProperties } from "styled-components";
+import CardBody from "./CardBody";
 
 interface FightCardProps {
   cardTitle: string;
@@ -20,7 +9,7 @@ interface FightCardProps {
   hp: number;
   playerName: string;
   subheadText?: string;
-  cornerText?: number;
+  cornerText?: string;
   topCornerIcon?: string;
   style?: CSSProperties;
 }
@@ -38,15 +27,13 @@ const PokemonFightCard = ({
   return (
     <StyledFightCard style={style}>
       <HeadingLargeBold>{playerName}</HeadingLargeBold>
-      <ImagePowerContainer>
-        <StyledPokemonImage src={image} alt={cardTitle} />
-        <PowerContainer>
-          {cornerText && <XSmallRegular>{cornerText}</XSmallRegular>}
-          {topCornerIcon && <img src={topCornerIcon} alt={cardTitle} />}
-        </PowerContainer>
-      </ImagePowerContainer>
-      {subheadText && <StyledIdText>{subheadText}</StyledIdText>}
-      <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
+      <CardBody
+        cardTitle={cardTitle}
+        image={image}
+        subheadText={subheadText}
+        cornerText={cornerText}
+        topCornerIcon={topCornerIcon}
+      />
       <HPContainer>
         <HPbar></HPbar>
         <XSmallRegular>{hp} HP</XSmallRegular>

@@ -4,7 +4,7 @@ import { StyledButton } from "./styles";
 
 interface ButtonProps {
   onClick?: () => void;
-  children: React.ReactNode | string;
+  children: React.ReactNode;
   type: buttonType;
   size: buttonSize;
   disabled?: boolean;
