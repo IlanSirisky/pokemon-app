@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Filter label="Sort By" onClick={() => console.log("clicked")} />
-      <Filter label="Sort By" disabled />
+      <Filter label="Sort " disabled />
       {/* <TestButtons />
       <TestTypography /> */}
     </>
