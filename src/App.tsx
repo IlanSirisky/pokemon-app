@@ -12,7 +12,7 @@ function App() {
       <DropdownItem
         avatar="https://www.w3schools.com/howto/img_avatar.png"
         text="Avatar"
-        power={22}
+        endText={"22px"}
         onClick={() => console.log("Caterpie clicked")}
       />
       <TestButtons />
