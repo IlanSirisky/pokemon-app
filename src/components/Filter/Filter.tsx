@@ -8,6 +8,7 @@ interface FilterProps {
   disabled?: boolean;
   startIcon?: string;
   onClick?: (isActive: boolean) => void;
+  sx?: object;
 }
 
 const Filter: React.FC<FilterProps> = ({
@@ -15,6 +16,7 @@ const Filter: React.FC<FilterProps> = ({
   disabled = false,
   startIcon,
   onClick,
+  sx={},
 }) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -29,6 +31,7 @@ const Filter: React.FC<FilterProps> = ({
       disabled={disabled}
       onClick={handleClick}
       $isActive={isActive}
+      sx={sx}
       startIcon={startIcon && <img src={startIcon} alt={startIcon} />}
       endIcon={
         <img
