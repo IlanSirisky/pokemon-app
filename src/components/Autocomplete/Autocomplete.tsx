@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Box, Autocomplete as MuiAutocomplete } from "@mui/material";
-import Avatar from "../Avatar/Avatar";
-import { AvatarLabelContainer, StyledTextField } from "./styles";
-import { optionsType } from "../../types/dropdownOptionsType";
-import { cssFontSizes } from "../../styles/stylingValues";
+import { Autocomplete as MuiAutocomplete } from "@mui/material";
+import { StyledTextField } from "./styles";
+import { autocompleteOptionsType } from "../../types/optionsTypes";
+import AutocompleteListItem from "./AutocompleteListItem";
 
 interface AutocompleteProps {
-  options: optionsType[];
+  options: autocompleteOptionsType[];
   placeholder?: string;
   sx?: object;
 }
@@ -26,33 +25,14 @@ const Autocomplete = ({
       getOptionLabel={(option) => option.label}
       inputValue={inputValue}
       onInputChange={(_event, newInputValue) => {
-        setInputValue(newInputValue);        
+        setInputValue(newInputValue);
       }}
       renderOption={(props, option) => (
-        <Box
-          component="li"
-          {...props}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontFamily: `'Mulish', 'sans-serif'`,
-            fontSize: `${cssFontSizes.f14}`,
-            lineHeight: "22px"
-          }}>
-          <AvatarLabelContainer>
-            {option.avatar && (
-              <Avatar image={option.avatar} alt={option.value} />
-            )}
-            {option.label}
-          </AvatarLabelContainer>
-          {option.endText ? (
-            <Box
-              sx={{ marginLeft: "auto", fontFamily: `'Mulish', 'sans-serif'` }}>
-              {option.endText}
-            </Box>
-          ) : null}
-        </Box>
+        <AutocompleteListItem
+          option={option}
+          props={props}
+          key={option.value}
+        />
       )}
       renderInput={(params) => (
         <StyledTextField

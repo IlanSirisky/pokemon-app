@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TextField } from "@mui/material";
 import { flexRow } from "../../styles/globalStyles";
-import { cssSpacings } from "../../styles/stylingValues";
+import { cssFontSizes, cssSpacings } from "../../styles/stylingValues";
 import { COLORS } from "../../styles/colors";
 
 const { Neutrals } = COLORS;
@@ -25,7 +25,7 @@ export const StyledTextField = styled(TextField)(() => ({
       borderColor: `${Neutrals.N300}`,
       color: `${Neutrals.N300}`,
     },
-    padding: `${cssSpacings.s8} ${cssSpacings.s12} !important`,
+    padding: `${cssSpacings.s8} !important`,
   },
   "& .MuiInputLabel-root": {
     color: `${Neutrals.N200}`,
@@ -38,3 +38,17 @@ export const StyledTextField = styled(TextField)(() => ({
   minWidth: `200px !important`,
   width: `auto !important`,
 }));
+
+export const listItemSyles = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  fontFamily: `'Mulish', 'sans-serif'`,
+  fontSize: `${cssFontSizes.f14}`,
+  lineHeight: "22px",
+};
+
+export const endTextStyle = {
+  marginLeft: "auto",
+  fontFamily: `'Mulish', 'sans-serif'`,
+};
