@@ -25,6 +25,7 @@ export const StyledTextField = styled(TextField)(() => ({
       borderColor: `${Neutrals.N300}`,
       color: `${Neutrals.N300}`,
     },
+    padding: `${cssSpacings.s8} ${cssSpacings.s12} !important`,
   },
   "& .MuiInputLabel-root": {
     color: `${Neutrals.N200}`,

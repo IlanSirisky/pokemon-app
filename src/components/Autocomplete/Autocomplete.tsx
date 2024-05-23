@@ -26,9 +26,7 @@ const Autocomplete = ({
       getOptionLabel={(option) => option.label}
       inputValue={inputValue}
       onInputChange={(_event, newInputValue) => {
-        setInputValue(newInputValue);
-        console.log(newInputValue);
-        
+        setInputValue(newInputValue);        
       }}
       renderOption={(props, option) => (
         <Box
