@@ -7,24 +7,21 @@ import {
   StyledFormControl,
   StyledOutlinedInput,
 } from "./styles";
-import SortIcon from "../../assets/icons/SortIcon.svg";
-import ActiveSortIcon from "../../assets/icons/ActiveSortIcon.svg";
+import ArrowIcon from "../../assets/icons/ArrowIcon.svg";
+import ActiveArrowIcon from "../../assets/icons/ActiveArrowIcon.svg";
+import { selectOptionsType } from "../../types/optionsTypes";
 
-interface SortBySelectProps {
-  options: { value: string; label: string }[];
+interface SelectProps {
+  options: selectOptionsType[];
   placeholder?: string;
   sx?: object;
 }
 
-const SortBySelect = ({
-  options,
-  placeholder = "Sort by",
-  sx = {},
-}: SortBySelectProps) => {
-  const [sortBy, setSortBy] = useState<string>("");
+const Select = ({ options, placeholder = "Select", sx = {} }: SelectProps) => {
+  const [selectedOption, setselectedOption] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setSortBy(event.target.value as string);
+    setselectedOption(event.target.value as string);
   };
 
   // Manage focus state to render the correct icon
@@ -35,23 +32,20 @@ const SortBySelect = ({
 
   return (
     <StyledFormControl variant="outlined" sx={sx}>
-      {!sortBy && (
-        <StyledInputLabel shrink={!!sortBy} htmlFor="sort-by-select">
-          {placeholder}
-        </StyledInputLabel>
+      {!selectedOption && (
+        <StyledInputLabel shrink={false}>{placeholder}</StyledInputLabel>
       )}
       <StyledSelect
-        value={sortBy}
+        value={selectedOption}
         onChange={handleChange}
-        label={!sortBy ? placeholder : ""}
+        label={!selectedOption ? placeholder : ""}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        input={<StyledOutlinedInput label={!sortBy ? placeholder : ""} />}
+        input={
+          <StyledOutlinedInput label={!selectedOption ? placeholder : ""} />
+        }
         IconComponent={() => (
-          <img
-            src={isFocused ? ActiveSortIcon : SortIcon}
-            alt="Sort arrow icon"
-          />
+          <img src={isFocused ? ActiveArrowIcon : ArrowIcon} alt="Arrow icon" />
         )}
         displayEmpty
         notched={false}>
@@ -68,4 +62,4 @@ const SortBySelect = ({
   );
 };
 
-export default SortBySelect;
+export default Select;

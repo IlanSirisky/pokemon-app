@@ -24,7 +24,7 @@ export const StyledSelect = styled(Select)`
     padding: ${cssSpacings.s4} ${cssSpacings.s8} !important;
   }
   &.MuiOutlinedInput-root {
-    border-radius: 8px;
+    border-radius: ${cssSpacings.s8};
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: ${Neutrals.N300} !important;
     }
