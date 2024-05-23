@@ -11,12 +11,18 @@ interface TabProps {
   style?: CSSProperties;
 }
 
-const Tab = ({ text = "list", active = false, onClick, img, style }: TabProps) => {
+const Tab = ({
+  text = "list",
+  active = false,
+  onClick,
+  img,
+  style,
+}: TabProps) => {
   const [isActive, setIsActive] = useState(active);
 
   const handleClick = () => {
-    setIsActive(!isActive);
-    if (onClick) onClick(!isActive);
+    setIsActive((prev) => !prev);
+    onClick?.(!isActive);
   };
 
   return (
