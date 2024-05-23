@@ -18,6 +18,7 @@ export const StyledFormControl = styled(FormControl)`
 
 export const StyledSelect = styled(Select)`
   height: 38px !important;
+  width: auto !important;
 
   &.MuiSelect-select {
     padding: ${cssSpacings.s4} ${cssSpacings.s8} !important;
@@ -46,7 +47,9 @@ export const StyledInputLabel = styled(InputLabel)`
   font-family: "Mulish", sans-serif !important;
   font-size: ${cssFontSizes.f14} !important;
   line-height: 22px !important;
-  top: -9px !important;
+  top: -8px !important;
+  width: auto !important;
+
   &.Mui-focused {
     color: ${Neutrals.N300} !important;
   }
@@ -56,6 +59,9 @@ export const StyledOutlinedInput = styled(OutlinedInput)`
   font-family: "Mulish", sans-serif !important;
   font-size: ${cssFontSizes.f14} !important;
   line-height: 22px !important;
+  padding: ${cssSpacings.s12} ${cssSpacings.s8} !important;
+  width: auto !important;
+
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: ${Neutrals.N300} !important;
   }
