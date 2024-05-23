@@ -1,16 +1,9 @@
-import {
-  Box,
-  Autocomplete,
-} from "@mui/material";
+import { useState } from "react";
+import { Box, Autocomplete as MuiAutocomplete } from "@mui/material";
 import Avatar from "../Avatar/Avatar";
 import { AvatarLabelContainer, StyledTextField } from "./styles";
-
-export interface optionsType {
-  value: string;
-  label: string;
-  avatar?: string;
-  endText?: string;
-}
+import { optionsType } from "../../types/dropdownOptionsType";
+import { cssFontSizes } from "../../styles/stylingValues";
 
 interface AutocompleteProps {
   options: optionsType[];
@@ -18,17 +11,25 @@ interface AutocompleteProps {
   sx?: object;
 }
 
-const PokemonAutocomplete = ({
+const Autocomplete = ({
   options,
-  placeholder = "Search Pokemon",
+  placeholder = "Search",
   sx,
 }: AutocompleteProps) => {
+  const [inputValue, setInputValue] = useState<string>("");
+
   return (
-    <Autocomplete
+    <MuiAutocomplete
       sx={{ ...sx }}
       options={options}
       autoHighlight
       getOptionLabel={(option) => option.label}
+      inputValue={inputValue}
+      onInputChange={(_event, newInputValue) => {
+        setInputValue(newInputValue);
+        console.log(newInputValue);
+        
+      }}
       renderOption={(props, option) => (
         <Box
           component="li"
@@ -38,6 +39,8 @@ const PokemonAutocomplete = ({
             alignItems: "center",
             justifyContent: "space-between",
             fontFamily: `'Mulish', 'sans-serif'`,
+            fontSize: `${cssFontSizes.f14}`,
+            lineHeight: "22px"
           }}>
           <AvatarLabelContainer>
             {option.avatar && (
@@ -56,10 +59,13 @@ const PokemonAutocomplete = ({
       renderInput={(params) => (
         <StyledTextField
           {...params}
-          label={placeholder}
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: "new-password",
+          label={inputValue ? "" : placeholder}
+          InputLabelProps={{
+            shrink: false,
+          }}
+          InputProps={{
+            ...params.InputProps,
+            notched: false,
           }}
         />
       )}
@@ -67,4 +73,4 @@ const PokemonAutocomplete = ({
   );
 };
 
-export default PokemonAutocomplete;
+export default Autocomplete;
