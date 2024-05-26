@@ -1,6 +1,6 @@
-import { selectOptionsType } from "../types/optionsTypes";
+import { SelectOptionsType } from "../types/optionsTypes";
 
-export const tableSortByOptions: selectOptionsType[] = [
+export const tableSortByOptions: SelectOptionsType[] = [
   { value: "az", label: "Alphabetical A-Z" },
   { value: "za", label: "Alphabetical Z-A" },
   { value: "powerHighToLow", label: "Power (High to low)" },
