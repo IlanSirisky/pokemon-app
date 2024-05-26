@@ -1,7 +1,7 @@
 import caterpie from "../assets/pokemons/caterpie.svg";
-import { optionsType } from "../types/optionsTypes";
+import { AutocompleteOptionsType } from "../types/optionsTypes";
 
-export const pokemonOptions: optionsType[] = [
+export const pokemonOptions: AutocompleteOptionsType[] = [
   {
     value: "option1",
     label: "Option 1",
