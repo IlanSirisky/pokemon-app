@@ -25,17 +25,17 @@ const TestCards = () => {
       {pokemon.map((poke) => (
         <Card key={poke.id}>
           <PokemonBasicCard
-            cardTitle={poke.title}
+            cardTitle={poke.name}
             image={poke.imageSrc}
             subheadText={`#${poke.id}`}
             cornerText={`${poke.px}px`}
             topCornerIcon={strengthIcon}
           />
-          <hr style={{width:"100%"}}/>
+          <hr style={{ width: "90%" }} />
           <PokemonFightCard
-            cardTitle={poke.title}
+            cardTitle={poke.name}
             image={poke.imageSrc}
-            hp={parseInt(poke.hp)}
+            hp={poke.hp}
             playerName={"You"}
             subheadText={`#${poke.id}`}
             cornerText={`${poke.px}px`}
