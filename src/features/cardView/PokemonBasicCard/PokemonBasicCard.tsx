@@ -1,6 +1,6 @@
 import { StyledBasicCard } from "./styles";
 import { CSSProperties } from "styled-components";
-import CardBody from "./CardBody";
+import CardBody from "../../../components/CardBody/CardBody";
 
 interface BasicCardProps {
   cardTitle: string;
