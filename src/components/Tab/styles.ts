@@ -6,8 +6,9 @@ import { COLORS } from "../../styles/colors";
 const { Primary } = COLORS;
 
 export const StyledTab = styled(flexRow)<{ $isActive: boolean }>`
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  width: 78px;
   height: 38px;
   justify-content: space-evenly;
   gap: ${cssSpacings.s8};
@@ -19,4 +20,8 @@ export const StyledTab = styled(flexRow)<{ $isActive: boolean }>`
     background-color: ${Primary.P50};
     cursor: pointer;
   }
+`;
+
+export const tabsWrapper = styled(flexRow)`
+gap: ${cssSpacings.s8};
 `;

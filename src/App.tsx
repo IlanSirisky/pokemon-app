@@ -7,8 +7,8 @@ import cardView from "./assets/icons/cardView.svg";
 function App() {
   return (
     <>
-      <Tab text="List" img={listView} />
-      <Tab text="Cards" img={cardView} />
+        <Tab text="List" img={listView} />
+        <Tab text="Cards" img={cardView} />
       <TestButtons />
       <TestTypography />
     </>
