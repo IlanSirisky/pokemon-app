@@ -5,6 +5,7 @@ import {
   ImagePowerContainer,
 } from "./styles";
 import { HeadingLargeRegular, XSmallRegular } from "../../styles/typography";
+import { CSSProperties } from "styled-components";
 
 interface CardBodyProps {
   cardTitle: string;
@@ -12,6 +13,7 @@ interface CardBodyProps {
   subheadText?: string;
   cornerText?: string;
   topCornerIcon?: string;
+  style?: CSSProperties;
 }
 
 const CardBody = ({
@@ -20,10 +22,11 @@ const CardBody = ({
   subheadText,
   cornerText,
   topCornerIcon,
+  style
 }: CardBodyProps) => {
   return (
     <>
-      <ImagePowerContainer>
+      <ImagePowerContainer style={style}>
         <StyledPokemonImage src={image} alt={cardTitle} />
         <PowerContainer>
           {cornerText && <XSmallRegular>{cornerText}</XSmallRegular>}
