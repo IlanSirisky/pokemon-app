@@ -4,6 +4,7 @@ import { flexRow } from "../../../styles/globalStyles"
 import { cssSpacings } from "../../../styles/stylingValues";
 
 export const StyledFightCard = styled(StyledBasicCard)`
+  width: 400px;
   align-items: center;
 `;
 

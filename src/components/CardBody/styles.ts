@@ -13,7 +13,7 @@ export const ImagePowerContainer = styled.div`
 export const PowerContainer = styled(flexRow)`
   position: absolute;
   top: ${cssSpacings.s6};
-  right: ${cssSpacings.s6};
+  right: ${cssSpacings.s10};
   align-items: center;
   gap: ${cssSpacings.s4};
 `;
