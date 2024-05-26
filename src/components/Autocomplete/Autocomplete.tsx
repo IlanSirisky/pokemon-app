@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Autocomplete as MuiAutocomplete } from "@mui/material";
 import { StyledTextField } from "./styles";
-import { autocompleteOptionsType } from "../../types/optionsTypes";
+import { AutocompleteOptionsType } from "../../types/optionsTypes";
 import AutocompleteListItem from "./AutocompleteListItem";
 
 interface AutocompleteProps {
-  options: autocompleteOptionsType[];
+  options: AutocompleteOptionsType[];
   placeholder?: string;
   sx?: object;
 }
@@ -19,7 +19,7 @@ const Autocomplete = ({
 
   return (
     <MuiAutocomplete
-      sx={{ ...sx }}
+      sx={sx}
       options={options}
       autoHighlight
       getOptionLabel={(option) => option.label}

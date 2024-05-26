@@ -1,10 +1,10 @@
-import { autocompleteOptionsType } from "../../types/optionsTypes";
+import { AutocompleteOptionsType } from "../../types/optionsTypes";
 import { Box } from "@mui/material";
 import { AvatarLabelContainer, endTextStyle, listItemSyles } from "./styles";
 import Avatar from "../Avatar/Avatar";
 
 interface AutocompleteListItemProps {
-  option: autocompleteOptionsType;
+  option: AutocompleteOptionsType;
   props: React.HTMLAttributes<HTMLLIElement>;
 }
 

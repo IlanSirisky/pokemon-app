@@ -1,9 +1,9 @@
-export interface selectOptionsType {
+export interface SelectOptionsType {
   value: string;
   label: string;
 }
 
-export interface autocompleteOptionsType extends selectOptionsType {
+export interface AutocompleteOptionsType extends SelectOptionsType {
   avatar?: string;
   endText?: string;
 }
