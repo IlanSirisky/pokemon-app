@@ -1,18 +1,18 @@
-export interface PokemonInterface {
+export interface IPokemonData {
   id: string;
   type: PokemonType[];
   name: string;
   avatar: string;
   imageSrc: string;
   description: string;
-  stats: PokemonPhysicalStats;
+  stats: IPokemonPhysicalStats;
   powerLevel: PowerLevelType;
   hp: number;
   px: number;
   abilities: string[];
 }
 
-export interface PokemonPhysicalStats {
+export interface IPokemonPhysicalStats {
   height: number;
   weight: number;
 }
