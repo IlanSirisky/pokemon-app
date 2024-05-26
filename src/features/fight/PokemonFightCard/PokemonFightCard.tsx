@@ -1,7 +1,11 @@
-import { StyledFightCard, HPbar, HPContainer } from "./styles";
-import { XSmallRegular, HeadingLargeBold } from "../../styles/typography";
+import {
+  StyledFightCard,
+  HPbar,
+  HPContainer,
+} from "./styles";
+import { XSmallRegular, HeadingLargeBold } from "../../../styles/typography";
 import { CSSProperties } from "styled-components";
-import CardBody from "./CardBody";
+import CardBody from "../../../components/CardBody/CardBody";
 
 interface FightCardProps {
   cardTitle: string;
