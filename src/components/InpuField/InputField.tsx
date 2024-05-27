@@ -8,7 +8,8 @@ interface CustomSearchInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
-  onClear: () => void;
+  onStartIconClick?: () => void;
+  onEndIconClick?: () => void;
   placeholder?: string;
   disabled?: boolean;
   startIcon?: string;
@@ -20,7 +21,8 @@ const InputField = ({
   value,
   onChange,
   onSubmit,
-  onClear,
+  onStartIconClick,
+  onEndIconClick,
   placeholder = "Search",
   disabled = false,
   startIcon,
@@ -35,7 +37,7 @@ const InputField = ({
 
   return (
     <InputFieldWrapper $disabled={disabled}>
-      <IconButton onClick={onSubmit} disabled={disabled}>
+      <IconButton onClick={onStartIconClick} disabled={disabled}>
         {startIcon ? <img src={startIcon} alt="startIcon" /> : <SearchIcon />}
       </IconButton>
       <StyledInputField
@@ -47,11 +49,8 @@ const InputField = ({
         disabled={disabled}
         placeholder={placeholder}
       />
-      {value && (
-        <IconButton
-          onClick={onClear}
-          disabled={disabled}
-          sx={{ marginLeft: "auto" }}>
+      {!disabled && value && (
+        <IconButton onClick={onEndIconClick} sx={{ marginLeft: "auto" }}>
           {endIcon ? <img src={endIcon} alt="endIcon" /> : <CloseIcon />}
         </IconButton>
       )}

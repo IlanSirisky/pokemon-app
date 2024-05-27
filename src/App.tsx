@@ -24,7 +24,8 @@ function App() {
         value={searchValue}
         onChange={handleChange}
         onSubmit={handleSubmit}
-        onClear={handleClear}
+        onStartIconClick={handleSubmit}
+        onEndIconClick={handleClear}
       />
       <TestButtons />
       <TestTypography />
