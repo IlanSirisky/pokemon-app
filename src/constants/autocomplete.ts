@@ -1,23 +1,25 @@
-import caterpie from "../assets/pokemons/caterpie.svg";
+import caterpie from "../../public/Images/pokemon/CaterpieAvatar.svg";
+import Baulbasaur from "../../public/Images/pokemon/BulbasaurAvatar.svg";
+import Warturtle from "../../public/Images/pokemon/WarturtleAvatar.svg";
 import { AutocompleteOptionsType } from "../types/optionsTypes";
 
 export const pokemonOptions: AutocompleteOptionsType[] = [
   {
     value: "option1",
-    label: "Option 1",
+    label: "Caterpie",
     avatar: caterpie,
-    endText: "20px",
+    endText: "25px",
   },
   {
     value: "option2",
-    label: "Option 2",
-    avatar: "https://via.placeholder.com/150",
-    endText: "End 2",
+    label: "Balbasaur",
+    avatar: Baulbasaur,
+    endText: "35px",
   },
   {
     value: "option3",
-    label: "Option 3",
-    avatar: "https://via.placeholder.com/150",
-    endText: "End 3",
+    label: "Warturtle",
+    avatar: Warturtle,
+    endText: "55px",
   },
 ];
