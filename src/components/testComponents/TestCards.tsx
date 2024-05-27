@@ -3,6 +3,7 @@ import pokemon from "../../data/pokemonMockData";
 import PokemonBasicCard from "../../features/cardView/PokemonBasicCard/PokemonBasicCard";
 import PokemonFightCard from "../../features/fight/PokemonFightCard/PokemonFightCard";
 import strengthIcon from "../../assets/icons/strength.svg";
+import { HeadingXLargeMedium } from "../../styles/typography";
 
 const CardsContainer = styled.div`
   display: flex;
@@ -21,29 +22,40 @@ const Card = styled.div`
 
 const TestCards = () => {
   return (
-    <CardsContainer>
-      {pokemon.map((poke) => (
-        <Card key={poke.id}>
-          <PokemonBasicCard
-            cardTitle={poke.name}
-            image={poke.imageSrc}
-            subheadText={`#${poke.id}`}
-            cornerText={`${poke.px}px`}
-            topCornerIcon={strengthIcon}
-          />
-          <hr style={{ width: "90%" }} />
-          <PokemonFightCard
-            cardTitle={poke.name}
-            image={poke.imageSrc}
-            hp={poke.hp}
-            playerName={"You"}
-            subheadText={`#${poke.id}`}
-            cornerText={`${poke.px}px`}
-            topCornerIcon={strengthIcon}
-          />
-        </Card>
-      ))}
-    </CardsContainer>
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}>
+        <HeadingXLargeMedium>Pokemon Cards Components</HeadingXLargeMedium>
+      </div>
+      <div>
+        <CardsContainer>
+          {pokemon.map((poke) => (
+            <Card key={poke.id}>
+              <PokemonBasicCard
+                cardTitle={poke.name}
+                image={poke.imageSrc}
+                subheadText={`#${poke.id}`}
+                cornerText={`${poke.px}px`}
+                topCornerIcon={strengthIcon}
+              />
+              <hr style={{ width: "90%" }} />
+              <PokemonFightCard
+                cardTitle={poke.name}
+                image={poke.imageSrc}
+                hp={poke.hp}
+                playerName={"You"}
+                subheadText={`#${poke.id}`}
+                cornerText={`${poke.px}px`}
+                topCornerIcon={strengthIcon}
+              />
+            </Card>
+          ))}
+        </CardsContainer>
+      </div>
+    </>
   );
 };
 
