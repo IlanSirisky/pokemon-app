@@ -9,10 +9,10 @@ import {
 } from "./styles";
 import ArrowIcon from "../../assets/icons/ArrowIcon.svg";
 import ActiveArrowIcon from "../../assets/icons/ActiveArrowIcon.svg";
-import { selectOptionsType } from "../../types/optionsTypes";
+import { SelectOptionsType } from "../../types/optionsTypes";
 
 interface SelectProps {
-  options: selectOptionsType[];
+  options: SelectOptionsType[];
   placeholder?: string;
   sx?: object;
 }

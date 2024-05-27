@@ -3,7 +3,7 @@ import Tab from "../Tab/Tab";
 import { StyledTabs } from "./styles";
 import { CSSProperties } from "styled-components";
 
-interface TabOptions {
+export interface TabOptions {
   label: string;
   img?: string;
   style?: CSSProperties;
@@ -33,7 +33,6 @@ const Tabs = ({ tabs, style }: TabsProps) => {
           />
         ))}
       </StyledTabs>
-      <p>Active tab: {activeTab}</p>
     </>
   );
 };
