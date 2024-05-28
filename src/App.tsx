@@ -6,16 +6,18 @@ import SortBySelector from "./components/Select/Select";
 import TestCards from "./components/testComponents/TestCards";
 import { pokemonOptions } from "./constants/autocomplete";
 import { tableSortByOptions } from "./constants/tableSortbyOptions";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <>
-      <TestTabs />
-      <Autocomplete options={pokemonOptions} placeholder="Search Pokemon" />
+      <NavBar />
+      {/* <TestTabs /> */}
+      {/* <Autocomplete options={pokemonOptions} placeholder="Search Pokemon" />
       <SortBySelector options={tableSortByOptions} />
       <TestCards />
-      <TestButtons />
-      <TestTypography />
+      <TestTypography /> */}
+      {/* <TestButtons /> */}
     </>
   );
 }
