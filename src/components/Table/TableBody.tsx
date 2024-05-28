@@ -8,19 +8,19 @@ import { IColumnLabels } from "./types";
 
 const { Neutrals } = COLORS;
 
-interface TableBodyProps<T> {
-  data: T[];
+interface TableBodyProps {
+  data: any[];
   columnTitles: IColumnLabels[];
   page: number;
   rowsPerPage: number;
 }
 
-const TableBody = <T,>({
+const TableBody = ({
   data,
   columnTitles,
   page,
   rowsPerPage,
-}: TableBodyProps<T>) => {
+}: TableBodyProps) => {
   return (
     <MuiTableBody>
       {data

@@ -6,19 +6,19 @@ import { TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import CustomTablePagination from "./TablePagination";
 
-interface TableProps<T> {
+interface TableProps {
   columnTitles: IColumnLabels[];
-  data: T[];
+  data: any[];
   rowPerPageOptions?: number[];
   sx?: object;
 }
 
-const Table = <T,>({
+const Table = ({
   columnTitles,
   data,
   rowPerPageOptions = [5, 10, 20],
   sx = {},
-}: TableProps<T>) => {
+}: TableProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowPerPageOptions[0]);
 
