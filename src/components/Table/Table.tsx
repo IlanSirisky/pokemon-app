@@ -1,26 +1,24 @@
 import * as React from "react";
-import MuiTable from "@mui/material/Table";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
+import { Table as MuiTable, TableContainer, Paper } from "@mui/material";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
-import { TableWrapper, TablePaginationStyle } from "./styles";
+import { TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
+import CustomTablePagination from "./TablePagination";
 
-interface TableProps {
+interface TableProps<T> {
   columnTitles: IColumnLabels[];
-  data: any[];
+  data: T[];
   rowPerPageOptions?: number[];
   sx?: object;
 }
 
-const Table = ({
+const Table = <T,>({
   columnTitles,
   data,
   rowPerPageOptions = [5, 10, 20],
   sx = {},
-}: TableProps) => {
+}: TableProps<T>) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(rowPerPageOptions[0]);
 
@@ -40,32 +38,29 @@ const Table = ({
 
   return (
     <TableWrapper>
-      <Paper
-        sx={{ width: "95%", boxShadow: "none", ...sx }}>
+      <Paper sx={{ width: "95%", boxShadow: "none", ...sx }}>
         <TableContainer>
-          <MuiTable sx={{ minWidth: 650 }} aria-label="pokemon table">
+          <MuiTable sx={{ minWidth: 650 }}>
             <TableHead columnTitles={columnTitles} />
-            <TableBody
-              data={data}
-              columnTitles={columnTitles}
-              page={page}
-              rowsPerPage={rowsPerPage}
-            />
+            {data.length === 0 ? (
+              <div>No Pokemons exist</div>
+            ) : (
+              <TableBody
+                data={data}
+                columnTitles={columnTitles}
+                page={page}
+                rowsPerPage={rowsPerPage}
+              />
+            )}
           </MuiTable>
         </TableContainer>
-        <TablePagination
+        <CustomTablePagination
           rowsPerPageOptions={rowPerPageOptions}
-          component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          labelRowsPerPage="Rows per page"
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} of ${count}`
-          }
-          sx={TablePaginationStyle}
         />
       </Paper>
     </TableWrapper>

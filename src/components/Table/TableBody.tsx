@@ -1,8 +1,5 @@
-import MuiTableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
+import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
 import Avatar from "../Avatar/Avatar";
-
 import { TitleDataCellStyle, DataCellStyle, DataCellWrapper } from "./styles";
 import { BodyRegular, HeadingMediumRegular } from "../../styles/typography";
 import { avatarSizes } from "../../styles/stylingValues";
@@ -11,25 +8,25 @@ import { IColumnLabels } from "./types";
 
 const { Neutrals } = COLORS;
 
-interface TableBodyProps {
-  data: any[];
+interface TableBodyProps<T> {
+  data: T[];
   columnTitles: IColumnLabels[];
   page: number;
   rowsPerPage: number;
 }
 
-const TableBody = ({
+const TableBody = <T,>({
   data,
   columnTitles,
   page,
   rowsPerPage,
-}: TableBodyProps) => {
+}: TableBodyProps<T>) => {
   return (
     <MuiTableBody>
       {data
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row) => (
-          <TableRow key={row.id}>
+        .map((row, index) => (
+          <TableRow key={index}>
             {columnTitles.map((column) => (
               <TableCell key={column.value} sx={DataCellStyle} align="left">
                 {column.value === "title" ? (

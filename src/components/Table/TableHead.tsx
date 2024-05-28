@@ -1,6 +1,4 @@
-import TableCell from "@mui/material/TableCell";
-import MuiTableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { TableHead as MuiTableHead, TableCell, TableRow } from "@mui/material";
 import { ColumnCellStyle, TableHeadRowStyle } from "./styles";
 import { IColumnLabels } from "./types";
 

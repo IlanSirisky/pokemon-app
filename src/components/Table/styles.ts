@@ -38,12 +38,6 @@ export const TitleDataCellStyle = styled(flexRow)`
   padding-left: ${cssSpacings.s16};
 `;
 
-export const TablePaginationStyle = {
-  display: "flex",
-  justifyContent: "flex-start",
-  alignItems: "center",
-};
-
 export const DataCellWrapper = styled.div`
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -51,3 +45,23 @@ export const DataCellWrapper = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const TablePaginationWrapper = styled("div")(() => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+}));
+
+export const TablePaginationLeft = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  "& .MuiTablePagination-actions": {
+    display: "none",
+  },
+}));
+
+export const TablePaginationRight = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+}));
