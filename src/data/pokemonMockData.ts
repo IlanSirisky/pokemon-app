@@ -2,12 +2,12 @@ import { IPokemonData } from "../types/pokemonTypes";
 
 const pokemonsMockData: IPokemonData[] = [
   {
-    id: "001",
+    id: "#001",
     type: ["Grass"],
     name: "Bulbasaur",
     avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
     imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
-    description: "Grass-type Pokémon",
+    description: "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
     stats: {
       height: 0.4,
       weight: 6,
@@ -18,7 +18,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Static", "Lightning Rod"],
   },
   {
-    id: "002",
+    id: "#002",
     type: ["Water"],
     name: "Wartortle",
     avatar: "../../public/images/pokemon/WarturtleAvatar.svg",
@@ -34,7 +34,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Torrent", "Rain Dish"],
   },
   {
-    id: "003",
+    id: "#003",
     type: ["Ground"],
     name: "Caterpie",
     avatar: "../../public/images/pokemon/CaterpieAvatar.svg",
@@ -50,7 +50,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Blaze", "Solar Power"],
   },
   {
-    id: "004",
+    id: "#004",
     type: ["Fire"],
     name: "Charmander",
     avatar: "../../public/images/pokemon/CharmanderAvatar.svg",
@@ -66,7 +66,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Blaze", "Solar Power"],
   },
   {
-    id: "005",
+    id: "#005",
     type: ["Poison"],
     name: "Kakuna",
     avatar: "../../public/images/pokemon/KakunaAvatar.svg",
@@ -82,7 +82,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Shed Skin"],
   },
   {
-    id: "006",
+    id: "#006",
     type: ["Flying"],
     name: "Pidgey",
     avatar: "../../public/images/pokemon/PidgeyAvatar.svg",
@@ -98,7 +98,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Keen Eye", "Tangled Feet"],
   },
   {
-    id: "007",
+    id: "#007",
     type: ["Fire"],
     name: "Charizard",
     avatar: "../../public/images/pokemon/CharizardAvatar.svg",
@@ -114,7 +114,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Blaze", "Solar Power"],
   },
   {
-    id: "008",
+    id: "#008",
     type: ["Normal"],
     name: "Rattata",
     avatar: "../../public/images/pokemon/RattataAvatar.svg",
@@ -130,7 +130,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Run Away", "Guts"],
   },
   {
-    id: "009",
+    id: "#009",
     type: ["Electric"],
     name: "Pikachu",
     avatar: "../../public/images/pokemon/PikachuAvatar.svg",
@@ -146,7 +146,7 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Static", "Lightning Rod"],
   },
   {
-    id: "010",
+    id: "#010",
     type: ["Fairy"],
     name: "Clefairy",
     avatar: "../../public/images/pokemon/ClefairyAvatar.svg",

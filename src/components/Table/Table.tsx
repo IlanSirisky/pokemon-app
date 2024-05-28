@@ -1,33 +1,28 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import MuiTable from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import Avatar from "../Avatar/Avatar";
-import { avatarSizes } from "../../styles/stylingValues";
-import pokemonsMockData from "../../data/pokemonMockData";
-import {
-  TableWrapper,
-  StyledTableCell,
-  TableHeadCellStyle,
-  TableHeadRowStyle,
-} from "./styles";
+import TableHead from "./TableHead";
+import TableBody from "./TableBody";
+import { TableWrapper, TablePaginationStyle } from "./styles";
+import { IColumnLabels } from "./types";
 
-const tableHead = [
-  { name: "Pokemon name" },
-  { name: "ID" },
-  { name: "Description" },
-  { name: "Power level" },
-  { name: "HP level" },
-];
+interface TableProps {
+  columnTitles: IColumnLabels[];
+  data: any[];
+  rowPerPageOptions?: number[];
+  sx?: object;
+}
 
-export default function PokemonTable() {
+const Table = ({
+  columnTitles,
+  data,
+  rowPerPageOptions = [5, 10, 20],
+  sx = {},
+}: TableProps) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(rowPerPageOptions[0]);
 
   const handleChangePage = (
     _event: React.MouseEvent<HTMLButtonElement> | null,
@@ -45,44 +40,23 @@ export default function PokemonTable() {
 
   return (
     <TableWrapper>
-      <Paper sx={{ width: "95%", overflow: "hidden", boxShadow: "none" }}>
+      <Paper
+        sx={{ width: "95%", boxShadow: "none", ...sx }}>
         <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="pokemon table">
-            <TableHead>
-              <TableRow sx={TableHeadRowStyle}>
-                {tableHead.map((cell) => (
-                  <TableCell sx={TableHeadCellStyle} key={cell.name}>
-                    {cell.name}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {pokemonsMockData
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((pokemon) => (
-                  <TableRow key={pokemon.id}>
-                    <StyledTableCell component="th" scope="row">
-                      <Avatar
-                        alt={pokemon.name}
-                        image={pokemon.avatar}
-                        size={avatarSizes.large}
-                      />
-                      {pokemon.name}
-                    </StyledTableCell>
-                    <TableCell>{pokemon.id}</TableCell>
-                    <TableCell>{pokemon.description}</TableCell>
-                    <TableCell>{pokemon.powerLevel}</TableCell>
-                    <TableCell>{pokemon.hp}</TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
+          <MuiTable sx={{ minWidth: 650 }} aria-label="pokemon table">
+            <TableHead columnTitles={columnTitles} />
+            <TableBody
+              data={data}
+              columnTitles={columnTitles}
+              page={page}
+              rowsPerPage={rowsPerPage}
+            />
+          </MuiTable>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 20]}
+          rowsPerPageOptions={rowPerPageOptions}
           component="div"
-          count={pokemonsMockData.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -91,13 +65,11 @@ export default function PokemonTable() {
           labelDisplayedRows={({ from, to, count }) =>
             `${from}-${to} of ${count}`
           }
-          sx={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-          }}
+          sx={TablePaginationStyle}
         />
       </Paper>
     </TableWrapper>
   );
-}
+};
+
+export default Table;

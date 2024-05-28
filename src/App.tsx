@@ -8,12 +8,16 @@
 // import { tableSortByOptions } from "./constants/tableSortbyOptions";
 
 import BasicTable from "./components/Table/Table";
-
+import { pokemonTableColumnLabels } from "./constants/table";
+import pokemonsMockData from "./data/pokemonMockData";
 
 function App() {
   return (
     <>
-    <BasicTable />
+      <BasicTable
+        columnTitles={pokemonTableColumnLabels}
+        data={pokemonsMockData}
+      />
       {/* <TestTabs />
       <Autocomplete options={pokemonOptions} placeholder="Search Pokemon" />
       <SortBySelector options={tableSortByOptions} />
