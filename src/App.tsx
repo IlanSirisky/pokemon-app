@@ -8,7 +8,7 @@
 // import { tableSortByOptions } from "./constants/tableSortbyOptions";
 
 import BasicTable from "./components/Table/Table";
-import { pokemonTableColumnLabels } from "./constants/table";
+import { pokemonTableColumnLabels } from "./constants/table.tsx";
 import pokemonsMockData from "./data/pokemonMockData";
 
 function App() {

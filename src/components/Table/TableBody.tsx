@@ -1,12 +1,7 @@
 import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
-import Avatar from "../Avatar/Avatar";
-import { TitleDataCellStyle, DataCellStyle, DataCellWrapper } from "./styles";
-import { BodyRegular, HeadingMediumRegular } from "../../styles/typography";
-import { avatarSizes } from "../../styles/stylingValues";
-import { COLORS } from "../../styles/colors";
+import { DataCellStyle, DataCellWrapper } from "./styles";
+import { BodyRegular } from "../../styles/typography";
 import { IColumnLabels } from "./types";
-
-const { Neutrals } = COLORS;
 
 interface TableBodyProps {
   data: any[];
@@ -29,26 +24,11 @@ const TableBody = ({
           <TableRow key={index}>
             {columnTitles.map((column) => (
               <TableCell key={column.value} sx={DataCellStyle} align="left">
-                {column.value === "title" ? (
-                  <TitleDataCellStyle>
-                    {row.avatar && (
-                      <Avatar
-                        alt={row.name}
-                        image={row.avatar}
-                        size={avatarSizes.large}
-                      />
-                    )}
-                    <HeadingMediumRegular>{row.name}</HeadingMediumRegular>
-                  </TitleDataCellStyle>
+                {column.component ? (
+                  column.component(row)
                 ) : (
                   <DataCellWrapper>
-                    <BodyRegular
-                      style={{
-                        color:
-                          column.value === "id" ? Neutrals.N300 : Neutrals.N500,
-                      }}>
-                      {row[column.value]}
-                    </BodyRegular>
+                    <BodyRegular>{row[column.value]}</BodyRegular>
                   </DataCellWrapper>
                 )}
               </TableCell>

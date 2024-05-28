@@ -3,4 +3,5 @@ export interface IColumnLabels {
   label: string;
   padding?: string;
   width?: string;
+  component?: (row: any) => React.ReactNode;
 }
