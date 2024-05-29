@@ -15,8 +15,6 @@ import PokemonFightCard from "../../features/fight/PokemonFightCard/PokemonFight
 import pokemonsMockData from "../../data/pokemonMockData";
 import strengthIcon from "../../assets/icons/strength.svg";
 import Button from "../../components/Button/Button";
-// import blueBg from "../../assets/blue-bg.jpeg";
-// import purpleBg from "../../assets/purple-bg.jpeg";
 import yellowBg from "../../assets/yellow-bg.jpeg";
 import { useState } from "react";
 import { IPokemonData } from "../../types/pokemonTypes";
@@ -39,7 +37,6 @@ const FightPage = () => {
   const [inputValue, setInputValue] = useState("");
 
   const BackgroundImg = yellowBg;
-  // Math.random() < 0.33 ? blueBg : Math.random() < 0.66 ? purpleBg : yellowBg;
 
   const handleStartFight = () => {
     setIsActiveFight(true);
