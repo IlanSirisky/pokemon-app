@@ -1,39 +1,46 @@
 import { Link, useLocation } from "react-router-dom";
-import PokemonHeader from "../../assets/icons/PokemonHeader.svg";
 import Button from "../Button/Button";
-import { StyledMenu, StyledNavBar, ButtonsContainer, ActiveButtonStyle } from "./styles";
+import {
+  StyledMenu,
+  StyledNavBar,
+  ButtonsContainer,
+  ActiveButtonStyle,
+} from "./styles";
+import { INavBarOptions } from "./types";
 
-const NavBar = () => {
+interface NavBarProps {
+  pathOptions: INavBarOptions[];
+  endButton: INavBarOptions;
+  headerImage: string;
+}
+
+const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
   const location = useLocation();
 
   return (
     <StyledNavBar>
       <StyledMenu>
         <Link to="/">
-          <img src={PokemonHeader} alt="Pokemon Header" />
+          <img src={headerImage} alt="Header image" />
         </Link>
         <ButtonsContainer>
-          <Link to="/all-pokemons">
-            <Button
-              type="tertiary"
-              size="small"
-              style={location.pathname === "/all-pokemons" ? ActiveButtonStyle : {}}>
-              All Pokemons
-            </Button>
-          </Link>
-          <Link to="/my-pokemons">
-            <Button
-              type="tertiary"
-              size="small"
-              style={location.pathname === "/my-pokemons" ? ActiveButtonStyle : {}}>
-              My Pokemons
-            </Button>
-          </Link>
+          {pathOptions.map((option) => (
+            <Link to={option.path} key={option.label}>
+              <Button
+                type="tertiary"
+                size="small"
+                style={
+                  location.pathname === option.path ? ActiveButtonStyle : {}
+                }>
+                {option.label}
+              </Button>
+            </Link>
+          ))}
         </ButtonsContainer>
       </StyledMenu>
-      <Link to="/fight">
+      <Link to={endButton.path}>
         <Button type="primary" size="large">
-          Start a Fight
+          {endButton.label}
         </Button>
       </Link>
     </StyledNavBar>
