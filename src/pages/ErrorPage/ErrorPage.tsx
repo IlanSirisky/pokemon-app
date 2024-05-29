@@ -1,5 +1,5 @@
 import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
-import { StyledErrorPage } from "./styles";
+import { StyledErrorPage, StyledErrorImage } from "./styles";
 import confusedPikachu from "../../assets/confused.jpeg";
 
 const ErrorPage = () => {
@@ -7,7 +7,7 @@ const ErrorPage = () => {
     <StyledErrorPage>
       <HeadingLargeBold>404 Error</HeadingLargeBold>
       <HeadingLargeMedium>Page not found</HeadingLargeMedium>
-      <img src={confusedPikachu} alt="confused pikachu" style={{borderRadius: "12px", margin:"12px"}}/>
+      <StyledErrorImage src={confusedPikachu} alt="confused pikachu" />
     </StyledErrorPage>
   );
 };
