@@ -20,6 +20,6 @@ export const navBarOptions: INavBarOptions[] = [
 ];
 
 export const endButton: INavBarOptions = {
-  label: "Fight",
+  label: "Start a Fight",
   path: PagePaths.FIGHT,
 };
