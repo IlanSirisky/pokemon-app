@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { flexRow } from "../../styles/globalStyles";
-import { cssSpacings } from "../../styles/stylingValues";
+import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 import { COLORS } from "../../styles/colors";
 
-const { Neutrals } = COLORS;
+const { Neutrals, Primary } = COLORS;
 
 export const StyledNavBar = styled(flexRow)`
   justify-content: space-between;
@@ -20,4 +20,8 @@ export const ButtonsContainer = styled(flexRow)`
   gap: ${cssSpacings.s16};
 `;
 
+export const ActiveButtonStyle = {
+  backgroundColor: `${Primary.P50}`,
+  fontWeight: `${cssFontWeights.bold}`
+}
 
