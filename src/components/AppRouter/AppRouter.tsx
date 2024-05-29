@@ -10,6 +10,7 @@ import TestButtons from "../testComponents/TestButtons";
 import TestCards from "../testComponents/TestCards";
 import PokemonHeader from "../../assets/icons/PokemonHeader.svg";
 import { PagePaths, navBarOptions, endButton } from "../../constants/navBar";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
 const AppRouter = () => {
   return (
@@ -27,11 +28,7 @@ const AppRouter = () => {
         <Route path={PagePaths.ALL_POKEMONS} element={<TestTabs />} />
         <Route path={PagePaths.MY_POKEMONS} element={<TestButtons />} />
         <Route path={PagePaths.FIGHT} element={<TestCards />} />
-        <Route
-          path={PagePaths.REST}
-          element={<Navigate to={PagePaths.ALL_POKEMONS} />}
-        />
-        {/* TODO: add 404 page */}
+        <Route path={PagePaths.REST} element={<ErrorPage />} />
       </Routes>
     </Router>
   );
