@@ -4,7 +4,7 @@ import { COLORS } from "../../styles/colors";
 import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 
-const { Neutrals } = COLORS;
+const { Neutrals, Primary } = COLORS;
 
 export const StyledFightPageWrapper = styled(flexColumn)`
   background-color: ${Neutrals.N100};
@@ -47,4 +47,22 @@ export const FightButtonStyle = {
   borderRadius: "50%",
   gap: `${cssSpacings.s10}`,
   padding: "90px 60px",
+};
+
+export const FightActionWrapper = styled(flexColumn)`
+  gap: 32px;
+`;
+
+export const ActiveButtonStyle = {
+  fontSize: "40px",
+  lineHeight: "52px",
+  fontWeight: `${cssFontWeights.medium}`,
+  padding: "30px 60px",
+  borderRadius: "100px",
+  boxShadow: "0px 9px 17.6px 0px #00000040",
+};
+
+export const DisabledButtonStyle = {
+  ...ActiveButtonStyle,
+  backgroundColor: `${Primary.P50}`,
 };
