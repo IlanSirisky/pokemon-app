@@ -15,7 +15,6 @@ import PokemonFightCard from "../../features/fight/PokemonFightCard/PokemonFight
 import pokemonsMockData from "../../data/pokemonMockData";
 import strengthIcon from "../../assets/icons/strength.svg";
 import Button from "../../components/Button/Button";
-import yellowBg from "../../assets/yellow-bg.jpeg";
 import { useState } from "react";
 import { IPokemonData } from "../../types/pokemonTypes";
 import { transformPokemonDataToOption } from "../../utils/transformDataToOption";
@@ -35,8 +34,6 @@ const FightPage = () => {
   );
 
   const [inputValue, setInputValue] = useState("");
-
-  const BackgroundImg = yellowBg;
 
   const handleStartFight = () => {
     setIsActiveFight(true);
@@ -78,7 +75,7 @@ const FightPage = () => {
         sx={PokemonDropdownStyle}
         placeholder="Choose a Pokemon"
       />
-      <StyledFightArea $backgroundImg={BackgroundImg}>
+      <StyledFightArea>
         <PokemonFightCard
           cardTitle={selectedPokemon.name}
           image={selectedPokemon.imageSrc}

@@ -3,6 +3,7 @@ import { flexColumn, flexRow } from "../../styles/globalStyles";
 import { COLORS } from "../../styles/colors";
 import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
+import yellowBg from "../../assets/yellow-bg.jpeg";
 
 const { Neutrals, Primary } = COLORS;
 
@@ -28,8 +29,8 @@ export const PokemonDropdownStyle = {
   gap: `${cssSpacings.s16}`,
 };
 
-export const StyledFightArea = styled(flexRow)<{ $backgroundImg: string }>`
-  background-image: url(${({ $backgroundImg }) => $backgroundImg});
+export const StyledFightArea = styled(flexRow)`
+  background-image: url(${yellowBg});
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
