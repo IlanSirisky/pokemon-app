@@ -1,11 +1,7 @@
-import FightPage from "./pages/FightPage/FightPage";
+import AppRouter from "./components/AppRouter/AppRouter";
 
 function App() {
-  return (
-    <>
-      <FightPage />
-    </>
-  );
+  return <AppRouter />;
 }
 
 export default App;
