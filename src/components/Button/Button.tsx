@@ -4,10 +4,10 @@ import { StyledButton } from "./styles";
 import { CSSProperties } from "styled-components";
 
 interface ButtonProps {
-  onClick?: () => void;
   children: React.ReactNode;
   type: buttonType;
   size: buttonSize;
+  onClick?: () => void;
   disabled?: boolean;
   style?: CSSProperties;
 }
