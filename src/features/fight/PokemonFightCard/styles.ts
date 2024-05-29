@@ -1,11 +1,12 @@
-import styled from 'styled-components';
-import { StyledBasicCard } from '../../cardView/PokemonBasicCard/styles';
-import { flexRow } from "../../../styles/globalStyles"
+import styled from "styled-components";
+import { StyledBasicCard } from "../../cardView/PokemonBasicCard/styles";
+import { flexRow } from "../../../styles/globalStyles";
 import { cssSpacings } from "../../../styles/stylingValues";
 
 export const StyledFightCard = styled(StyledBasicCard)`
-  width: 400px;
   align-items: center;
+  height: 350px;
+  gap: ${cssSpacings.s8};
 `;
 
 export const HPbar = styled.div`
