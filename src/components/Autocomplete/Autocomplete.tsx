@@ -8,15 +8,17 @@ interface AutocompleteProps {
   inputValue: string;
   onInputChange: (event: React.SyntheticEvent, value: string) => void;
   placeholder?: string;
+  value?: AutocompleteOptionsType;
   sx?: object;
 }
 
 const Autocomplete = ({
   options,
-  placeholder = "Search",
-  sx,
   inputValue,
   onInputChange,
+  placeholder = "Search",
+  value,
+  sx,
 }: AutocompleteProps) => {
   const isOptionEqualToValue = (
     option: AutocompleteOptionsType,
@@ -32,6 +34,7 @@ const Autocomplete = ({
       autoHighlight
       getOptionLabel={(option) => option.label}
       inputValue={inputValue}
+      value={value}
       onInputChange={onInputChange}
       isOptionEqualToValue={isOptionEqualToValue}
       renderOption={(props, option) => (

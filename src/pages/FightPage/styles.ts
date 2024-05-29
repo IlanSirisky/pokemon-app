@@ -58,8 +58,8 @@ export const ActiveButtonStyle = {
   fontSize: "40px",
   lineHeight: "52px",
   fontWeight: `${cssFontWeights.medium}`,
-  padding: "30px 60px",
-  borderRadius: "100px",
+  padding: "30px 57.5px",
+  borderRadius: "200px",
   boxShadow: "0px 9px 17.6px 0px #00000040",
 };
 
