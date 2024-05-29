@@ -2,11 +2,11 @@ import { IPokemonData } from "../types/pokemonTypes";
 
 const pokemonsMockData: IPokemonData[] = [
   {
-    id: "001",
+    id: "#001",
     type: ["Grass"],
     name: "Bulbasaur",
-    avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
+    avatar: "../../public/Images/pokemon/BulbasaurAvatar.svg",
+    imageSrc: "../../public/Images/pokemon/Bulbasaur.svg",
     description: "Grass-type Pokémon",
     stats: {
       height: 0.4,
@@ -18,11 +18,11 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Static", "Lightning Rod"],
   },
   {
-    id: "002",
+    id: "#002",
     type: ["Water"],
-    name: "Wartortle",
-    avatar: "../../public/images/pokemon/WarturtleAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Warturtle.svg",
+    name: "Warturtle",
+    avatar: "../../public/Images/pokemon/WarturtleAvatar.svg",
+    imageSrc: "../../public/Images/pokemon/Warturtle.svg",
     description: "Water-type Pokémon",
     stats: {
       height: 0.5,
@@ -34,11 +34,11 @@ const pokemonsMockData: IPokemonData[] = [
     abilities: ["Torrent", "Rain Dish"],
   },
   {
-    id: "003",
+    id: "#003",
     type: ["Ground"],
     name: "Caterpie",
-    avatar: "../../public/images/pokemon/CaterpieAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Caterpie.svg",
+    avatar: "../../public/Images/pokemon/CaterpieAvatar.svg",
+    imageSrc: "../../public/Images/pokemon/Caterpie.svg",
     description: "Ground-type Pokémon",
     stats: {
       height: 0.6,
