@@ -22,14 +22,20 @@ import { useState } from "react";
 import { IPokemonData } from "../../types/pokemonTypes";
 import { transformPokemonDataToOption } from "../../utils/transformDataToOption";
 
-const Balbasaur = pokemonsMockData[0];
+const getRandomPokemon = () => {
+  return pokemonsMockData[Math.floor(Math.random() * pokemonsMockData.length)];
+};
 
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
   const [canCatch, setCanCatch] = useState(false); // will be used to enable/disable catch button based on backend
   const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData>(
-    pokemonsMockData[0]
+    getRandomPokemon()
   );
+  const [opponentPokemon, setOpponentPokemon] = useState<IPokemonData>(
+    getRandomPokemon()
+  );
+
   const [inputValue, setInputValue] = useState("");
 
   const BackgroundImg = yellowBg;
@@ -52,6 +58,12 @@ const FightPage = () => {
   ) => {
     setInputValue(newInputValue);
     handlePokemonSelect(newInputValue);
+  };
+
+  const handleCatch = () => {
+    if (canCatch) {
+      console.log("Caught the Pokémon!");
+    }
   };
 
   return (
@@ -82,14 +94,19 @@ const FightPage = () => {
         />
         {isActiveFight ? (
           <FightActionWrapper>
-            <Button type="primary" size="large" style={ActiveButtonStyle}>
+            <Button
+              type="primary"
+              size="large"
+              style={ActiveButtonStyle}
+              onClick={() => console.log("Attack action")}>
               Attack
             </Button>
             <Button
               type="primary"
               size="large"
               disabled={!canCatch}
-              style={canCatch ? ActiveButtonStyle : DisabledButtonStyle}>
+              style={canCatch ? ActiveButtonStyle : DisabledButtonStyle}
+              onClick={handleCatch}>
               Catch
             </Button>
           </FightActionWrapper>
@@ -103,13 +120,13 @@ const FightPage = () => {
           </Button>
         )}
         <PokemonFightCard
-          cardTitle={Balbasaur.name}
-          image={Balbasaur.imageSrc}
-          hp={Balbasaur.hp}
-          currentHp={15}
+          cardTitle={opponentPokemon.name}
+          image={opponentPokemon.imageSrc}
+          hp={opponentPokemon.hp}
+          currentHp={20}
           playerName="Enemy"
-          subheadText={`#${Balbasaur.id}`}
-          cornerText={`${Balbasaur.px}px`}
+          subheadText={`${opponentPokemon.id}`}
+          cornerText={`${opponentPokemon.px}px`}
           topCornerIcon={strengthIcon}
         />
       </StyledFightArea>
