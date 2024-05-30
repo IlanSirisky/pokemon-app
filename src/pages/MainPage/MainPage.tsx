@@ -12,20 +12,25 @@ import {
 import { HeadingLargeMedium } from "../../styles/typography";
 import { SelectChangeEvent } from "@mui/material";
 
-import pokemonsMockData from "../../data/pokemonMockData";
 import { pokemonTableColumnLabels } from "../../constants/table";
 import { tableSortByOptions } from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
 import { sortData } from "../../utils/sortPokemonData";
+import { IPokemonData } from "../../types/pokemonTypes";
 
-const MainPage = () => {
+interface MainPageProps {
+  pokemonData: IPokemonData[];
+  headerText: string;
+}
+
+const MainPage = ({ pokemonData, headerText }: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
   const [sortBy, setSortBy] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
-  const [filteredData, setFilteredData] = useState(pokemonsMockData);
+  const [filteredData, setFilteredData] = useState(pokemonData);
 
   useEffect(() => {
-    let data = pokemonsMockData;
+    let data = pokemonData;
 
     if (searchValue) {
       data = data.filter((pokemon) =>
@@ -34,7 +39,7 @@ const MainPage = () => {
     }
 
     setFilteredData(data);
-  }, [searchValue]);
+  }, [pokemonData, searchValue]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -55,7 +60,7 @@ const MainPage = () => {
 
   return (
     <MainPageWrapper>
-      <HeadingLargeMedium>All Pokemons</HeadingLargeMedium>
+      <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
       <InputToolsWrapper>
         <InputFieldWrapper>
           <InputField
