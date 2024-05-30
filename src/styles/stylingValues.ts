@@ -13,6 +13,7 @@ export const cssSpacings = {
   s40: "40px",
   s48: "48px",
   s70: "70px",
+  s85: "85px",
   s120: "120px",
   s150: "150px",
 };
