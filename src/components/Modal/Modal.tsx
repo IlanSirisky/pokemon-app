@@ -1,6 +1,7 @@
 import React from "react";
 import xCloseIcon from "../../assets/icons/xCloseIcon.svg";
-import { StyledModal, ModalContent, CloseButton } from "./styles";
+import { ModalContent, CloseButton, modalStyles } from "./styles";
+import { Modal as MuiModal, Box } from "@mui/material";
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,14 +19,16 @@ const Modal = ({
   sx = {},
 }: ModalProps) => {
   return (
-    <StyledModal open={isOpen} onClose={onClose} sx={sx}>
-      <ModalContent>
-        <CloseButton onClick={onClose}>
-          <img src={closeIcon} alt="Close Icon" />
-        </CloseButton>
-        {children}
-      </ModalContent>
-    </StyledModal>
+    <MuiModal open={isOpen} onClose={onClose}>
+      <Box sx={{ ...modalStyles, ...sx }}>
+        <ModalContent>
+          <CloseButton onClick={onClose}>
+            <img src={closeIcon} alt="Close Icon" />
+          </CloseButton>
+          {children}
+        </ModalContent>
+      </Box>
+    </MuiModal>
   );
 };
 

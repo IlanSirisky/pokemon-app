@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { Modal, Box, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 
-export const StyledModal = styled(Modal)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-});
+export const modalStyles = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+};
 
 export const ModalContent = styled(Box)`
   position: relative;
@@ -17,5 +18,6 @@ export const CloseButton = styled(IconButton)`
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 1000;
+  z-index: 1;
+  padding: 0;
 `;
