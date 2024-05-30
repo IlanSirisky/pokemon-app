@@ -10,12 +10,8 @@ export const PokemonModalCardContainer = styled(flexColumn)`
   width: 100%;
 `;
 
-export const HeaderContainer = styled.div`
-  padding: ${cssSpacings.s12} ${cssSpacings.s24};
-  gap: "2px";
-`;
-
 export const StyledHeaderContent = styled(flexColumn)`
+  padding: ${cssSpacings.s12} ${cssSpacings.s24};
   gap: ${cssSpacings.s10};
   align-items: flex-start;
 `;

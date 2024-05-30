@@ -1,23 +1,24 @@
 import styled from "styled-components";
-import { Box, IconButton } from "@mui/material";
+import { Box } from "@mui/material";
+import { MISC_COLORS } from "../../styles/colors";
+import { cssSpacings } from "../../styles/stylingValues";
 
 export const modalStyles = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  height: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 export const ModalContent = styled(Box)`
   position: relative;
   width: 500px;
-  box-shadow: 1px 1px 25px 0px #71787f1a;
+  box-shadow: ${cssSpacings.s1} ${cssSpacings.s1} ${cssSpacings.s25} 0
+    ${MISC_COLORS.ModalBoxShadow};
 `;
 
-export const CloseButton = styled(IconButton)`
+export const StyledCloseButton = styled.img`
   position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1;
-  padding: 0;
+  top: ${cssSpacings.s16};
+  right: ${cssSpacings.s24};
 `;

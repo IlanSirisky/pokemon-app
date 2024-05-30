@@ -1,4 +1,5 @@
 export const cssSpacings = {
+    s1 : "1px",
     s4 : "4px",
     s6 : "6px",
     s8 : "8px",
@@ -8,6 +9,7 @@ export const cssSpacings = {
     s16 : "16px",
     s20 : "20px",
     s24 : "24px",
+    s25 : "25px",
 };
 
 export const cssFontWeights = {

@@ -23,3 +23,7 @@ export const COLORS = {
     S500: "#4C3D01",
   },
 };
+
+export const MISC_COLORS = {
+  ModalBoxShadow: "#71787f1a",
+};

@@ -7,7 +7,6 @@ import {
   ModalCardContentContainer,
   Attribute,
   CardContentWrapper,
-  HeaderContainer,
   ModalCardTextStyles,
 } from "./styles";
 import {
@@ -16,13 +15,14 @@ import {
   HeadingMediumRegular,
   SubheadingRegular,
 } from "../../styles/typography";
+import { IPokemonAttribute } from "./types";
 
 interface PokemonModalCardProps {
   title: string;
   subheadText: string;
   image: string;
   description: string;
-  attributes: { label: string; value: string }[];
+  attributes: IPokemonAttribute[];
   style?: CSSProperties;
 }
 
@@ -36,16 +36,14 @@ const PokemonModalCard = ({
 }: PokemonModalCardProps) => {
   return (
     <PokemonModalCardContainer style={style}>
-      <HeaderContainer>
-        <StyledHeaderContent>
-          <SubheadingRegular style={ModalCardTextStyles.subHeadText}>
-            {subheadText}
-          </SubheadingRegular>
-          <HeadingLargeRegular style={ModalCardTextStyles.cardTitle}>
-            {title}
-          </HeadingLargeRegular>
-        </StyledHeaderContent>
-      </HeaderContainer>
+      <StyledHeaderContent>
+        <SubheadingRegular style={ModalCardTextStyles.subHeadText}>
+          {subheadText}
+        </SubheadingRegular>
+        <HeadingLargeRegular style={ModalCardTextStyles.cardTitle}>
+          {title}
+        </HeadingLargeRegular>
+      </StyledHeaderContent>
       <CardContentWrapper>
         <StyledImage src={image} alt={title} />
         <ModalCardContentContainer>
