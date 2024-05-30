@@ -8,7 +8,7 @@ import {
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 import TableBodyEmptyState from "./TableBodyEmptyState";
-import { TableWrapper } from "./styles";
+import { TablePaginationStyle, TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
 
@@ -75,6 +75,7 @@ const Table = ({
           labelDisplayedRows={({ from, to, count }) =>
             `${from}-${to} of ${count}`
           }
+          sx={TablePaginationStyle}
         />
       </Paper>
     </TableWrapper>
