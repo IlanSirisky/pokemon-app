@@ -22,7 +22,7 @@ export const StyledTextField = styled(TextField)(() => ({
       borderColor: `${Neutrals.N300}`,
     },
     "&.Mui-focused fieldset": {
-      borderColor: `${Neutrals.N300}`,
+      border: `1px solid ${Neutrals.N300}`,
       color: `${Neutrals.N300}`,
     },
     padding: `${cssSpacings.s8} !important`,

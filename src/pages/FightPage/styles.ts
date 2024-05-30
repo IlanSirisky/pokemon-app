@@ -15,6 +15,7 @@ export const StyledFightPageWrapper = styled(flexColumn)`
 export const StyledFightHeader = styled(flexColumn)`
   align-items: center;
   justify-content: center;
+  gap: ${cssSpacings.s8};
 `;
 
 export const StyledFightTitle = styled(StyledParagraph)`
@@ -25,7 +26,7 @@ export const StyledFightTitle = styled(StyledParagraph)`
 `;
 
 export const PokemonDropdownStyle = {
-  padding: `${cssSpacings.s8} ${cssSpacings.s12}`,
+  padding: `0 0 ${cssSpacings.s14} 0`,
   gap: `${cssSpacings.s16}`,
 };
 
