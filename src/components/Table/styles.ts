@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 import { COLORS } from "../../styles/colors";
-import { flexRow } from "../../styles/globalStyles";
+import { flexColumn, flexRow } from "../../styles/globalStyles";
 
 export const TableWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 38px;
+  margin-bottom: ${cssSpacings.s38};
 `;
 
 export const TableHeadRowStyle = {
@@ -15,7 +15,7 @@ export const TableHeadRowStyle = {
 };
 
 export const ColumnCellStyle = {
-  height: "48px",
+  height: `${cssSpacings.s48}`,
   fontFamily: `'Mulish', sans-serif`,
   color: `${COLORS.Neutrals.N500}`,
   fontWeight: `${cssFontWeights.bold}`,
@@ -25,10 +25,7 @@ export const ColumnCellStyle = {
 };
 
 export const DataCellStyle = {
-  paddingLeft: "0",
-  paddingTop: "8px",
-  paddingBottom: "8px",
-  paddingRight: "20px",
+  padding: `${cssSpacings.s8} ${cssSpacings.s20} ${cssSpacings.s8} 0`,
 };
 
 export const TitleDataCellStyle = styled(flexRow)`
@@ -65,3 +62,22 @@ export const TablePaginationRight = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
 }));
+
+export const EmptyStateWrapper = styled(flexColumn)`
+  align-items: center;
+`;
+
+export const StyledEmptySearchIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: ${cssSpacings.s150};
+  width: ${cssSpacings.s150};
+  border-radius: 50%;
+  background-color: ${COLORS.Primary.P50};
+`;
+
+export const EmptyStateStyles = {
+  TableCell: { padding: `${cssSpacings.s120} 0`, gap: `${cssSpacings.s16}` },
+  text: { color: `${COLORS.Neutrals.N300}` },
+};

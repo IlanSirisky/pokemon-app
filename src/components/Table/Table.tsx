@@ -2,9 +2,11 @@ import * as React from "react";
 import { Table as MuiTable, TableContainer, Paper } from "@mui/material";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+import TableBodyEmptyState from "./TableBodyEmptyState";
 import { TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import CustomTablePagination from "./TablePagination";
+import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
 
 interface TableProps {
   columnTitles: IColumnLabels[];
@@ -43,7 +45,11 @@ const Table = ({
           <MuiTable sx={{ minWidth: 650 }}>
             <TableHead columnTitles={columnTitles} />
             {data.length === 0 ? (
-              <div>No Pokemons exist</div>
+              <TableBodyEmptyState
+                columnTitles={columnTitles}
+                text="No pokemons exist"
+                img={EmptySearchIcon}
+              />
             ) : (
               <TableBody
                 data={data}
