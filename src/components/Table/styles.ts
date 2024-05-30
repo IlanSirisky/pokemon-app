@@ -26,6 +26,7 @@ export const ColumnCellStyle = {
 
 export const DataCellStyle = {
   padding: `${cssSpacings.s8} ${cssSpacings.s20} ${cssSpacings.s8} 0`,
+  borderBottom: `1px solid ${COLORS.Neutrals.N100}`,
 };
 
 export const TitleDataCellStyle = styled(flexRow)`
