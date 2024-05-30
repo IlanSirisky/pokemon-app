@@ -33,13 +33,8 @@ const MainPage = () => {
       );
     }
 
-    //fix this, sorting by previous value
-    if (sortBy) {
-      data = sortData(data, sortBy);
-    }
-
     setFilteredData(data);
-  }, [searchValue, sortBy]);
+  }, [searchValue]);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -55,6 +50,7 @@ const MainPage = () => {
 
   const handleSortChange = (event: SelectChangeEvent<unknown>) => {
     setSortBy(event.target.value as string);
+    setFilteredData(sortData(filteredData, event.target.value as string));
   };
 
   return (
