@@ -8,6 +8,7 @@ export const cssSpacings = {
   s16: "16px",
   s20: "20px",
   s24: "24px",
+  s32: "32px",
   s38: "38px",
   s40: "40px",
   s48: "48px",
