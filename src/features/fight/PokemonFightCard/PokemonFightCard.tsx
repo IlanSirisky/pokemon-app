@@ -9,7 +9,7 @@ import { CSSProperties } from "styled-components";
 import CardBody from "../../../components/CardBody/CardBody";
 import LinearProgress from "@mui/material/LinearProgress";
 import { ThemeProvider } from "@mui/material/styles";
-import { calculateHealthPercentage } from "../../../utils/calcHealthPercentage";
+import { calculateHealthPercentage, getColor } from "../../../utils/fightPageFunctions";
 
 interface FightCardProps {
   cardTitle: string;
@@ -50,13 +50,7 @@ const PokemonFightCard = ({
         <ThemeProvider theme={healthBarTheme}>
           {hp && currentHp && (
             <LinearProgress
-              color={
-                currentHealthPercentage > 50
-                  ? "success"
-                  : currentHealthPercentage > 20
-                  ? "warning"
-                  : "secondary"
-              }
+              color={getColor(currentHealthPercentage)}
               sx={healthBarStyles}
               variant="determinate"
               value={calculateHealthPercentage(currentHp, hp)}

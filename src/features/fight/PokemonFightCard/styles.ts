@@ -3,6 +3,7 @@ import { StyledBasicCard } from "../../cardView/PokemonBasicCard/styles";
 import { flexColumn } from "../../../styles/globalStyles";
 import { cssSpacings } from "../../../styles/stylingValues";
 import { createTheme } from "@mui/material/styles";
+import { MISC_COLORS } from "../../../styles/colors";
 
 export const StyledFightCard = styled(StyledBasicCard)`
   align-items: center;
@@ -13,28 +14,28 @@ export const StyledFightCard = styled(StyledBasicCard)`
 export const HPContainer = styled(flexColumn)`
   display: flex;
   gap: ${cssSpacings.s4};
-  height: 40px;
+  height: ${cssSpacings.s40};
   width: 70%;
   align-items: center;
 `;
 
 export const healthBarStyles = {
-  background: "#c4d6c0",
-  height: "10px",
-  borderRadius: "5px",
+  background: `${MISC_COLORS.HealthBar.backgroundGreen}`,
+  height: `${cssSpacings.s10}`,
+  borderRadius: `${cssSpacings.s5}`,
   width: "100%",
 };
 
 export const healthBarTheme = createTheme({
   palette: {
     success: {
-      main: "#87c877",
+      main: `${MISC_COLORS.HealthBar.green}`,
     },
     secondary: {
-      main: "#dc004e",
+      main: `${MISC_COLORS.HealthBar.red}`,
     },
     warning: {
-      main: "#ff9800",
+      main: `${MISC_COLORS.HealthBar.orange}`,
     },
   },
 });
