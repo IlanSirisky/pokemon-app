@@ -34,7 +34,7 @@ export const StyledInputField = styled(TextField)`
       font-size: ${cssFontSizes.f14};
       line-height: 22px;
       color: ${Neutrals.N500};
-      padding: 10px 0;
+      padding: ${cssSpacings.s10} 0;
 
       &::placeholder {
         color: ${Neutrals.N200};

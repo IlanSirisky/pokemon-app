@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SelectChangeEvent } from "@mui/material";
 import {
   StyledInputLabel,
   StyledSelect,
@@ -10,19 +9,22 @@ import {
 import ArrowIcon from "../../assets/icons/ArrowIcon.svg";
 import ActiveArrowIcon from "../../assets/icons/ActiveArrowIcon.svg";
 import { SelectOptionsType } from "../../types/optionsTypes";
+import { SelectChangeEvent } from "@mui/material";
 
 interface SelectProps {
   options: SelectOptionsType[];
+  selectedOption: string;
+  setSelectedOption: (event: SelectChangeEvent<unknown>) => void;
   placeholder?: string;
   sx?: object;
 }
 
-const Select = ({ options, placeholder = "Select", sx = {} }: SelectProps) => {
-  const [selectedOption, setselectedOption] = useState<string>("");
+const Select = ({ options, selectedOption, setSelectedOption, placeholder = "Select", sx = {} }: SelectProps) => {
+  // const [selectedOption, setselectedOption] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setselectedOption(event.target.value as string);
-  };
+  // const handleChange = (event: SelectChangeEvent<unknown>) => {
+  //   setselectedOption(event.target.value as string);
+  // };
 
   // Manage focus state to render the correct icon
   const handleFocus = () => setIsFocused(true);
@@ -37,7 +39,7 @@ const Select = ({ options, placeholder = "Select", sx = {} }: SelectProps) => {
       )}
       <StyledSelect
         value={selectedOption}
-        onChange={handleChange}
+        onChange={setSelectedOption}
         label={!selectedOption ? placeholder : ""}
         onFocus={handleFocus}
         onBlur={handleBlur}
