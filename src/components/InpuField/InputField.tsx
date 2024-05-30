@@ -7,7 +7,7 @@ import { InputFieldWrapper, StyledInputField } from "./styles";
 interface CustomSearchInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onStartIconClick?: () => void;
   onEndIconClick?: () => void;
   placeholder?: string;
@@ -31,13 +31,16 @@ const InputField = ({
 }: CustomSearchInputProps) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      onSubmit();
+      onSubmit?.();
     }
   };
 
   return (
     <InputFieldWrapper $disabled={disabled}>
-      <IconButton onClick={onStartIconClick} disabled={disabled}>
+      <IconButton
+        onClick={onStartIconClick}
+        disabled={disabled}
+        style={{ backgroundColor: "transparent" }}>
         {startIcon ? <img src={startIcon} alt="startIcon" /> : <SearchIcon />}
       </IconButton>
       <StyledInputField

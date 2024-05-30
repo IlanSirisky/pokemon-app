@@ -66,7 +66,6 @@ const MainPage = ({ pokemonData, headerText }: MainPageProps) => {
           <InputField
             placeholder="Search Pokemon"
             onChange={handleSearchChange}
-            onSubmit={() => {}}
             onEndIconClick={handleClearSearch}
             value={searchValue}
           />
