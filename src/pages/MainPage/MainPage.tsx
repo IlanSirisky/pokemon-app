@@ -17,6 +17,7 @@ import { tableSortByOptions } from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
 import { sortData } from "../../utils/sortPokemonData";
 import { IPokemonData } from "../../types/pokemonTypes";
+import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 
 interface MainPageProps {
   pokemonData: IPokemonData[];
@@ -85,7 +86,7 @@ const MainPage = ({ pokemonData, headerText }: MainPageProps) => {
       {selectedTab === "List" ? (
         <Table columnTitles={pokemonTableColumnLabels} data={filteredData} />
       ) : (
-        <div>Cards View</div>
+        <CardView data={filteredData} />
       )}
     </MainPageWrapper>
   );

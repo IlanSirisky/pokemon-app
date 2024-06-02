@@ -7,7 +7,8 @@ const pokemonsMockData: IPokemonData[] = [
     name: "Bulbasaur",
     avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
     imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
-    description: "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
+    description:
+      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
     stats: {
       height: 0.4,
       weight: 6,
@@ -161,6 +162,22 @@ const pokemonsMockData: IPokemonData[] = [
     px: 45,
     abilities: ["Cute Charm", "Magic Guard"],
   },
+  {
+    id: "#011",
+    type: ["Grass"],
+    name: "Ivysaur",
+    avatar: "../../public/images/pokemon/IvysaurAvatar.svg",
+    imageSrc: "../../public/images/pokemon/Ivysaur.svg",
+    description: "Grass-type Pokémon",
+    stats: {
+      height: 0.8,
+      weight: 8.5,
+    },
+    powerLevel: 4,
+    hp: 80,
+    px: 75,
+    abilities: ["Cute Charm", "Magic Guard"],
+  },
 ];
 
 export default pokemonsMockData;
@@ -172,7 +189,8 @@ export const myPokemonsMockData: IPokemonData[] = [
     name: "Bulbasaur",
     avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
     imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
-    description: "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
+    description:
+      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
     stats: {
       height: 0.4,
       weight: 6,
@@ -212,6 +230,6 @@ export const myPokemonsMockData: IPokemonData[] = [
     powerLevel: 1,
     hp: 45,
     px: 25,
-    abilities: ["Blaze", "Solar Power"],
+    abilities: ["Static", "Lightning Rod"],
   },
 ];
