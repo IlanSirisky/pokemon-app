@@ -2,13 +2,14 @@ import React from "react";
 import xCloseIcon from "../../assets/icons/xCloseIcon.svg";
 import { ModalContent, modalStyles, StyledCloseButton } from "./styles";
 import { Modal as MuiModal, Box } from "@mui/material";
+import { SxProps, Theme } from '@mui/material/styles';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   closeIcon?: string;
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
 const Modal = ({
