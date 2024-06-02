@@ -32,4 +32,5 @@ export const MISC_COLORS = {
     backgroundGreen: "#c4d6c0",
   },
   boxShadow: "#00000040",
+  ModalBoxShadow: "#71787f1a",
 };
