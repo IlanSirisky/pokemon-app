@@ -12,25 +12,25 @@ import {
 import { HeadingMediumRegular } from "../../styles/typography";
 import Autocomplete from "../../components/Autocomplete/Autocomplete";
 import PokemonFightCard from "../../features/fight/PokemonFightCard/PokemonFightCard";
-import pokemonsMockData from "../../data/pokemonMockData";
+import pokemonsMockData, { myPokemonsMockData} from "../../data/pokemonMockData";
 import strengthIcon from "../../assets/icons/strength.svg";
 import Button from "../../components/Button/Button";
 import { useState } from "react";
 import { IPokemonData } from "../../types/pokemonTypes";
-import { transformPokemonDataToOption } from "../../utils/transformDataToOption";
+import { transformPokemonDataToOption } from "../../utils/transformData";
 
-const getRandomPokemon = () => {
-  return pokemonsMockData[Math.floor(Math.random() * pokemonsMockData.length)];
+const getRandomPokemon = (pokemonsData : IPokemonData[]) => {
+  return pokemonsData[Math.floor(Math.random() * pokemonsData.length)];
 };
 
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
   const [canCatch, setCanCatch] = useState(false); // will be used to enable/disable catch button based on backend
   const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData>(
-    getRandomPokemon()
+    getRandomPokemon(myPokemonsMockData)
   );
   const [opponentPokemon, setOpponentPokemon] = useState<IPokemonData>(
-    getRandomPokemon()
+    getRandomPokemon(pokemonsMockData)
   );
 
   const [inputValue, setInputValue] = useState("");
@@ -40,10 +40,10 @@ const FightPage = () => {
   };
 
   const handlePokemonSelect = (value: string) => {
-    const selectedPokemon = pokemonsMockData.find(
+    const selectedPokemon = myPokemonsMockData.find(
       (pokemon) => pokemon.name === value
     );
-    setSelectedPokemon(selectedPokemon || pokemonsMockData[0]);
+    setSelectedPokemon(selectedPokemon || myPokemonsMockData[0]);
   };
 
   const handleInputChange = (
@@ -69,7 +69,7 @@ const FightPage = () => {
         </HeadingMediumRegular>
       </StyledFightHeader>
       <Autocomplete
-        options={transformPokemonDataToOption(pokemonsMockData)}
+        options={transformPokemonDataToOption(myPokemonsMockData)}
         inputValue={inputValue}
         onInputChange={handleInputChange}
         sx={PokemonDropdownStyle}
