@@ -71,7 +71,7 @@ const pokemonsMockData: IPokemonData[] = [
     type: ["Poison"],
     name: "Kakuna",
     avatar: "../../public/images/pokemon/KakunaAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Kakuna.svg",
+    imageSrc: "../../public/images/pokemon/KakunaAvatar.svg",
     description: "Poison-type Pokémon",
     stats: {
       height: 0.6,
@@ -87,7 +87,7 @@ const pokemonsMockData: IPokemonData[] = [
     type: ["Flying"],
     name: "Pidgey",
     avatar: "../../public/images/pokemon/PidgeyAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Pidgey.svg",
+    imageSrc: "../../public/images/pokemon/PidgeyAvatar.svg",
     description: "Flying-type Pokémon",
     stats: {
       height: 0.3,
@@ -119,7 +119,7 @@ const pokemonsMockData: IPokemonData[] = [
     type: ["Normal"],
     name: "Rattata",
     avatar: "../../public/images/pokemon/RattataAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Rattata.svg",
+    imageSrc: "../../public/images/pokemon/RattataAvatar.svg",
     description: "Normal-type Pokémon",
     stats: {
       height: 0.3,
@@ -135,7 +135,7 @@ const pokemonsMockData: IPokemonData[] = [
     type: ["Electric"],
     name: "Pikachu",
     avatar: "../../public/images/pokemon/PikachuAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Pikachu.svg",
+    imageSrc: "../../public/images/pokemon/PikachuAvatar.svg",
     description: "Electric-type Pokémon",
     stats: {
       height: 0.4,
@@ -151,7 +151,7 @@ const pokemonsMockData: IPokemonData[] = [
     type: ["Fairy"],
     name: "Clefairy",
     avatar: "../../public/images/pokemon/ClefairyAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Clefairy.svg",
+    imageSrc: "../../public/images/pokemon/ClefairyAvatar.svg",
     description: "Fairy-type Pokémon",
     stats: {
       height: 0.6,

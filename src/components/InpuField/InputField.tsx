@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { InputFieldWrapper, StyledInputField } from "./styles";
+import { EndIconStyle, InputFieldWrapper, StartIconStyle, StyledInputField } from "./styles";
 
 interface CustomSearchInputProps {
   value: string;
@@ -40,7 +40,7 @@ const InputField = ({
       <IconButton
         onClick={onStartIconClick}
         disabled={disabled}
-        style={{ backgroundColor: "transparent" }}>
+        style={StartIconStyle}>
         {startIcon ? <img src={startIcon} alt="startIcon" /> : <SearchIcon />}
       </IconButton>
       <StyledInputField
@@ -53,7 +53,7 @@ const InputField = ({
         placeholder={placeholder}
       />
       {!disabled && value && (
-        <IconButton onClick={onEndIconClick} sx={{ marginLeft: "auto" }}>
+        <IconButton onClick={onEndIconClick} sx={EndIconStyle}>
           {endIcon ? <img src={endIcon} alt="endIcon" /> : <CloseIcon />}
         </IconButton>
       )}

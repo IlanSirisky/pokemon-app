@@ -2,6 +2,7 @@ export const cssSpacings = {
   s4: "4px",
   s6: "6px",
   s8: "8px",
+  s9: "9px",
   s10: "10px",
   s12: "12px",
   s14: "14px",

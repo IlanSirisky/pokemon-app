@@ -9,6 +9,7 @@ export const MainPageWrapper = styled(flexColumn)`
 `;
 
 export const InputToolsWrapper = styled(flexRow)`
+  align-items: center;
   align-content: center;
   justify-content: space-between;
 `;

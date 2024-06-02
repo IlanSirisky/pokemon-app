@@ -18,13 +18,15 @@ import { tabsOptions } from "../../constants/tabs";
 import { sortData } from "../../utils/sortPokemonData";
 import { IPokemonData } from "../../types/pokemonTypes";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
+import { CSSProperties } from "styled-components";
 
 interface MainPageProps {
   pokemonData: IPokemonData[];
   headerText: string;
+  style? : CSSProperties
 }
 
-const MainPage = ({ pokemonData, headerText }: MainPageProps) => {
+const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
   const [sortBy, setSortBy] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
@@ -60,7 +62,7 @@ const MainPage = ({ pokemonData, headerText }: MainPageProps) => {
   };
 
   return (
-    <MainPageWrapper>
+    <MainPageWrapper style={style}>
       <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
       <InputToolsWrapper>
         <InputFieldWrapper>

@@ -7,13 +7,15 @@ import {
 } from "./styles";
 import { SelectOptionsType } from "../../types/optionsTypes";
 import { SelectChangeEvent } from "@mui/material";
+import { SxProps, Theme } from '@mui/material/styles';
+
 
 interface SelectProps {
   options: SelectOptionsType[];
   selectedOption: string;
   setSelectedOption: (event: SelectChangeEvent<unknown>) => void;
   placeholder?: string;
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
 const Select = ({

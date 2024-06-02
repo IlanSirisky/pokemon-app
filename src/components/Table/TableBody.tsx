@@ -2,9 +2,10 @@ import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
 import { DataCellStyle, DataCellWrapper } from "./styles";
 import { BodyRegular } from "../../styles/typography";
 import { IColumnLabels } from "./types";
+import { IPokemonData } from "../../types/pokemonTypes";
 
 interface TableBodyProps {
-  data: any[];
+  data: IPokemonData[];
   columnTitles: IColumnLabels[];
   page: number;
   rowsPerPage: number;
