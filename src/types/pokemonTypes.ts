@@ -7,6 +7,7 @@ export interface IPokemonData {
   description: string;
   stats: IPokemonPhysicalStats;
   powerLevel: PowerLevelType;
+  isOwned: boolean;
   hp: number;
   px: number;
   abilities: string[];

@@ -11,9 +11,7 @@ import {
 import { HeadingMediumRegular } from "../../styles/typography";
 import Autocomplete from "../../components/Autocomplete/Autocomplete";
 import PokemonFightCard from "../../features/fight/PokemonFightCard/PokemonFightCard";
-import pokemonsMockData, {
-  myPokemonsMockData,
-} from "../../data/pokemonMockData";
+import pokemonsMockData from "../../data/pokemonMockData";
 import strengthIcon from "../../assets/icons/strength.svg";
 import Button from "../../components/Button/Button";
 import { useState, useEffect } from "react";
@@ -27,11 +25,13 @@ import {
 
 type PlayerTurn = "player" | "opponent";
 
+const myPokemonsData = pokemonsMockData.filter((pokemon) => pokemon.isOwned);
+
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
   const [canCatch, setCanCatch] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData>(
-    getRandomPokemon(myPokemonsMockData)
+    getRandomPokemon(myPokemonsData)
   );
   const [opponentPokemon] = useState<IPokemonData>(
     getRandomPokemon(pokemonsMockData, selectedPokemon)
@@ -67,9 +67,7 @@ const FightPage = () => {
   };
 
   const handlePokemonSelect = (value: string) => {
-    const selected = myPokemonsMockData.find(
-      (pokemon) => pokemon.name === value
-    );
+    const selected = myPokemonsData.find((pokemon) => pokemon.name === value);
     if (selected) {
       setSelectedPokemon(selected);
       setSelectedPokemonHp(selected.hp);
@@ -155,7 +153,7 @@ const FightPage = () => {
         </HeadingMediumRegular>
       </StyledFightHeader>
       <Autocomplete
-        options={transformPokemonDataToOption(myPokemonsMockData)}
+        options={transformPokemonDataToOption(myPokemonsData)}
         inputValue={inputValue}
         onInputChange={handleInputChange}
         sx={PokemonDropdownStyle}

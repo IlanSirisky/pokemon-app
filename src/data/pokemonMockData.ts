@@ -17,6 +17,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 35,
     px: 35,
     abilities: ["Static", "Lightning Rod"],
+    isOwned: true,
   },
   {
     id: "#002",
@@ -33,6 +34,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 35,
     px: 55,
     abilities: ["Torrent", "Rain Dish"],
+    isOwned: false,
   },
   {
     id: "#003",
@@ -49,6 +51,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 45,
     px: 25,
     abilities: ["Blaze", "Solar Power"],
+    isOwned: true,
   },
   {
     id: "#004",
@@ -65,6 +68,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 39,
     px: 50,
     abilities: ["Blaze", "Solar Power"],
+    isOwned: false,
   },
   {
     id: "#005",
@@ -81,6 +85,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 45,
     px: 30,
     abilities: ["Shed Skin"],
+    isOwned: false,
   },
   {
     id: "#006",
@@ -97,6 +102,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 40,
     px: 20,
     abilities: ["Keen Eye", "Tangled Feet"],
+    isOwned: true,
   },
   {
     id: "#007",
@@ -113,6 +119,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 78,
     px: 84,
     abilities: ["Blaze", "Solar Power"],
+    isOwned: true,
   },
   {
     id: "#008",
@@ -129,6 +136,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 30,
     px: 20,
     abilities: ["Run Away", "Guts"],
+    isOwned: false,
   },
   {
     id: "#009",
@@ -145,6 +153,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 35,
     px: 55,
     abilities: ["Static", "Lightning Rod"],
+    isOwned: true,
   },
   {
     id: "#010",
@@ -161,6 +170,7 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 70,
     px: 45,
     abilities: ["Cute Charm", "Magic Guard"],
+    isOwned: false,
   },
   {
     id: "#011",
@@ -177,59 +187,8 @@ const pokemonsMockData: IPokemonData[] = [
     hp: 80,
     px: 75,
     abilities: ["Cute Charm", "Magic Guard"],
+    isOwned: false,
   },
 ];
 
 export default pokemonsMockData;
-
-export const myPokemonsMockData: IPokemonData[] = [
-  {
-    id: "#001",
-    type: ["Grass"],
-    name: "Bulbasaur",
-    avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
-    description:
-      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
-    stats: {
-      height: 0.4,
-      weight: 6,
-    },
-    powerLevel: 3,
-    hp: 35,
-    px: 35,
-    abilities: ["Static", "Lightning Rod"],
-  },
-  {
-    id: "#002",
-    type: ["Water"],
-    name: "Wartortle",
-    avatar: "../../public/images/pokemon/WarturtleAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Warturtle.svg",
-    description: "Water-type Pokémon",
-    stats: {
-      height: 0.5,
-      weight: 9,
-    },
-    powerLevel: 5,
-    hp: 35,
-    px: 55,
-    abilities: ["Torrent", "Rain Dish"],
-  },
-  {
-    id: "#003",
-    type: ["Ground"],
-    name: "Caterpie",
-    avatar: "../../public/images/pokemon/CaterpieAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Caterpie.svg",
-    description: "Ground-type Pokémon",
-    stats: {
-      height: 0.6,
-      weight: 8.5,
-    },
-    powerLevel: 1,
-    hp: 45,
-    px: 25,
-    abilities: ["Static", "Lightning Rod"],
-  },
-];
