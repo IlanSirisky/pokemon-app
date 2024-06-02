@@ -1,21 +1,32 @@
-import { useState } from "react";
 import { Autocomplete as MuiAutocomplete } from "@mui/material";
 import { StyledTextField } from "./styles";
 import { AutocompleteOptionsType } from "../../types/optionsTypes";
 import AutocompleteListItem from "./AutocompleteListItem";
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface AutocompleteProps {
   options: AutocompleteOptionsType[];
+  inputValue: string;
+  onInputChange: (event: React.SyntheticEvent, value: string) => void;
   placeholder?: string;
-  sx?: object;
+  value?: AutocompleteOptionsType;
+  sx?: SxProps<Theme>;
 }
 
 const Autocomplete = ({
   options,
+  inputValue,
+  onInputChange,
   placeholder = "Search",
+  value,
   sx,
 }: AutocompleteProps) => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const isOptionEqualToValue = (
+    option: AutocompleteOptionsType,
+    value: AutocompleteOptionsType
+  ) => {
+    return option.value === value.value;
+  };
 
   return (
     <MuiAutocomplete
@@ -24,9 +35,9 @@ const Autocomplete = ({
       autoHighlight
       getOptionLabel={(option) => option.label}
       inputValue={inputValue}
-      onInputChange={(_event, newInputValue) => {
-        setInputValue(newInputValue);
-      }}
+      value={value}
+      onInputChange={onInputChange}
+      isOptionEqualToValue={isOptionEqualToValue}
       renderOption={(props, option) => (
         <AutocompleteListItem
           option={option}

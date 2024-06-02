@@ -21,9 +21,9 @@ const pokemonsMockData: IPokemonData[] = [
   {
     id: "#002",
     type: ["Water"],
-    name: "Wartortle",
-    avatar: "../../public/images/pokemon/WarturtleAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Warturtle.svg",
+    name: "Warturtle",
+    avatar: "../../public/Images/pokemon/WarturtleAvatar.svg",
+    imageSrc: "../../public/Images/pokemon/Warturtle.svg",
     description: "Water-type Pokémon",
     stats: {
       height: 0.5,
@@ -38,8 +38,8 @@ const pokemonsMockData: IPokemonData[] = [
     id: "#003",
     type: ["Ground"],
     name: "Caterpie",
-    avatar: "../../public/images/pokemon/CaterpieAvatar.svg",
-    imageSrc: "../../public/images/pokemon/Caterpie.svg",
+    avatar: "../../public/Images/pokemon/CaterpieAvatar.svg",
+    imageSrc: "../../public/Images/pokemon/Caterpie.svg",
     description: "Ground-type Pokémon",
     stats: {
       height: 0.6,
