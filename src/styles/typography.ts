@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from './colors';
 import { cssFontWeights, cssFontSizes } from './stylingValues';
 
-const StyledParagraph = styled.p`
+export const StyledParagraph = styled.p`
   font-family: 'Mulish', sans-serif;
   color: ${COLORS.Neutrals.N500};
   margin: 0;

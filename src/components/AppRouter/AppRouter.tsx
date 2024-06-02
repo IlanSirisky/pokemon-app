@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import TestButtons from "../testComponents/TestButtons";
-import TestCards from "../testComponents/TestCards";
 import PokemonHeader from "../../assets/icons/PokemonHeader.svg";
 import { PagePaths, navBarOptions, endButton } from "../../constants/navBar";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
+import FightPage from "../../pages/FightPage/FightPage";
 import Table from "../Table/Table";
 import { pokemonTableColumnLabels } from "../../constants/table";
 import pokemonsMockData from "../../data/pokemonMockData";
@@ -37,7 +37,7 @@ const AppRouter = () => {
           }
         />
         <Route path={PagePaths.MY_POKEMONS} element={<TestButtons />} />
-        <Route path={PagePaths.FIGHT} element={<TestCards />} />
+        <Route path={PagePaths.FIGHT} element={<FightPage />} />
         <Route path={PagePaths.REST} element={<ErrorPage />} />
       </Routes>
     </Router>

@@ -23,3 +23,13 @@ export const COLORS = {
     S500: "#4C3D01",
   },
 };
+
+export const MISC_COLORS = {
+  HealthBar: {
+    green: "#87c877",
+    orange: "#ff9800",
+    red: "#dc004e",
+    backgroundGreen: "#c4d6c0",
+  },
+  boxShadow: "#00000040",
+};
