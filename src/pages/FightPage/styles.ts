@@ -5,7 +5,7 @@ import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 import yellowBg from "../../assets/yellow-bg.jpeg";
 
-const { Neutrals, Primary } = COLORS;
+const { Neutrals } = COLORS;
 
 export const StyledFightPageWrapper = styled(flexColumn)`
   background-color: ${Neutrals.N100};
@@ -62,9 +62,4 @@ export const ActiveButtonStyle = {
   padding: `${cssSpacings.s30} ${cssSpacings.s58}`,
   borderRadius: `${cssSpacings.s200}`,
   boxShadow: `0px ${cssSpacings.s9} ${cssSpacings.s18} 0px ${MISC_COLORS.boxShadow}`,
-};
-
-export const DisabledButtonStyle = {
-  ...ActiveButtonStyle,
-  backgroundColor: `${Primary.P50}`,
 };
