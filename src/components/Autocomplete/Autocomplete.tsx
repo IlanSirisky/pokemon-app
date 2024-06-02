@@ -2,6 +2,7 @@ import { Autocomplete as MuiAutocomplete } from "@mui/material";
 import { StyledTextField } from "./styles";
 import { AutocompleteOptionsType } from "../../types/optionsTypes";
 import AutocompleteListItem from "./AutocompleteListItem";
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface AutocompleteProps {
   options: AutocompleteOptionsType[];
@@ -9,7 +10,7 @@ interface AutocompleteProps {
   onInputChange: (event: React.SyntheticEvent, value: string) => void;
   placeholder?: string;
   value?: AutocompleteOptionsType;
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
 const Autocomplete = ({
