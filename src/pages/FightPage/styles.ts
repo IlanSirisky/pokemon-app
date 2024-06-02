@@ -36,9 +36,8 @@ export const StyledFightArea = styled(flexRow)`
   background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
-  gap: ${cssSpacings.s80};
   border-radius: ${cssSpacings.s8};
 `;
 

@@ -22,17 +22,10 @@ import { transformPokemonDataToOption } from "../../utils/transformData";
 import {
   calculateCatchRate,
   calculateDamage,
+  getRandomPokemon,
 } from "../../utils/fightPageFunctions";
 
-const getRandomPokemon = (
-  pokemonData: IPokemonData[],
-  excludePokemon?: IPokemonData
-) => {
-  const filteredData = excludePokemon
-    ? pokemonData.filter((pokemon) => pokemon.name !== excludePokemon.name)
-    : pokemonData;
-  return filteredData[Math.floor(Math.random() * filteredData.length)];
-};
+type PlayerTurn = "player" | "opponent";
 
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
@@ -40,7 +33,7 @@ const FightPage = () => {
   const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData>(
     getRandomPokemon(myPokemonsMockData)
   );
-  const [opponentPokemon, setOpponentPokemon] = useState<IPokemonData>(
+  const [opponentPokemon] = useState<IPokemonData>(
     getRandomPokemon(pokemonsMockData, selectedPokemon)
   );
   const [selectedPokemonHp, setSelectedPokemonHp] = useState(
@@ -49,7 +42,7 @@ const FightPage = () => {
   const [opponentPokemonHp, setOpponentPokemonHp] = useState(
     opponentPokemon.hp
   );
-  const [turn, setTurn] = useState<"player" | "opponent">(
+  const [turn, setTurn] = useState<PlayerTurn>(
     selectedPokemon.px >= opponentPokemon.px ? "player" : "opponent"
   );
   const [inputValue, setInputValue] = useState("");
@@ -66,6 +59,10 @@ const FightPage = () => {
   }, [turn, isActiveFight, opponentPokemonHp, selectedPokemonHp]);
 
   const handleStartFight = () => {
+    setSelectedPokemonHp(selectedPokemon.hp);
+    setOpponentPokemonHp(opponentPokemon.hp);
+    setCanCatch(false);
+    setTurn(selectedPokemon.px >= opponentPokemon.px ? "player" : "opponent");
     setIsActiveFight(true);
   };
 
@@ -100,6 +97,7 @@ const FightPage = () => {
 
     if (opponentPokemonHp - damage <= 0) {
       alert("Opponent Pokémon is defeated!");
+      setOpponentPokemonHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
     }
@@ -115,6 +113,7 @@ const FightPage = () => {
 
     if (selectedPokemonHp - damage <= 0) {
       alert("Your Pokémon is defeated!");
+      setSelectedPokemonHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
     }
@@ -142,6 +141,7 @@ const FightPage = () => {
         setIsActiveFight(false);
       } else {
         alert("Failed to catch the Pokémon.");
+        setTurn("opponent");
       }
     }
   };

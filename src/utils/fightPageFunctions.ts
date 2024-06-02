@@ -1,4 +1,4 @@
-import { IPokemonData, PokemonType } from "../types/pokemonTypes";
+import { IPokemonData } from "../types/pokemonTypes";
 import { typeAdvantages } from "../types/pokemonTypes";
 
 export const calculateHealthPercentage = (
@@ -18,13 +18,25 @@ export const getColor = (healthPercentage: number) => {
   }
 };
 
+export const getRandomPokemon = (
+  pokemonData: IPokemonData[],
+  excludePokemon?: IPokemonData
+) => {
+  const filteredData = excludePokemon
+    ? pokemonData.filter((pokemon) => pokemon.name !== excludePokemon.name)
+    : pokemonData;
+  return filteredData[Math.floor(Math.random() * filteredData.length)];
+};
+
 export const calculateDamage = (
   attacker: IPokemonData,
   defender: IPokemonData
 ) => {
   const baseDamage = attacker.powerLevel * 4; // Using Pokémon's power level as initial damage
   const randomFactor = Math.random() * 0.6 + 0.7; // Random factor between 0.7 and 1.3
-  return Math.floor(baseDamage * randomFactor); // Ensure damage is an integer
+  const typeAdvantage =
+    typeAdvantages[attacker?.type[0]][defender?.type[0]] || 1; // Type advantage multiplier
+  return Math.floor(baseDamage * randomFactor * typeAdvantage); // Ensure damage is an integer
 };
 
 export const calculateCatchRate = (
