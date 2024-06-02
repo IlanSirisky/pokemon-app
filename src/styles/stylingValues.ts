@@ -13,33 +13,38 @@ export const cssSpacings = {
     s24 : "24px",
     s30 : "30px",
     s32 : "32px",
+    s38: "38px",
     s40 : "40px",
+    s48: "48px",
     s58 : "58px",
     s60 : "60px",
+    s70: "70px",
     s80 : "80px",
     s90 : "90px",
+    s120: "120px",
+    s150: "150px",
     s200 : "200px",
 };
 
 export const cssFontWeights = {
-    regular: 400,
-    medium: 500,
-    bold: 700,
+  regular: 400,
+  medium: 500,
+  bold: 700,
 };
 
 export const cssFontSizes = {
-    f11 : "11px",
-    f12 : "12px",
-    f14 : "14px",
-    f16 : "16px",
-    f18 : "18px",
-    f20 : "20px",
-    f24 : "24px",
-    f28 : "28px",
-}
+  f11: "11px",
+  f12: "12px",
+  f14: "14px",
+  f16: "16px",
+  f18: "18px",
+  f20: "20px",
+  f24: "24px",
+  f28: "28px",
+};
 
 export const avatarSizes = {
-    small: 25,
-    medium: 40,
-    large: 54,
+  small: 25,
+  medium: 40,
+  large: 54,
 };
