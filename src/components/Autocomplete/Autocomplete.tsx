@@ -8,6 +8,7 @@ interface AutocompleteProps {
   options: AutocompleteOptionsType[];
   inputValue: string;
   onInputChange: (event: React.SyntheticEvent, value: string) => void;
+  disabled?: boolean;
   placeholder?: string;
   value?: AutocompleteOptionsType;
   sx?: SxProps<Theme>;
@@ -17,6 +18,7 @@ const Autocomplete = ({
   options,
   inputValue,
   onInputChange,
+  disabled = false,
   placeholder = "Search",
   value,
   sx,
@@ -31,6 +33,7 @@ const Autocomplete = ({
   return (
     <MuiAutocomplete
       sx={sx}
+      disabled={disabled}
       options={options}
       autoHighlight
       getOptionLabel={(option) => option.label}

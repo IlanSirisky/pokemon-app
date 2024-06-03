@@ -4,6 +4,7 @@ import { COLORS, MISC_COLORS } from "../../styles/colors";
 import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 import yellowBg from "../../assets/yellow-bg.jpeg";
+import { CSSProperties } from "react";
 
 const { Neutrals } = COLORS;
 
@@ -61,4 +62,19 @@ export const ActiveButtonStyle = {
   padding: `${cssSpacings.s30} ${cssSpacings.s58}`,
   borderRadius: `${cssSpacings.s200}`,
   boxShadow: `0px ${cssSpacings.s9} ${cssSpacings.s18} 0px ${MISC_COLORS.boxShadow}`,
+};
+
+export const MessageDivStyle : CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "rgba(0,0,0,0.8)",
+  color: "white",
+  padding: "20px",
+  borderRadius: "10px",
+  zIndex: 10,
+  textAlign: "center",
+  fontFamily: "Mulish",
+  fontSize: "24px",
 };

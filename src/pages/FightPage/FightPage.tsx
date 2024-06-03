@@ -7,6 +7,7 @@ import {
   FightButtonStyle,
   FightActionWrapper,
   ActiveButtonStyle,
+  MessageDivStyle, // Make sure to add this in your styles
 } from "./styles";
 import { HeadingMediumRegular } from "../../styles/typography";
 import Autocomplete from "../../components/Autocomplete/Autocomplete";
@@ -46,6 +47,7 @@ const FightPage = () => {
     selectedPokemon.px >= opponentPokemon.px ? "player" : "opponent"
   );
   const [inputValue, setInputValue] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isActiveFight) return;
@@ -57,6 +59,13 @@ const FightPage = () => {
       return () => clearTimeout(timeout);
     }
   }, [turn, isActiveFight, opponentPokemonHp, selectedPokemonHp]);
+
+  const showMessage = (msg: string) => {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage(null);
+    }, 2000);
+  };
 
   const handleStartFight = () => {
     setSelectedPokemonHp(selectedPokemon.hp);
@@ -89,12 +98,12 @@ const FightPage = () => {
     const damage = calculateDamage(selectedPokemon, opponentPokemon);
     setOpponentPokemonHp((hp) => Math.max(-1, hp - damage));
 
-    if (opponentPokemonHp - damage < 0.2 * opponentPokemon.hp) {
+    if (opponentPokemonHp - damage < 0.3 * opponentPokemon.hp) {
       setCanCatch(true);
     }
 
     if (opponentPokemonHp - damage <= 0) {
-      alert("Opponent Pokémon is defeated!");
+      showMessage("Opponent Pokémon is defeated!");
       setOpponentPokemonHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
@@ -110,7 +119,7 @@ const FightPage = () => {
     setSelectedPokemonHp((hp) => Math.max(-1, hp - damage));
 
     if (selectedPokemonHp - damage <= 0) {
-      alert("Your Pokémon is defeated!");
+      showMessage("Your Pokémon is defeated!");
       setSelectedPokemonHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
@@ -135,10 +144,10 @@ const FightPage = () => {
       );
       const catchSuccess = Math.random() < catchRate;
       if (catchSuccess) {
-        alert("Caught the Pokémon!");
+        showMessage("Caught the Pokémon!");
         setIsActiveFight(false);
       } else {
-        alert("Failed to catch the Pokémon.");
+        showMessage("Failed to catch the Pokémon.");
         setTurn("opponent");
       }
     }
@@ -147,15 +156,19 @@ const FightPage = () => {
   return (
     <StyledFightPageWrapper>
       <StyledFightHeader>
-        <StyledFightTitle>Fighting arena</StyledFightTitle>
+        <StyledFightTitle>Fighting Arena</StyledFightTitle>
         <HeadingMediumRegular>
-          Press fight button until yours or your enemy's power is depleted
+          Press the attack button until either your health or your enemy's
+          health is depleted
         </HeadingMediumRegular>
       </StyledFightHeader>
       <Autocomplete
-        options={transformPokemonDataToOption(myPokemonsData)}
+        options={transformPokemonDataToOption(
+          myPokemonsData.filter((pokemon) => pokemon.id !== opponentPokemon.id)
+        )}
         inputValue={inputValue}
         onInputChange={handleInputChange}
+        disabled={isActiveFight}
         sx={PokemonDropdownStyle}
         placeholder="Choose a Pokemon"
       />
@@ -184,7 +197,7 @@ const FightPage = () => {
             <Button
               type="primary"
               size="large"
-              disabled={!canCatch}
+              disabled={!canCatch || turn !== "player"}
               style={ActiveButtonStyle}
               onClick={handleCatch}>
               Catch
@@ -211,6 +224,7 @@ const FightPage = () => {
           style={{ border: turn === "opponent" ? "2px solid red" : "none" }}
         />
       </StyledFightArea>
+      {message && <div style={MessageDivStyle}>{message}</div>}
     </StyledFightPageWrapper>
   );
 };

@@ -53,7 +53,7 @@ const Table = ({
             {data.length === 0 ? (
               <TableBodyEmptyState
                 columnTitles={columnTitles}
-                text="No pokemons exist"
+                text="No pokemons were found."
                 img={EmptySearchIcon}
               />
             ) : (

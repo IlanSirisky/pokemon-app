@@ -44,6 +44,6 @@ export const calculateCatchRate = (
   opponentMaxHp: number
 ) => {
   const baseCatchRate = 0.1; // Base catch rate is 10%
-  const additionalCatchRate = opponentHp < 0.2 * opponentMaxHp ? 0.1 : 0; // Additional 10% if HP < 20%
+  const additionalCatchRate = opponentHp < 0.1 * opponentMaxHp ? 0.15 : 0; // Additional 15% if HP < 10%
   return baseCatchRate + additionalCatchRate;
 };
