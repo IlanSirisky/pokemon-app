@@ -35,6 +35,7 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
           image={item.imageSrc}
           cornerText={`${item.px}px`}
           topCornerIcon={strength}
+          style={{ cursor: "pointer" }}
         />
       ))}
       {selectedCard && (

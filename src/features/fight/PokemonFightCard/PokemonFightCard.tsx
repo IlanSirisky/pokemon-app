@@ -9,7 +9,10 @@ import { CSSProperties } from "styled-components";
 import CardBody from "../../../components/CardBody/CardBody";
 import LinearProgress from "@mui/material/LinearProgress";
 import { ThemeProvider } from "@mui/material/styles";
-import { calculateHealthPercentage, getColor } from "../../../utils/fightPageFunctions";
+import {
+  calculateHealthPercentage,
+  getColor,
+} from "../../../utils/fightPageFunctions";
 
 interface FightCardProps {
   cardTitle: string;
@@ -58,7 +61,7 @@ const PokemonFightCard = ({
           )}
         </ThemeProvider>
         <XSmallRegular>
-          {currentHp}/{hp} HP
+          {currentHp < 0 ? 0 : currentHp}/{hp} HP
         </XSmallRegular>
       </HPContainer>
     </StyledFightCard>

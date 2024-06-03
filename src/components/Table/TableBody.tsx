@@ -39,7 +39,11 @@ const TableBody = ({
       {data
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((row, index) => (
-          <TableRow hover key={index} onClick={() => handleOpenModal(row)}>
+          <TableRow
+            hover
+            key={index}
+            onClick={() => handleOpenModal(row)}
+            sx={{ cursor: "pointer" }}>
             {columnTitles.map((column) => (
               <TableCell key={column.value} sx={DataCellStyle} align="left">
                 {column.component ? (

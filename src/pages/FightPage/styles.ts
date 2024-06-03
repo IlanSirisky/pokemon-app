@@ -10,7 +10,7 @@ const { Neutrals } = COLORS;
 
 export const StyledFightPageWrapper = styled(flexColumn)`
   background-color: ${Neutrals.N100};
-  padding: ${cssSpacings.s40} ${cssSpacings.s40} ${cssSpacings.s80} ${cssSpacings.s40};
+  padding: ${cssSpacings.s20} ${cssSpacings.s40};
 `;
 
 export const StyledFightHeader = styled(flexColumn)`
@@ -35,8 +35,9 @@ export const StyledFightArea = styled(flexRow)`
   background-image: url(${yellowBg});
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   width: 100%;
-  height: 100vh;
+  height: 65vh;
   justify-content: space-evenly;
   align-items: center;
   border-radius: ${cssSpacings.s8};
@@ -66,7 +67,7 @@ export const ActiveButtonStyle = {
 
 export const MessageDivStyle : CSSProperties = {
   position: "absolute",
-  top: "50%",
+  top: "40%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   backgroundColor: "rgba(0,0,0,0.8)",

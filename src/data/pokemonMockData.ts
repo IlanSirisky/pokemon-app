@@ -8,7 +8,7 @@ const pokemonsMockData: IPokemonData[] = [
     avatar: "../../public/images/pokemon/BulbasaurAvatar.svg",
     imageSrc: "../../public/images/pokemon/Bulbasaur.svg",
     description:
-      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow.",
+      "For some time after its birth, it uses the nutrients that are packed into the seed on its back in order to grow. Evolution: Ivysaur",
     stats: {
       height: 0.4,
       weight: 6,
