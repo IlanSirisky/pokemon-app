@@ -21,16 +21,13 @@ const TableBody = ({
   page,
   rowsPerPage,
 }: TableBodyProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<IPokemonData | null>(null);
 
   const handleOpenModal = (row: IPokemonData) => {
-    setIsModalOpen(true);
     setSelectedRow(row);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     setSelectedRow(null);
   };
 
@@ -58,7 +55,7 @@ const TableBody = ({
           </TableRow>
         ))}
       {selectedRow && (
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <Modal isOpen={!!selectedRow} onClose={handleCloseModal}>
           <PokemonModalCard
             title={selectedRow.name}
             subheadText={selectedRow.id}

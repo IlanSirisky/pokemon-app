@@ -12,16 +12,13 @@ interface PokemonCardViewProps {
 }
 
 const PokemonCardView = ({ data }: PokemonCardViewProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setselectedCard] = useState<IPokemonData | null>(null);
 
   const handleOpenModal = (item: IPokemonData) => {
-    setIsModalOpen(true);
     setselectedCard(item);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     setselectedCard(null);
   };
   return (
@@ -39,7 +36,7 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
         />
       ))}
       {selectedCard && (
-        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <Modal isOpen={!!selectedCard} onClose={handleCloseModal}>
           <PokemonModalCard
             title={selectedCard.name}
             subheadText={selectedCard.id}

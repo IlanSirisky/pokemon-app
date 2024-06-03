@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InputField from "../../components/InpuField/InputField";
 import Table from "../../components/Table/Table";
 import Tabs from "../../components/Tabs/Tabs";
@@ -23,7 +23,7 @@ import { CSSProperties } from "styled-components";
 interface MainPageProps {
   pokemonData: IPokemonData[];
   headerText: string;
-  style? : CSSProperties
+  style?: CSSProperties;
 }
 
 const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
@@ -32,24 +32,23 @@ const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState(pokemonData);
 
-  useEffect(() => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchValue(value);
     let data = pokemonData;
 
-    if (searchValue) {
+    if (value) {
       data = data.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(searchValue.toLowerCase())
+        pokemon.name.toLowerCase().includes(value.toLowerCase())
       );
     }
 
     setFilteredData(data);
-  }, [pokemonData, searchValue]);
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
+    setFilteredData(pokemonData);
   };
 
   const handleTabChange = (value: string) => {

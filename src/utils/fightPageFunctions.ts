@@ -1,5 +1,5 @@
 import { IPokemonData } from "../types/pokemonTypes";
-import { typeAdvantages } from "../types/pokemonTypes";
+import { typeAdvantages } from "../constants/typeAdvantages";
 
 export const calculateHealthPercentage = (
   healthStatus: number,

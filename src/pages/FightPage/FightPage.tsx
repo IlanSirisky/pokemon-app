@@ -23,8 +23,7 @@ import {
   calculateDamage,
   getRandomPokemon,
 } from "../../utils/fightPageFunctions";
-
-type PlayerTurn = "player" | "opponent";
+import { PlayerTurn } from "./types";
 
 const myPokemonsData = pokemonsMockData.filter((pokemon) => pokemon.isOwned);
 
@@ -37,14 +36,16 @@ const FightPage = () => {
   const [opponentPokemon] = useState<IPokemonData>(
     getRandomPokemon(pokemonsMockData, selectedPokemon)
   );
-  const [selectedPokemonHp, setSelectedPokemonHp] = useState(
+  const [selectedPokemonCurrentHp, setSelectedPokemonCurrentHp] = useState(
     selectedPokemon.hp
   );
-  const [opponentPokemonHp, setOpponentPokemonHp] = useState(
+  const [opponentPokemonCurrentHp, setOpponentPokemonCurrentHp] = useState(
     opponentPokemon.hp
   );
   const [turn, setTurn] = useState<PlayerTurn>(
-    selectedPokemon.px >= opponentPokemon.px ? "player" : "opponent"
+    selectedPokemon.px >= opponentPokemon.px
+      ? PlayerTurn.Player
+      : PlayerTurn.Opponent
   );
   const [inputValue, setInputValue] = useState("");
   const [message, setMessage] = useState<string | null>(null);
@@ -52,13 +53,17 @@ const FightPage = () => {
   useEffect(() => {
     if (!isActiveFight) return;
 
-    if (turn === "opponent" && opponentPokemonHp > 0 && selectedPokemonHp > 0) {
+    if (
+      turn === PlayerTurn.Opponent &&
+      opponentPokemonCurrentHp > 0 &&
+      selectedPokemonCurrentHp > 0
+    ) {
       const timeout = setTimeout(() => {
         handleOpponentAttack();
       }, 1000); // 1 second delay for opponent's attack
       return () => clearTimeout(timeout);
     }
-  }, [turn, isActiveFight, opponentPokemonHp, selectedPokemonHp]);
+  }, [turn, isActiveFight, opponentPokemonCurrentHp, selectedPokemonCurrentHp]);
 
   const showMessage = (msg: string) => {
     setMessage(msg);
@@ -68,10 +73,14 @@ const FightPage = () => {
   };
 
   const handleStartFight = () => {
-    setSelectedPokemonHp(selectedPokemon.hp);
-    setOpponentPokemonHp(opponentPokemon.hp);
+    setSelectedPokemonCurrentHp(selectedPokemon.hp);
+    setOpponentPokemonCurrentHp(opponentPokemon.hp);
     setCanCatch(false);
-    setTurn(selectedPokemon.px >= opponentPokemon.px ? "player" : "opponent");
+    setTurn(
+      selectedPokemon.px >= opponentPokemon.px
+        ? PlayerTurn.Player
+        : PlayerTurn.Opponent
+    );
     setIsActiveFight(true);
   };
 
@@ -79,8 +88,12 @@ const FightPage = () => {
     const selected = myPokemonsData.find((pokemon) => pokemon.name === value);
     if (selected) {
       setSelectedPokemon(selected);
-      setSelectedPokemonHp(selected.hp);
-      setTurn(selected.px >= opponentPokemon.px ? "player" : "opponent");
+      setSelectedPokemonCurrentHp(selected.hp);
+      setTurn(
+        selected.px >= opponentPokemon.px
+          ? PlayerTurn.Player
+          : PlayerTurn.Opponent
+      );
     }
   };
 
@@ -93,43 +106,43 @@ const FightPage = () => {
   };
 
   const handlePlayerAttack = () => {
-    if (turn !== "player") return;
+    if (turn !== PlayerTurn.Player) return;
 
     const damage = calculateDamage(selectedPokemon, opponentPokemon);
-    setOpponentPokemonHp((hp) => Math.max(-1, hp - damage));
+    setOpponentPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
 
-    if (opponentPokemonHp - damage < 0.3 * opponentPokemon.hp) {
+    if (opponentPokemonCurrentHp - damage < 0.3 * opponentPokemon.hp) {
       setCanCatch(true);
     }
 
-    if (opponentPokemonHp - damage <= 0) {
+    if (opponentPokemonCurrentHp - damage <= 0) {
       showMessage("Opponent Pokémon is defeated!");
-      setOpponentPokemonHp(-1); // Ensure health is never exactly 0
+      setOpponentPokemonCurrentHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
     }
 
-    setTurn("opponent");
+    setTurn(PlayerTurn.Opponent);
   };
 
   const handleOpponentAttack = () => {
-    if (turn !== "opponent") return;
+    if (turn !== PlayerTurn.Opponent) return;
 
     const damage = calculateDamage(opponentPokemon, selectedPokemon);
-    setSelectedPokemonHp((hp) => Math.max(-1, hp - damage));
+    setSelectedPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
 
-    if (selectedPokemonHp - damage <= 0) {
+    if (selectedPokemonCurrentHp - damage <= 0) {
       showMessage("Your Pokémon is defeated!");
-      setSelectedPokemonHp(-1); // Ensure health is never exactly 0
+      setSelectedPokemonCurrentHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
     }
 
-    setTurn("player");
+    setTurn(PlayerTurn.Player);
   };
 
   const handleNextTurn = () => {
-    if (turn === "player") {
+    if (turn === PlayerTurn.Player) {
       handlePlayerAttack();
     } else {
       handleOpponentAttack();
@@ -139,7 +152,7 @@ const FightPage = () => {
   const handleCatch = () => {
     if (canCatch) {
       const catchRate = calculateCatchRate(
-        opponentPokemonHp,
+        opponentPokemonCurrentHp,
         opponentPokemon.hp
       );
       const catchSuccess = Math.random() < catchRate;
@@ -148,7 +161,7 @@ const FightPage = () => {
         setIsActiveFight(false);
       } else {
         showMessage("Failed to catch the Pokémon.");
-        setTurn("opponent");
+        setTurn(PlayerTurn.Opponent);
       }
     }
   };
@@ -177,12 +190,14 @@ const FightPage = () => {
           cardTitle={selectedPokemon.name}
           image={selectedPokemon.imageSrc}
           hp={selectedPokemon.hp}
-          currentHp={selectedPokemonHp}
+          currentHp={selectedPokemonCurrentHp}
           playerName="You"
           subheadText={`${selectedPokemon.id}`}
           cornerText={`${selectedPokemon.px}px`}
           topCornerIcon={strengthIcon}
-          style={{ border: turn === "player" ? "2px solid red" : "none" }}
+          style={{
+            border: turn === PlayerTurn.Player ? "2px solid red" : "none",
+          }}
         />
         {isActiveFight ? (
           <FightActionWrapper>
@@ -191,13 +206,13 @@ const FightPage = () => {
               size="large"
               style={ActiveButtonStyle}
               onClick={handleNextTurn}
-              disabled={turn !== "player"}>
+              disabled={turn !== PlayerTurn.Player}>
               Attack
             </Button>
             <Button
               type="primary"
               size="large"
-              disabled={!canCatch || turn !== "player"}
+              disabled={!canCatch || turn !== PlayerTurn.Player}
               style={ActiveButtonStyle}
               onClick={handleCatch}>
               Catch
@@ -216,12 +231,14 @@ const FightPage = () => {
           cardTitle={opponentPokemon.name}
           image={opponentPokemon.imageSrc}
           hp={opponentPokemon.hp}
-          currentHp={opponentPokemonHp}
+          currentHp={opponentPokemonCurrentHp}
           playerName="Enemy"
           subheadText={`${opponentPokemon.id}`}
           cornerText={`${opponentPokemon.px}px`}
           topCornerIcon={strengthIcon}
-          style={{ border: turn === "opponent" ? "2px solid red" : "none" }}
+          style={{
+            border: turn === PlayerTurn.Opponent ? "2px solid red" : "none",
+          }}
         />
       </StyledFightArea>
       {message && <div style={MessageDivStyle}>{message}</div>}
