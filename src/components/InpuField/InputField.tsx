@@ -39,6 +39,7 @@ const InputField = ({
     <InputFieldWrapper $disabled={disabled}>
       <IconButton
         onClick={onStartIconClick}
+        disableRipple
         disabled={disabled}
         style={StartIconStyle}>
         {startIcon ? <img src={startIcon} alt="startIcon" /> : <SearchIcon />}

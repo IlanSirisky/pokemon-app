@@ -5,6 +5,7 @@ import CardBody from "../../../components/CardBody/CardBody";
 interface BasicCardProps {
   cardTitle: string;
   image: string;
+  handleClick?: () => void;
   subheadText?: string;
   cornerText?: string;
   topCornerIcon?: string;
@@ -14,13 +15,14 @@ interface BasicCardProps {
 const PokemonBasicCard = ({
   cardTitle,
   image,
+  handleClick,
   subheadText,
   cornerText,
   topCornerIcon,
   style,
 }: BasicCardProps) => {
   return (
-    <StyledBasicCard style={style}>
+    <StyledBasicCard style={style} onClick={handleClick}>
       <CardBody
         cardTitle={cardTitle}
         image={image}
