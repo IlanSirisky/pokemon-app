@@ -54,8 +54,8 @@ const TableBody = ({
             ))}
           </TableRow>
         ))}
-      {selectedRow && (
-        <Modal isOpen={!!selectedRow} onClose={handleCloseModal}>
+      <Modal isOpen={!!selectedRow} onClose={handleCloseModal}>
+        {selectedRow && (
           <PokemonModalCard
             title={selectedRow.name}
             subheadText={selectedRow.id}
@@ -63,8 +63,8 @@ const TableBody = ({
             description={selectedRow.description}
             attributes={transformPokemonDataToAttributes(selectedRow)}
           />
-        </Modal>
-      )}
+        )}
+      </Modal>
     </MuiTableBody>
   );
 };

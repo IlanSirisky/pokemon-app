@@ -35,8 +35,8 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
           style={{ cursor: "pointer" }}
         />
       ))}
-      {selectedCard && (
-        <Modal isOpen={!!selectedCard} onClose={handleCloseModal}>
+      <Modal isOpen={!!selectedCard} onClose={handleCloseModal}>
+        {selectedCard && (
           <PokemonModalCard
             title={selectedCard.name}
             subheadText={selectedCard.id}
@@ -44,8 +44,8 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
             description={selectedCard.description}
             attributes={transformPokemonDataToAttributes(selectedCard)}
           />
-        </Modal>
-      )}
+        )}
+      </Modal>
     </CardViewContainer>
   );
 };
