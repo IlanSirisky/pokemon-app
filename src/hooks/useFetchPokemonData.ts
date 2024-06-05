@@ -1,4 +1,7 @@
 import axios from "axios";
+import { SortByValues } from "../constants/tableSortbyOptions";
+
+const URL = "http://localhost:3000/api";
 
 export const fetchPokemons = async ({
   isOwned,
@@ -7,17 +10,21 @@ export const fetchPokemons = async ({
 }: {
   isOwned: boolean;
   searchValue: string;
-  sortBy: string;
+  sortBy: SortByValues | "";
 }) => {
-  const URL = "http://localhost:3000";
   const endpoint = isOwned
-    ? "/api/search-pokemons?isOwned=true"
-    : "/api/search-pokemons";
+    ? "/search-pokemons?isOwned=true"
+    : "/search-pokemons";
   const response = await axios.get(URL + endpoint, {
     params: {
       q: searchValue,
       sortBy,
     },
   });
+  return response.data;
+};
+
+export const fetchPokemonById = async (id: number) => {
+  const response = await axios.get(`${URL}/pokemons/${id}`);
   return response.data;
 };

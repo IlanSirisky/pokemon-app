@@ -15,7 +15,7 @@ import { HeadingLargeMedium } from "../../styles/typography";
 import { SelectChangeEvent } from "@mui/material";
 
 import { pokemonTableColumnLabels } from "../../constants/table";
-import { tableSortByOptions } from "../../constants/tableSortbyOptions";
+import { SortByValues, tableSortByOptions } from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
@@ -33,7 +33,7 @@ const MainPage = ({
   style,
 }: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
-  const [sortBy, setSortBy] = useState<string>("");
+  const [sortBy, setSortBy] = useState<SortByValues | "">("");
   const [searchValue, setSearchValue] = useState("");
 
   const debouncedSearchValue = useDebouncedValue(searchValue, 500);
@@ -45,7 +45,6 @@ const MainPage = ({
   } = useQuery({
     queryKey: ['pokemons', { isOwnedFlag, searchValue: debouncedSearchValue, sortBy }],
     queryFn: () => fetchPokemons({ isOwned: isOwnedFlag, searchValue: debouncedSearchValue, sortBy }),
-    enabled: debouncedSearchValue !== '',
   });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
