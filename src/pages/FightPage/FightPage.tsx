@@ -30,20 +30,20 @@ const myPokemonsData = pokemonsMockData.filter((pokemon) => pokemon.isOwned);
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
   const [canCatch, setCanCatch] = useState(false);
-  const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData>(
+  const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData | null>(
     getRandomPokemon(myPokemonsData)
   );
   const [opponentPokemon] = useState<IPokemonData>(
     getRandomPokemon(pokemonsMockData, selectedPokemon)
   );
   const [selectedPokemonCurrentHp, setSelectedPokemonCurrentHp] = useState(
-    selectedPokemon.hp
+    selectedPokemon?.hp
   );
   const [opponentPokemonCurrentHp, setOpponentPokemonCurrentHp] = useState(
     opponentPokemon.hp
   );
   const [turn, setTurn] = useState<PlayerTurn>(
-    selectedPokemon.px >= opponentPokemon.px
+    selectedPokemon?.px >= opponentPokemon.px
       ? PlayerTurn.Player
       : PlayerTurn.Opponent
   );
@@ -73,7 +73,7 @@ const FightPage = () => {
   };
 
   const handleStartFight = () => {
-    setSelectedPokemonCurrentHp(selectedPokemon.hp);
+    setSelectedPokemonCurrentHp(selectedPokemon?.hp);
     setOpponentPokemonCurrentHp(opponentPokemon.hp);
     setCanCatch(false);
     setTurn(
@@ -128,7 +128,7 @@ const FightPage = () => {
   const handleOpponentAttack = () => {
     if (turn !== PlayerTurn.Opponent) return;
 
-    const damage = calculateDamage(opponentPokemon, selectedPokemon);
+    const damage = calculateDamage(opponentPokemon, selectedPokemon );
     setSelectedPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
 
     if (selectedPokemonCurrentHp - damage <= 0) {
@@ -177,7 +177,8 @@ const FightPage = () => {
       </StyledFightHeader>
       <Autocomplete
         options={transformPokemonDataToOption(
-          myPokemonsData.filter((pokemon) => pokemon.id !== opponentPokemon.id)
+          // myPokemonsData.filter((pokemon) => pokemon.id !== opponentPokemon.id)
+          []
         )}
         inputValue={inputValue}
         onInputChange={handleInputChange}
@@ -187,13 +188,13 @@ const FightPage = () => {
       />
       <StyledFightArea>
         <PokemonFightCard
-          cardTitle={selectedPokemon.name}
-          image={selectedPokemon.imageSrc}
-          hp={selectedPokemon.hp}
+          cardTitle={selectedPokemon?.name}
+          image={selectedPokemon?.imageSrc}
+          hp={selectedPokemon?.hp}
           currentHp={selectedPokemonCurrentHp}
           playerName="You"
-          subheadText={`${selectedPokemon.id}`}
-          cornerText={`${selectedPokemon.px}px`}
+          subheadText={`${selectedPokemon?.id}`}
+          cornerText={`${selectedPokemon?.px}px`}
           topCornerIcon={strengthIcon}
           style={{
             border: turn === PlayerTurn.Player ? "2px solid red" : "none",

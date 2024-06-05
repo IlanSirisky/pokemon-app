@@ -54,7 +54,7 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
         {selectedPokemonId && !isLoading && !error && pokemonDetails && (
           <PokemonModalCard
             title={pokemonDetails.name}
-            subheadText={`#${String(pokemonDetails.id)}`}
+            subheadText={`#${pokemonDetails.id}`}
             image={pokemonDetails.image}
             description={pokemonDetails.description}
             attributes={transformPokemonDataToAttributes(pokemonDetails)}
