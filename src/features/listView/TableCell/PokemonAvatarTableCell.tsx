@@ -6,14 +6,14 @@ import { IPokemonData } from "../../../types/pokemonTypes";
 import pokeballIcon from "../../../assets/icons/pokeball.svg";
 
 interface PokemonAvatarTableCellProps {
-  row: IPokemonData;
+  row: any;
 }
 
 const PokemonAvatarTableCell = ({ row }: PokemonAvatarTableCellProps) => {
   return (
     <TitleDataCellStyle>
-      {row.avatar && (
-        <Avatar alt={row.name} image={row.avatar} size={avatarSizes.large} />
+      {row.image && (
+        <Avatar alt={row.name} image={row.image} size={avatarSizes.large} />
       )}
       <HeadingMediumRegular>{row.name}</HeadingMediumRegular>
       {row.isOwned && (

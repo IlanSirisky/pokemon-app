@@ -11,12 +11,12 @@ import TableBodyEmptyState from "./TableBodyEmptyState";
 import { TablePaginationStyle, TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
-import { IPokemonData } from "../../types/pokemonTypes";
+import { IPokemonData } from "../../types/pokemonTypes"; // fix types
 import { SxProps, Theme } from '@mui/material/styles';
 
 interface TableProps {
   columnTitles: IColumnLabels[];
-  data: IPokemonData[];
+  data: any[];
   rowPerPageOptions?: number[];
   sx?: SxProps<Theme>;
 }
@@ -50,7 +50,7 @@ const Table = ({
         <TableContainer>
           <MuiTable sx={{ minWidth: 650 }}>
             <TableHead columnTitles={columnTitles} />
-            {data.length === 0 ? (
+            {data && data.length === 0 ? (
               <TableBodyEmptyState
                 columnTitles={columnTitles}
                 text="No pokemons were found."

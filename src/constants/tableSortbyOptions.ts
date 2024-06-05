@@ -1,6 +1,7 @@
 import { SelectOptionsType } from "../types/optionsTypes";
 
 export enum SortByValues {
+  ID = "id",
   AZ = "az",
   ZA = "za",
   POWER_HIGH_TO_LOW = "powerHighToLow",
@@ -10,6 +11,7 @@ export enum SortByValues {
 }
 
 export const tableSortByOptions: SelectOptionsType[] = [
+  { value: SortByValues.ID, label: "ID" },
   { value: SortByValues.AZ, label: "Alphabetical A-Z" },
   { value: SortByValues.ZA, label: "Alphabetical Z-A" },
   { value: SortByValues.POWER_HIGH_TO_LOW, label: "Power (High to low)" },

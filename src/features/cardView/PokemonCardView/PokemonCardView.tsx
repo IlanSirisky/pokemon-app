@@ -8,7 +8,7 @@ import PokemonModalCard from "../../PokemonModalCard/PokemonModalCard";
 import { transformPokemonDataToAttributes } from "../../../utils/transformData";
 
 interface PokemonCardViewProps {
-  data: IPokemonData[];
+  data: IPokemonData[]; // fix types
 }
 
 const PokemonCardView = ({ data }: PokemonCardViewProps) => {
@@ -27,10 +27,10 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
         <PokemonBasicCard
           handleClick={() => handleOpenModal(item)}
           key={item.id}
-          subheadText={item.id}
+          subheadText={`#${item.id}`}
           cardTitle={item.name}
-          image={item.imageSrc}
-          cornerText={`${item.px}px`}
+          image={item.image}
+          cornerText={`${item.attack} atk`}
           topCornerIcon={strength}
           style={{ cursor: "pointer" }}
         />

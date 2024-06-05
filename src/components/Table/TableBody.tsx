@@ -2,7 +2,7 @@ import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
 import { DataCellStyle, DataCellWrapper } from "./styles";
 import { BodyRegular } from "../../styles/typography";
 import { IColumnLabels } from "./types";
-import { IPokemonData } from "../../types/pokemonTypes";
+import { IPokemonData } from "../../types/pokemonTypes"; // fix types
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import PokemonModalCard from "../../features/PokemonModalCard/PokemonModalCard";

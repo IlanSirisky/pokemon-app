@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPokemons } from "../../hooks/useFetchPokemonData";
 import InputField from "../../components/InpuField/InputField";
 import Table from "../../components/Table/Table";
 import Tabs from "../../components/Tabs/Tabs";
@@ -15,40 +17,39 @@ import { SelectChangeEvent } from "@mui/material";
 import { pokemonTableColumnLabels } from "../../constants/table";
 import { tableSortByOptions } from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
-import { sortData } from "../../utils/sortPokemonData";
-import { IPokemonData } from "../../types/pokemonTypes";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
 
 interface MainPageProps {
-  pokemonData: IPokemonData[];
   headerText: string;
+  isOwnedFlag?: boolean;
   style?: CSSProperties;
 }
 
-const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
+const MainPage = ({
+  isOwnedFlag = false,
+  headerText,
+  style,
+}: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
   const [sortBy, setSortBy] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
-  const [filteredData, setFilteredData] = useState(pokemonData);
+
+  const {
+    data: pokemonData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["pokemons", { isOwnedFlag, searchValue, sortBy }],
+    queryFn: () => fetchPokemons({ isOwned: isOwnedFlag, searchValue, sortBy }),
+  });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchValue(value);
-    let data = pokemonData;
-
-    if (value) {
-      data = data.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-
-    setFilteredData(data);
+    setSearchValue(event.target.value);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
-    setFilteredData(pokemonData);
   };
 
   const handleTabChange = (value: string) => {
@@ -57,7 +58,6 @@ const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
 
   const handleSortChange = (event: SelectChangeEvent<unknown>) => {
     setSortBy(event.target.value as string);
-    setFilteredData(sortData(filteredData, event.target.value as string));
   };
 
   return (
@@ -84,10 +84,14 @@ const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
           setSelectedOption={handleSortChange}
         />
       </InputToolsWrapper>
-      {selectedTab === "List" ? (
-        <Table columnTitles={pokemonTableColumnLabels} data={filteredData} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error loading data</p>
+      ) : selectedTab === "List" ? (
+        <Table columnTitles={pokemonTableColumnLabels} data={pokemonData} />
       ) : (
-        <CardView data={filteredData} />
+        <CardView data={pokemonData} />
       )}
     </MainPageWrapper>
   );
