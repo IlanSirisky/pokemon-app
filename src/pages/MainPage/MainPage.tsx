@@ -19,6 +19,7 @@ import { tableSortByOptions } from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
+import useDebouncedValue from "../../hooks/useDebouncedValue";
 
 interface MainPageProps {
   headerText: string;
@@ -35,13 +36,16 @@ const MainPage = ({
   const [sortBy, setSortBy] = useState<string>("");
   const [searchValue, setSearchValue] = useState("");
 
+  const debouncedSearchValue = useDebouncedValue(searchValue, 500);
+
   const {
     data: pokemonData,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["pokemons", { isOwnedFlag, searchValue, sortBy }],
-    queryFn: () => fetchPokemons({ isOwned: isOwnedFlag, searchValue, sortBy }),
+    queryKey: ['pokemons', { isOwnedFlag, searchValue: debouncedSearchValue, sortBy }],
+    queryFn: () => fetchPokemons({ isOwned: isOwnedFlag, searchValue: debouncedSearchValue, sortBy }),
+    enabled: debouncedSearchValue !== '',
   });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
