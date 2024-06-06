@@ -20,6 +20,7 @@ import { transformPokemonDataToOption } from "../../utils/transformData";
 import {
   calculateCatchRate,
   calculateDamage,
+  determineInitialTurn,
   getRandomPokemon,
 } from "../../utils/fightPageFunctions";
 import { PlayerTurn } from "./types";
@@ -36,10 +37,12 @@ const FightPage = () => {
   const [selectedPokemon, setSelectedPokemon] = useState<IPokemonData | null>(
     null
   );
-  const [selectedPokemonCurrentHp, setSelectedPokemonCurrentHp] = useState(0);
-  const [opponentPokemonCurrentHp, setOpponentPokemonCurrentHp] = useState(0);
+  const [selectedPokemonCurrentHp, setSelectedPokemonCurrentHp] =
+    useState<number>(0);
+  const [opponentPokemonCurrentHp, setOpponentPokemonCurrentHp] =
+    useState<number>(0);
   const [turn, setTurn] = useState<PlayerTurn>(PlayerTurn.Player);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
   const [message, setMessage] = useState<string | null>(null);
 
   const { mutate: catchPokemon } = useCatchPokemon();
@@ -69,12 +72,7 @@ const FightPage = () => {
       setSelectedPokemon(initialSelectedPokemon);
       setSelectedPokemonCurrentHp(initialSelectedPokemon.baseStats?.hp || 0);
       setOpponentPokemonCurrentHp(opponentPokemon.baseStats?.hp || 0);
-      setTurn(
-        initialSelectedPokemon.baseStats?.sp_attack >=
-          opponentPokemon.baseStats?.sp_attack
-          ? PlayerTurn.Player
-          : PlayerTurn.Opponent
-      );
+      setTurn(determineInitialTurn(initialSelectedPokemon, opponentPokemon));
     }
   }, [myPokemons, opponentPokemon]);
 
@@ -88,7 +86,7 @@ const FightPage = () => {
     ) {
       const timeout = setTimeout(() => {
         handleOpponentAttack();
-      }, 1000); // 1 second delay for opponent's attack
+      }, 1500); // 1.5 seconds delay for opponent's attack
       return () => clearTimeout(timeout);
     }
   }, [turn, isActiveFight, opponentPokemonCurrentHp, selectedPokemonCurrentHp]);
@@ -97,7 +95,7 @@ const FightPage = () => {
     setMessage(msg);
     setTimeout(() => {
       setMessage(null);
-    }, 2000);
+    }, 1500);
   };
 
   const handleStartFight = () => {
@@ -105,27 +103,19 @@ const FightPage = () => {
       setSelectedPokemonCurrentHp(selectedPokemon.baseStats?.hp || 0);
       setOpponentPokemonCurrentHp(opponentPokemon.baseStats?.hp || 0);
       setCanCatch(false);
-      setTurn(
-        selectedPokemon.baseStats?.sp_attack >=
-          opponentPokemon.baseStats?.sp_attack
-          ? PlayerTurn.Player
-          : PlayerTurn.Opponent
-      );
+      setTurn(determineInitialTurn(selectedPokemon, opponentPokemon));
       setIsActiveFight(true);
     }
   };
 
   const handlePokemonSelect = (value: string) => {
     if (myPokemons) {
-      const selected = myPokemons.find((pokemon) => pokemon.name === value);
-      if (selected) {
+      const selected =
+        myPokemons.find((pokemon) => pokemon.name === value) || null;
+      if (selected && opponentPokemon) {
         setSelectedPokemon(selected);
         setSelectedPokemonCurrentHp(selected.baseStats?.hp || 0);
-        setTurn(
-          selected.baseStats?.sp_attack >= opponentPokemon.baseStats?.sp_attack
-            ? PlayerTurn.Player
-            : PlayerTurn.Opponent
-        );
+        setTurn(determineInitialTurn(selected, opponentPokemon));
       }
     }
   };
@@ -238,19 +228,21 @@ const FightPage = () => {
         placeholder="Choose a Pokemon"
       />
       <StyledFightArea>
-        <PokemonFightCard
-          cardTitle={selectedPokemon?.name}
-          image={selectedPokemon?.image}
-          hp={selectedPokemon?.baseStats?.hp}
-          currentHp={selectedPokemonCurrentHp}
-          playerName="You"
-          subheadText={`#${selectedPokemon?.id}`}
-          cornerText={`${selectedPokemon?.baseStats?.attack}atk`}
-          topCornerIcon={strengthIcon}
-          style={{
-            border: turn === PlayerTurn.Player ? "2px solid red" : "none",
-          }}
-        />
+        {selectedPokemon && (
+          <PokemonFightCard
+            cardTitle={selectedPokemon?.name}
+            image={selectedPokemon?.image}
+            hp={selectedPokemon?.baseStats?.hp || 0}
+            currentHp={selectedPokemonCurrentHp}
+            playerName="You"
+            subheadText={`#${selectedPokemon?.id}`}
+            cornerText={`${selectedPokemon?.baseStats?.attack}atk`}
+            topCornerIcon={strengthIcon}
+            style={{
+              border: turn === PlayerTurn.Player ? "2px solid red" : "none",
+            }}
+          />
+        )}
         {isActiveFight ? (
           <FightActionWrapper>
             <Button
@@ -281,19 +273,21 @@ const FightPage = () => {
             </Button>
           </>
         )}
-        <PokemonFightCard
-          cardTitle={opponentPokemon?.name}
-          image={opponentPokemon?.image}
-          hp={opponentPokemon?.baseStats?.hp}
-          currentHp={opponentPokemonCurrentHp}
-          playerName="Enemy"
-          subheadText={`#${opponentPokemon?.id}`}
-          cornerText={`${opponentPokemon?.baseStats?.attack}atk`}
-          topCornerIcon={strengthIcon}
-          style={{
-            border: turn === PlayerTurn.Opponent ? "2px solid red" : "none",
-          }}
-        />
+        {opponentPokemon && (
+          <PokemonFightCard
+            cardTitle={opponentPokemon?.name}
+            image={opponentPokemon?.image}
+            hp={opponentPokemon?.baseStats?.hp || 0}
+            currentHp={opponentPokemonCurrentHp}
+            playerName="Enemy"
+            subheadText={`#${opponentPokemon?.id}`}
+            cornerText={`${opponentPokemon?.baseStats?.attack}atk`}
+            topCornerIcon={strengthIcon}
+            style={{
+              border: turn === PlayerTurn.Opponent ? "2px solid red" : "none",
+            }}
+          />
+        )}
       </StyledFightArea>
       {message && <div style={MessageDivStyle}>{message}</div>}
     </StyledFightPageWrapper>
