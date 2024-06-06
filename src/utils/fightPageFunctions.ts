@@ -32,10 +32,10 @@ export const calculateDamage = (
   attacker: IPokemonData,
   defender: IPokemonData
 ) => {
-  const baseDamage = attacker.powerLevel * 4; // Using Pokémon's power level as initial damage
+  const baseDamage = attacker.baseStats?.power_level * 4; // Using Pokémon's power level as initial damage
   const randomFactor = Math.random() * 0.6 + 0.7; // Random factor between 0.7 and 1.3
   const typeAdvantage =
-    typeAdvantages[attacker?.type[0]][defender?.type[0]] || 1; // Type advantage multiplier
+    typeAdvantages[attacker.profile.types[0]][defender.profile?.types[0]] || 1; // Type advantage multiplier
   return Math.floor(baseDamage * randomFactor * typeAdvantage); // Ensure damage is an integer
 };
 
