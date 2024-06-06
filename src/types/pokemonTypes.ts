@@ -1,29 +1,30 @@
 export interface IPokemonData {
-  id: string;
-  type: PokemonType[];
+  id: number;
   name: string;
-  avatar: string;
-  imageSrc: string;
-  description: string;
-  stats: IPokemonPhysicalStats;
-  powerLevel: PowerLevelType;
   isOwned: boolean;
+  description: string;
+  image: string;
+  profile: Profile | null;
+  baseStats: BaseStats | null;
+}
+
+export interface Profile {
+  pokemon_id: number;
+  height: string;
+  weight: string;
+  ability: string[];
+  types: PokemonType[];
+}
+
+export interface BaseStats {
+  pokemon_id: number;
   hp: number;
-  px: number;
-  abilities: string[];
-}
-
-export interface IPokemonPhysicalStats {
-  height: number;
-  weight: number;
-}
-
-export enum PowerLevelType {
-  "Power Level 1" = 1,
-  "Power Level 2" = 2,
-  "Power Level 3" = 3,
-  "Power Level 4" = 4,
-  "Power Level 5" = 5,
+  attack: number;
+  defense: number;
+  sp_attack: number;
+  sp_defense: number;
+  speed: number;
+  power_level: number;
 }
 
 export type PokemonType =

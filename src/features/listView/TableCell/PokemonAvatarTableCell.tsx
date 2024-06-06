@@ -6,7 +6,7 @@ import { IPokemonData } from "../../../types/pokemonTypes";
 import pokeballIcon from "../../../assets/icons/pokeball.svg";
 
 interface PokemonAvatarTableCellProps {
-  row: any;
+  row: IPokemonData;
 }
 
 const PokemonAvatarTableCell = ({ row }: PokemonAvatarTableCellProps) => {

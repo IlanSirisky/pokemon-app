@@ -1,5 +1,6 @@
 import axios from "axios";
 import { SortByValues } from "../constants/tableSortbyOptions";
+import { IPokemonData } from "../types/pokemonTypes";
 
 const URL = "http://localhost:3000/api";
 
@@ -11,7 +12,7 @@ export const fetchPokemons = async ({
   isOwned: boolean;
   searchValue: string;
   sortBy: SortByValues | "";
-}) => {
+}): Promise<IPokemonData[]> => {
   const endpoint = isOwned
     ? "/search-pokemons?isOwned=true"
     : "/search-pokemons";

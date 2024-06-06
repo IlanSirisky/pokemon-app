@@ -25,6 +25,6 @@ export const pokemonTableColumnLabels: IColumnLabels[] = [
     padding: `0 ${cssSpacings.s120} 0 0`,
     width: "40%",
   },
-  { value: "power_level", label: "Power level", padding: "0", width: "10%" },
-  { value: "hp", label: "HP level", padding: "0", width: "10%" },
+  { value: "baseStats.power_level", label: "Power level", padding: "0", width: "10%" },
+  { value: "baseStats.hp", label: "HP level", padding: "0", width: "10%" },
 ];

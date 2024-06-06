@@ -11,12 +11,12 @@ import TableBodyEmptyState from "./TableBodyEmptyState";
 import { TablePaginationStyle, TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
-import { IPokemonData } from "../../types/pokemonTypes"; // fix types
+import { IPokemonData } from "../../types/pokemonTypes";
 import { SxProps, Theme } from '@mui/material/styles';
 
 interface TableProps {
   columnTitles: IColumnLabels[];
-  data: any[];
+  data: IPokemonData[];
   rowPerPageOptions?: number[];
   sx?: SxProps<Theme>;
 }

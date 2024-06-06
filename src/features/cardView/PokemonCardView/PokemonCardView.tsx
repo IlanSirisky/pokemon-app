@@ -10,7 +10,7 @@ import { transformPokemonDataToAttributes } from "../../../utils/transformData";
 import { fetchPokemonById } from "../../../hooks/useFetchPokemonData";
 
 interface PokemonCardViewProps {
-  data: any[]; // fix types
+  data: IPokemonData[];
 }
 
 const PokemonCardView = ({ data }: PokemonCardViewProps) => {
@@ -42,10 +42,7 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
         <PokemonBasicCard
           handleClick={() => handleOpenModal(+item.id)}
           key={item.id}
-          subheadText={`#${item.id}`}
-          cardTitle={item.name}
-          image={item.image}
-          cornerText={`${item.attack} atk`}
+          pokemon={item}
           topCornerIcon={strength}
           style={{ cursor: "pointer" }}
         />

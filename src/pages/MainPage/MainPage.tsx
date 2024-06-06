@@ -11,7 +11,7 @@ import {
   InputToolsWrapper,
   MainPageWrapper,
 } from "./styles";
-import { HeadingLargeMedium } from "../../styles/typography";
+import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
 import { SelectChangeEvent } from "@mui/material";
 
 import { pokemonTableColumnLabels } from "../../constants/table";
@@ -102,14 +102,16 @@ const MainPage = ({
           setSelectedOption={handleSortChange}
         />
       </InputToolsWrapper>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error loading data</p>
+      {error ? (
+        <HeadingLargeBold>Error loading data</HeadingLargeBold>
+      ) : isLoading ? (
+        <HeadingLargeBold>Loading data...</HeadingLargeBold>
       ) : selectedTab === "List" ? (
-        <Table columnTitles={pokemonTableColumnLabels} data={pokemonData} />
+        pokemonData && (
+          <Table columnTitles={pokemonTableColumnLabels} data={pokemonData} />
+        )
       ) : (
-        <CardView data={pokemonData} />
+        pokemonData && <CardView data={pokemonData} />
       )}
     </MainPageWrapper>
   );

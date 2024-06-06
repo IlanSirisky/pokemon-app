@@ -3,9 +3,12 @@ import {
   StyledIdText,
   StyledPokemonImage,
   ImagePowerContainer,
+  StyledHeaderWrapper,
 } from "./styles";
 import { HeadingLargeRegular, XSmallRegular } from "../../styles/typography";
 import { CSSProperties } from "styled-components";
+import { avatarSizes } from "../../styles/stylingValues";
+import Avatar from "../Avatar/Avatar";
 
 interface CardBodyProps {
   cardTitle: string;
@@ -13,6 +16,8 @@ interface CardBodyProps {
   subheadText?: string;
   cornerText?: string;
   topCornerIcon?: string;
+  iconFlag?: boolean;
+  bottomIcon?: string;
   style?: CSSProperties;
 }
 
@@ -22,7 +27,9 @@ const CardBody = ({
   subheadText,
   cornerText,
   topCornerIcon,
-  style
+  iconFlag,
+  bottomIcon,
+  style,
 }: CardBodyProps) => {
   return (
     <>
@@ -34,7 +41,12 @@ const CardBody = ({
         </PowerContainer>
       </ImagePowerContainer>
       {subheadText && <StyledIdText>{subheadText}</StyledIdText>}
-      <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
+      <StyledHeaderWrapper>
+        <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
+        {iconFlag && bottomIcon && (
+          <Avatar image={bottomIcon} alt="pokeball" size={avatarSizes.small} />
+        )}
+      </StyledHeaderWrapper>
     </>
   );
 };

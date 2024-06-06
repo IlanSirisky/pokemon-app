@@ -6,18 +6,20 @@ export const transformPokemonDataToOption = (
   data: IPokemonData[]
 ): AutocompleteOptionsType[] => {
   return data.map((pokemon) => ({
-    value: pokemon.id,
+    value: `${pokemon.id}`,
     label: pokemon.name,
-    avatar: pokemon.avatar,
-    endText: `${pokemon.px}px`,
+    avatar: pokemon.image,
+    endText: `${pokemon.baseStats?.attack} atk`,
   }));
 };
 
-export const transformPokemonDataToAttributes = (pokemonData: any): IPokemonAttribute[] =>{
+export const transformPokemonDataToAttributes = (
+  pokemonData: IPokemonData
+): IPokemonAttribute[] => {
   return [
-    { label: 'Height', value: `${pokemonData.height}` },
-    { label: 'Weight', value: `${pokemonData.weight}` },
-    { label: 'Type', value: pokemonData.types },
-    { label: 'Abilities', value: pokemonData.abilities },
+    { label: "Height", value: `${pokemonData.profile?.height}` },
+    { label: "Weight", value: `${pokemonData.profile?.weight}` },
+    { label: "Type", value: `${pokemonData.profile?.types}` },
+    { label: "Abilities", value: `${pokemonData.profile?.ability}` },
   ];
-}
+};

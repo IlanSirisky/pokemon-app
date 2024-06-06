@@ -1,31 +1,39 @@
-import { useState } from 'react';
-import { TableBody as MuiTableBody, TableCell, TableRow } from '@mui/material';
-import { DataCellStyle, DataCellWrapper } from './styles';
-import { BodyRegular } from '../../styles/typography';
-import { IColumnLabels } from './types';
-import { IPokemonData } from '../../types/pokemonTypes'; // fix types
-import Modal from '../Modal/Modal';
-import PokemonModalCard from '../../features/PokemonModalCard/PokemonModalCard';
-import { transformPokemonDataToAttributes } from '../../utils/transformData';
-import { useQuery } from '@tanstack/react-query';
-import { fetchPokemonById } from '../../hooks/useFetchPokemonData';
+import { useState } from "react";
+import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
+import { DataCellStyle, DataCellWrapper } from "./styles";
+import { BodyRegular } from "../../styles/typography";
+import { IColumnLabels } from "./types";
+import { IPokemonData } from "../../types/pokemonTypes";
+import Modal from "../Modal/Modal";
+import PokemonModalCard from "../../features/PokemonModalCard/PokemonModalCard";
+import { transformPokemonDataToAttributes } from "../../utils/transformData";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPokemonById } from "../../hooks/useFetchPokemonData";
+import { getNestedValue } from "../../utils/getNestedValue";
 
 interface TableBodyProps {
-  data: any[]; // fix types
+  data: IPokemonData[];
   columnTitles: IColumnLabels[];
   page: number;
   rowsPerPage: number;
 }
 
-const TableBody = ({ data, columnTitles, page, rowsPerPage }: TableBodyProps) => {
-  const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(null);
+const TableBody = ({
+  data,
+  columnTitles,
+  page,
+  rowsPerPage,
+}: TableBodyProps) => {
+  const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
+    null
+  );
 
   const {
     data: pokemonDetails,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ['pokemon', selectedPokemonId],
+    queryKey: ["pokemon", selectedPokemonId],
     queryFn: () => fetchPokemonById(selectedPokemonId!),
     enabled: !!selectedPokemonId,
   });
@@ -46,15 +54,17 @@ const TableBody = ({ data, columnTitles, page, rowsPerPage }: TableBodyProps) =>
           <TableRow
             hover
             key={index}
-            onClick={() => handleOpenModal(row.id)}
-            sx={{ cursor: 'pointer' }}>
+            onClick={() => handleOpenModal(+row.id)}
+            sx={{ cursor: "pointer" }}>
             {columnTitles.map((column) => (
               <TableCell key={column.value} sx={DataCellStyle} align="left">
                 {column.component ? (
                   column.component(row)
                 ) : (
                   <DataCellWrapper>
-                    <BodyRegular>{row[column.value]}</BodyRegular>
+                    <BodyRegular>
+                      {getNestedValue(row, column.value)}
+                    </BodyRegular>
                   </DataCellWrapper>
                 )}
               </TableCell>

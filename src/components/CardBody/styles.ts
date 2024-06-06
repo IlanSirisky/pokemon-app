@@ -28,3 +28,8 @@ export const StyledPokemonImage = styled.img`
   border-radius: 2px;
   position: relative;
 `;
+
+export const StyledHeaderWrapper = styled(flexRow)`
+  gap: ${cssSpacings.s8};
+  align-items: center;
+`;

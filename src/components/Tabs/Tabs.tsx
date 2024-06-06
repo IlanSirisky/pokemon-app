@@ -16,7 +16,6 @@ interface TabsProps {
 }
 
 const Tabs = ({ tabs, activeTab, onTabChange, style }: TabsProps) => {
-
   return (
     <>
       <StyledTabs style={style}>
