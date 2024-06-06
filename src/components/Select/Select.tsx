@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { SelectChangeEvent } from "@mui/material";
 import {
   StyledInputLabel,
   StyledSelect,
@@ -7,29 +5,26 @@ import {
   StyledFormControl,
   StyledOutlinedInput,
 } from "./styles";
-import ArrowIcon from "../../assets/icons/ArrowIcon.svg";
-import ActiveArrowIcon from "../../assets/icons/ActiveArrowIcon.svg";
 import { SelectOptionsType } from "../../types/optionsTypes";
+import { SelectChangeEvent } from "@mui/material";
+import { SxProps, Theme } from '@mui/material/styles';
+
 
 interface SelectProps {
   options: SelectOptionsType[];
+  selectedOption: string;
+  setSelectedOption: (event: SelectChangeEvent<unknown>) => void;
   placeholder?: string;
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
-const Select = ({ options, placeholder = "Select", sx = {} }: SelectProps) => {
-  const [selectedOption, setselectedOption] = useState<string>("");
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    setselectedOption(event.target.value as string);
-  };
-
-  // Manage focus state to render the correct icon
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
-
+const Select = ({
+  options,
+  selectedOption,
+  setSelectedOption,
+  placeholder = "Select",
+  sx = {},
+}: SelectProps) => {
   return (
     <StyledFormControl variant="outlined" sx={sx}>
       {!selectedOption && (
@@ -37,23 +32,15 @@ const Select = ({ options, placeholder = "Select", sx = {} }: SelectProps) => {
       )}
       <StyledSelect
         value={selectedOption}
-        onChange={handleChange}
+        onChange={setSelectedOption}
         label={!selectedOption ? placeholder : ""}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         input={
           <StyledOutlinedInput label={!selectedOption ? placeholder : ""} />
         }
-        IconComponent={() => (
-          <img src={isFocused ? ActiveArrowIcon : ArrowIcon} alt="Arrow icon" />
-        )}
         displayEmpty
         notched={false}>
         {options.map((option) => (
-          <StyledMenuItem
-            key={option.value}
-            value={option.value}
-            onClick={handleBlur}>
+          <StyledMenuItem key={option.value} value={option.value}>
             {option.label}
           </StyledMenuItem>
         ))}

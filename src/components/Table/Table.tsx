@@ -1,18 +1,24 @@
 import * as React from "react";
-import { Table as MuiTable, TableContainer, Paper } from "@mui/material";
+import {
+  Table as MuiTable,
+  TableContainer,
+  Paper,
+  TablePagination,
+} from "@mui/material";
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 import TableBodyEmptyState from "./TableBodyEmptyState";
-import { TableWrapper } from "./styles";
+import { TablePaginationStyle, TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
-import CustomTablePagination from "./TablePagination";
 import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
+import { IPokemonData } from "../../types/pokemonTypes";
+import { SxProps, Theme } from '@mui/material/styles';
 
 interface TableProps {
   columnTitles: IColumnLabels[];
-  data: any[];
+  data: IPokemonData[];
   rowPerPageOptions?: number[];
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
 const Table = ({
@@ -40,14 +46,14 @@ const Table = ({
 
   return (
     <TableWrapper>
-      <Paper sx={{ width: "95%", boxShadow: "none", ...sx }}>
+      <Paper sx={{ width: "100%", boxShadow: "none", ...sx }}>
         <TableContainer>
           <MuiTable sx={{ minWidth: 650 }}>
             <TableHead columnTitles={columnTitles} />
             {data.length === 0 ? (
               <TableBodyEmptyState
                 columnTitles={columnTitles}
-                text="No pokemons exist"
+                text="No pokemons were found."
                 img={EmptySearchIcon}
               />
             ) : (
@@ -60,13 +66,18 @@ const Table = ({
             )}
           </MuiTable>
         </TableContainer>
-        <CustomTablePagination
+        <TablePagination
           rowsPerPageOptions={rowPerPageOptions}
+          component="div"
           count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to} of ${count}`
+          }
+          sx={TablePaginationStyle}
         />
       </Paper>
     </TableWrapper>

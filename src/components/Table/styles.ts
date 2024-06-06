@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
+import {
+  cssFontSizes,
+  cssFontWeights,
+  cssSpacings,
+} from "../../styles/stylingValues";
 import { COLORS } from "../../styles/colors";
 import { flexColumn, flexRow } from "../../styles/globalStyles";
 
@@ -26,6 +30,7 @@ export const ColumnCellStyle = {
 
 export const DataCellStyle = {
   padding: `${cssSpacings.s8} ${cssSpacings.s20} ${cssSpacings.s8} 0`,
+  borderBottom: `1px solid ${COLORS.Neutrals.N100}`,
 };
 
 export const TitleDataCellStyle = styled(flexRow)`
@@ -43,25 +48,26 @@ export const DataCellWrapper = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const TablePaginationWrapper = styled("div")(() => ({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  width: "100%",
-}));
+const paginationFontStyle = {
+  fontFamily: "Mulish, sans-serif",
+  fontSize: `${cssFontSizes.f12}`,
+  color: `${COLORS.Neutrals.N300}`,
+}
 
-export const TablePaginationLeft = styled("div")(() => ({
-  display: "flex",
-  alignItems: "center",
+export const TablePaginationStyle = {
   "& .MuiTablePagination-actions": {
-    display: "none",
+    color: `${COLORS.Neutrals.N300}`,
   },
-}));
-
-export const TablePaginationRight = styled("div")(() => ({
-  display: "flex",
-  alignItems: "center",
-}));
+  "& .MuiTablePagination-selectLabel": {
+    ...paginationFontStyle,
+  },
+  "& .MuiTablePagination-select": {
+    ...paginationFontStyle,
+  },
+  "& .MuiTablePagination-displayedRows": {
+    ...paginationFontStyle,
+  },
+};
 
 export const EmptyStateWrapper = styled(flexColumn)`
   align-items: center;

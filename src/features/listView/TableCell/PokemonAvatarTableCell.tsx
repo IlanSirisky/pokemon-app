@@ -3,18 +3,22 @@ import { TitleDataCellStyle } from "../../../components/Table/styles";
 import { avatarSizes } from "../../../styles/stylingValues";
 import { HeadingMediumRegular } from "../../../styles/typography";
 import { IPokemonData } from "../../../types/pokemonTypes";
+import pokeballIcon from "../../../assets/icons/pokeball.svg";
 
 interface PokemonAvatarTableCellProps {
-    row: IPokemonData;
+  row: IPokemonData;
 }
 
-const PokemonAvatarTableCell = ({row}: PokemonAvatarTableCellProps) => {
+const PokemonAvatarTableCell = ({ row }: PokemonAvatarTableCellProps) => {
   return (
     <TitleDataCellStyle>
       {row.avatar && (
         <Avatar alt={row.name} image={row.avatar} size={avatarSizes.large} />
       )}
       <HeadingMediumRegular>{row.name}</HeadingMediumRegular>
+      {row.isOwned && (
+        <Avatar image={pokeballIcon} alt="pokeball" size={avatarSizes.small} />
+      )}
     </TitleDataCellStyle>
   );
 };

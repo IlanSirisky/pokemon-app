@@ -4,12 +4,13 @@ import { COLORS, MISC_COLORS } from "../../styles/colors";
 import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
 import yellowBg from "../../assets/yellow-bg.jpeg";
+import { CSSProperties } from "react";
 
-const { Neutrals, Primary } = COLORS;
+const { Neutrals } = COLORS;
 
 export const StyledFightPageWrapper = styled(flexColumn)`
   background-color: ${Neutrals.N100};
-  padding: ${cssSpacings.s40} ${cssSpacings.s40} ${cssSpacings.s80} ${cssSpacings.s40};
+  padding: ${cssSpacings.s20} ${cssSpacings.s40};
 `;
 
 export const StyledFightHeader = styled(flexColumn)`
@@ -34,11 +35,11 @@ export const StyledFightArea = styled(flexRow)`
   background-image: url(${yellowBg});
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   width: 100%;
-  height: 100vh;
-  justify-content: space-around;
+  height: 65vh;
+  justify-content: space-evenly;
   align-items: center;
-  gap: ${cssSpacings.s80};
   border-radius: ${cssSpacings.s8};
 `;
 
@@ -64,7 +65,17 @@ export const ActiveButtonStyle = {
   boxShadow: `0px ${cssSpacings.s9} ${cssSpacings.s18} 0px ${MISC_COLORS.boxShadow}`,
 };
 
-export const DisabledButtonStyle = {
-  ...ActiveButtonStyle,
-  backgroundColor: `${Primary.P50}`,
+export const MessageDivStyle : CSSProperties = {
+  position: "absolute",
+  top: "40%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  backgroundColor: "rgba(0,0,0,0.8)",
+  color: "white",
+  padding: "20px",
+  borderRadius: "10px",
+  zIndex: 10,
+  textAlign: "center",
+  fontFamily: "Mulish",
+  fontSize: "24px",
 };

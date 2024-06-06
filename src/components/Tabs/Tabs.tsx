@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Tab from "../Tab/Tab";
 import { StyledTabs } from "./styles";
 import { CSSProperties } from "styled-components";
@@ -11,15 +10,12 @@ export interface TabOptions {
 
 interface TabsProps {
   tabs: TabOptions[];
+  activeTab: string;
+  onTabChange: (label: string) => void;
   style?: CSSProperties;
 }
 
-const Tabs = ({ tabs, style }: TabsProps) => {
-  const [activeTab, setActiveTab] = useState<string>(tabs[0].label);
-
-  const handleClick = (label: string) => {
-    setActiveTab(label);
-  };
+const Tabs = ({ tabs, activeTab, onTabChange, style }: TabsProps) => {
 
   return (
     <>
@@ -29,7 +25,7 @@ const Tabs = ({ tabs, style }: TabsProps) => {
             key={tab.label}
             {...tab}
             active={tab.label === activeTab}
-            onClick={handleClick}
+            onClick={onTabChange}
           />
         ))}
       </StyledTabs>

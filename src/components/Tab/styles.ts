@@ -12,7 +12,7 @@ export const StyledTab = styled(flexRow)<{ $isActive: boolean }>`
   height: 38px;
   justify-content: space-evenly;
   gap: ${cssSpacings.s8};
-  padding: ${cssSpacings.s4} ${cssSpacings.s8};
+  padding: 0 ${cssSpacings.s8};
   background-color: transparent;
   border-bottom: ${({ $isActive }) => ($isActive ? `2px solid black` : "none")};
 

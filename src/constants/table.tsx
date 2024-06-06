@@ -8,7 +8,7 @@ export const pokemonTableColumnLabels: IColumnLabels[] = [
   {
     value: "title",
     label: "Pokemon name",
-    padding: `0 0 0 ${cssSpacings.s70}`,
+    padding: `0 0 0 ${cssSpacings.s85}`,
     width: "30%",
     component: (row: IPokemonData) => <PokemonAvatarTableCell row={row} />,
   },

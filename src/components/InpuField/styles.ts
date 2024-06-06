@@ -34,7 +34,7 @@ export const StyledInputField = styled(TextField)`
       font-size: ${cssFontSizes.f14};
       line-height: 22px;
       color: ${Neutrals.N500};
-      padding: 10px 0;
+      padding: ${cssSpacings.s9} 0;
 
       &::placeholder {
         color: ${Neutrals.N200};
@@ -54,3 +54,10 @@ export const StyledInputField = styled(TextField)`
     }
   }
 `;
+
+export const StartIconStyle = {
+  backgroundColor: "transparent",
+  height: "38px",
+};
+
+export const EndIconStyle = { marginLeft: "auto", height: "38px" };

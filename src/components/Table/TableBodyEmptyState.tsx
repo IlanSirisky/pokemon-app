@@ -6,12 +6,14 @@ import {
   EmptyStateWrapper,
   StyledEmptySearchIcon,
 } from "./styles";
+import { SxProps, Theme } from '@mui/material/styles';
+
 
 interface TableBodyEmptyStateProps {
   columnTitles: IColumnLabels[];
   text: string;
   img?: string;
-  sx?: object;
+  sx?: SxProps<Theme>;
 }
 
 const TableBodyEmptyState = ({
