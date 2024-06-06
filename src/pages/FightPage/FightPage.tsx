@@ -60,7 +60,7 @@ const FightPage = () => {
     data: opponentPokemon,
     isLoading: opponentPokemonLoading,
     error: opponentPokemonError,
-    refetch: refetchOpponentPokemon,
+    // refetch: refetchOpponentPokemon,
   } = useQuery({
     queryKey: ["randomPokemon", false],
     queryFn: () => fetchRandomPokemon(false),
@@ -91,11 +91,11 @@ const FightPage = () => {
     }
   }, [turn, isActiveFight, opponentPokemonCurrentHp, selectedPokemonCurrentHp]);
 
-  const showMessage = (msg: string) => {
+  const showMessage = (msg: string, timeout: number) => {
     setMessage(msg);
     setTimeout(() => {
       setMessage(null);
-    }, 1500);
+    }, timeout);
   };
 
   const handleStartFight = () => {
@@ -133,6 +133,9 @@ const FightPage = () => {
       return;
 
     const damage = calculateDamage(selectedPokemon, opponentPokemon);
+    if (damage === 0) {
+      showMessage("You missed!", 1500);
+    }
     setOpponentPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
 
     if (
@@ -143,7 +146,7 @@ const FightPage = () => {
     }
 
     if (opponentPokemonCurrentHp - damage <= 0) {
-      showMessage("Opponent Pokémon is defeated!");
+      showMessage("Opponent Pokémon is defeated!", 2500);
       setOpponentPokemonCurrentHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
@@ -157,10 +160,13 @@ const FightPage = () => {
       return;
 
     const damage = calculateDamage(opponentPokemon, selectedPokemon);
+    if (damage === 0) {
+      showMessage("Opponent missed!", 1500);
+    }
     setSelectedPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
 
     if (selectedPokemonCurrentHp - damage <= 0) {
-      showMessage("Your Pokémon is defeated!");
+      showMessage("Your Pokémon is defeated!", 2500);
       setSelectedPokemonCurrentHp(-1); // Ensure health is never exactly 0
       setIsActiveFight(false);
       return;
@@ -185,19 +191,21 @@ const FightPage = () => {
       );
       const catchSuccess = Math.random() < catchRate;
       if (catchSuccess) {
-        showMessage("Caught the Pokémon!");
+        showMessage("Caught the Pokémon!", 2500);
         setIsActiveFight(false);
-        catchPokemon(opponentPokemon.id);
+        setTimeout(() => {
+          catchPokemon(opponentPokemon.id);
+        }, 2500);
       } else {
-        showMessage("Failed to catch the Pokémon.");
+        showMessage("Failed to catch the Pokémon.", 1500);
         setTurn(PlayerTurn.Opponent);
       }
     }
   };
 
-  const handleNewOpponent = () => {
-    refetchOpponentPokemon();
-  };
+  // const handleNewOpponent = () => {
+  //   refetchOpponentPokemon();
+  // };
 
   if (myPokemonsLoading || opponentPokemonLoading) {
     return <HeadingMediumRegular>Loading...</HeadingMediumRegular>;
