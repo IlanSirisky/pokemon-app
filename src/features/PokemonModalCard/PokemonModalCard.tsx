@@ -8,6 +8,7 @@ import {
   Attribute,
   CardContentWrapper,
   ModalCardTextStyles,
+  ImageWrapper,
 } from "./styles";
 import {
   BodyRegular,
@@ -45,7 +46,9 @@ const PokemonModalCard = ({
         </HeadingLargeRegular>
       </StyledHeaderContent>
       <CardContentWrapper>
-        <StyledImage src={image} alt={title} />
+        <ImageWrapper>
+          <StyledImage src={image} alt={title} />
+        </ImageWrapper>
         <ModalCardContentContainer>
           <HeadingMediumRegular style={ModalCardTextStyles.description}>
             {description}

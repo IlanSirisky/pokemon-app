@@ -33,4 +33,5 @@ export const MISC_COLORS = {
   },
   boxShadow: "#00000040",
   ModalBoxShadow: "#71787f1a",
+  cardImageBackground: "#EBEFF699",
 };

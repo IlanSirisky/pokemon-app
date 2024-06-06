@@ -48,6 +48,6 @@ export const cssFontSizes = {
 
 export const avatarSizes = {
   small: 25,
-  medium: 40,
+  medium: 45,
   large: 54,
 };

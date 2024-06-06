@@ -13,11 +13,20 @@ const PokemonAvatarTableCell = ({ row }: PokemonAvatarTableCellProps) => {
   return (
     <TitleDataCellStyle>
       {row.image && (
-        <Avatar alt={row.name} image={row.image} size={avatarSizes.large} />
+        <Avatar
+          alt={row.name}
+          image={row.image}
+          avatarSize={avatarSizes.medium}
+          wrapperSize={avatarSizes.large}
+        />
       )}
       <HeadingMediumRegular>{row.name}</HeadingMediumRegular>
       {row.isOwned && (
-        <Avatar image={pokeballIcon} alt="pokeball" size={avatarSizes.small} />
+        <Avatar
+          image={pokeballIcon}
+          alt="pokeball"
+          avatarSize={avatarSizes.small}
+        />
       )}
     </TitleDataCellStyle>
   );

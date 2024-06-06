@@ -247,7 +247,8 @@ const FightPage = () => {
             cornerText={`${selectedPokemon?.baseStats?.attack}atk`}
             topCornerIcon={strengthIcon}
             style={{
-              border: turn === PlayerTurn.Player ? "2px solid red" : "none",
+              boxShadow:
+                turn === PlayerTurn.Player ? "0px 0px 0px 2px red" : "none",
             }}
           />
         )}
@@ -292,7 +293,8 @@ const FightPage = () => {
             cornerText={`${opponentPokemon?.baseStats?.attack}atk`}
             topCornerIcon={strengthIcon}
             style={{
-              border: turn === PlayerTurn.Opponent ? "2px solid red" : "none",
+              boxShadow:
+                turn === PlayerTurn.Opponent ? "0px 0px 0px 2px red" : "none",
             }}
           />
         )}

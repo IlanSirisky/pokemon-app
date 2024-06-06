@@ -22,8 +22,15 @@ export const CardContentWrapper = styled(flexColumn)`
   border-radius: ${cssSpacings.s8};
 `;
 
+export const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const StyledImage = styled.img`
-  height: 158px;
+  width: 180px;
+  height: 160px;
 `;
 
 export const ModalCardContentContainer = styled(flexColumn)`

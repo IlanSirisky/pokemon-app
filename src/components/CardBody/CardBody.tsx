@@ -44,7 +44,11 @@ const CardBody = ({
       <StyledHeaderWrapper>
         <HeadingLargeRegular>{cardTitle}</HeadingLargeRegular>
         {iconFlag && bottomIcon && (
-          <Avatar image={bottomIcon} alt="pokeball" size={avatarSizes.small} />
+          <Avatar
+            image={bottomIcon}
+            alt="pokeball"
+            avatarSize={avatarSizes.small}
+          />
         )}
       </StyledHeaderWrapper>
     </>

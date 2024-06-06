@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { IPokemonData } from "../../../types/pokemonTypes";
 import PokemonBasicCard from "../PokemonBasicCard/PokemonBasicCard";
 import strength from "../../../assets/icons/strength.svg";
-import { CardViewContainer } from "./styles";
+import { CardViewContainer, CardWrapper } from "./styles";
 import Modal from "../../../components/Modal/Modal";
 import PokemonModalCard from "../../PokemonModalCard/PokemonModalCard";
 import { transformPokemonDataToAttributes } from "../../../utils/transformData";
@@ -39,13 +39,14 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
   return (
     <CardViewContainer>
       {data.map((item) => (
-        <PokemonBasicCard
-          handleClick={() => handleOpenModal(+item.id)}
-          key={item.id}
-          pokemon={item}
-          topCornerIcon={strength}
-          style={{ cursor: "pointer" }}
-        />
+        <CardWrapper key={item.id}>
+          <PokemonBasicCard
+            handleClick={() => handleOpenModal(+item.id)} 
+            pokemon={item}
+            topCornerIcon={strength}
+            style={{ cursor: "pointer" }}
+          />
+        </CardWrapper>
       ))}
       <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
         {selectedPokemonId && !isLoading && !error && pokemonDetails && (
