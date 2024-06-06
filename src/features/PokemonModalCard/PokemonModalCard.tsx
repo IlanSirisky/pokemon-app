@@ -60,10 +60,14 @@ const PokemonModalCard = ({
                 <BodyRegular style={ModalCardTextStyles.attributeLabel}>
                   {attr.label}
                 </BodyRegular>
-                <HeadingMediumRegular
-                  style={ModalCardTextStyles.attributeValue}>
-                  {attr.value}
-                </HeadingMediumRegular>
+                {attr.value.split(',').map((val, index) => (
+                  <HeadingMediumRegular
+                    key={index}
+                    style={ModalCardTextStyles.attributeValue}
+                  >
+                    {val.trim()}
+                  </HeadingMediumRegular>
+                ))}
               </Attribute>
             ))}
           </AttributesContainer>
