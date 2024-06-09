@@ -5,11 +5,17 @@ import { COLORS } from "../../styles/colors";
 
 const { Neutrals, Primary } = COLORS;
 
-export const StyledNavBar = styled(flexRow)`
+export const StyledNavBar = styled(flexRow)<{ $isVisible: boolean }>`
   justify-content: space-between;
   align-items: center;
   padding: ${cssSpacings.s12} 40px;
   background-color: ${Neutrals.White};
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 1px ${COLORS.Neutrals.N100};
+  transform: ${({ $isVisible }) => ($isVisible ? 'translateY(0)' : 'translateY(-100%)')};
+  transition: transform 0.3s ease-in-out;
 `;
 
 export const StyledMenu = styled(flexRow)`
