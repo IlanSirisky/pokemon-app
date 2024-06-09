@@ -7,7 +7,6 @@ import {
   ActiveButtonStyle,
 } from "./styles";
 import { INavBarOptions } from "./types";
-import { useCallback, useEffect, useState } from "react";
 
 interface NavBarProps {
   pathOptions: INavBarOptions[];
@@ -17,35 +16,9 @@ interface NavBarProps {
 
 const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
   const location = useLocation();
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const controlNavbar = useCallback(() => {
-    if (typeof window !== "undefined") {
-      if (window.scrollY > lastScrollY) {
-        // if scrolling down
-        setIsVisible(false);
-      } else {
-        // if scrolling up
-        setIsVisible(true);
-      }
-      setLastScrollY(window.scrollY);
-    }
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", controlNavbar);
-
-      // cleanup function
-      return () => {
-        window.removeEventListener("scroll", controlNavbar);
-      };
-    }
-  }, [lastScrollY, controlNavbar]);
 
   return (
-    <StyledNavBar $isVisible={isVisible}>
+    <StyledNavBar>
       <StyledMenu>
         <Link to="/">
           <img src={headerImage} alt="Header image" />
