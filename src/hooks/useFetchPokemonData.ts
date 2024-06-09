@@ -9,11 +9,15 @@ export const fetchPokemons = async ({
   isOwned,
   searchValue,
   sortBy,
+  page,
+  limit,
 }: {
   isOwned: boolean;
   searchValue: string;
   sortBy: SortByValues | "";
-}): Promise<IPokemonData[]> => {
+  page: number;
+  limit: number;
+}): Promise<{ pokemons: IPokemonData[]; totalCount: number }> => {
   try {
     const endpoint = isOwned
       ? "/search-pokemons?isOwned=true"
@@ -22,6 +26,8 @@ export const fetchPokemons = async ({
       params: {
         q: searchValue,
         sortBy,
+        page,
+        limit,
       },
     });
     return response.data;

@@ -14,16 +14,9 @@ import { getNestedValue } from "../../utils/getNestedValue";
 interface TableBodyProps {
   data: IPokemonData[];
   columnTitles: IColumnLabels[];
-  page: number;
-  rowsPerPage: number;
 }
 
-const TableBody = ({
-  data,
-  columnTitles,
-  page,
-  rowsPerPage,
-}: TableBodyProps) => {
+const TableBody = ({ data, columnTitles }: TableBodyProps) => {
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
     null
   );
@@ -48,29 +41,25 @@ const TableBody = ({
 
   return (
     <MuiTableBody>
-      {data
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row, index) => (
-          <TableRow
-            hover
-            key={index}
-            onClick={() => handleOpenModal(+row.id)}
-            sx={{ cursor: "pointer" }}>
-            {columnTitles.map((column) => (
-              <TableCell key={column.value} sx={DataCellStyle} align="left">
-                {column.component ? (
-                  column.component(row)
-                ) : (
-                  <DataCellWrapper>
-                    <BodyRegular>
-                      {getNestedValue(row, column.value)}
-                    </BodyRegular>
-                  </DataCellWrapper>
-                )}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
+      {data.map((row, index) => (
+        <TableRow
+          hover
+          key={index}
+          onClick={() => handleOpenModal(+row.id)}
+          sx={{ cursor: "pointer" }}>
+          {columnTitles.map((column) => (
+            <TableCell key={column.value} sx={DataCellStyle} align="left">
+              {column.component ? (
+                column.component(row)
+              ) : (
+                <DataCellWrapper>
+                  <BodyRegular>{getNestedValue(row, column.value)}</BodyRegular>
+                </DataCellWrapper>
+              )}
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
       <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
         {selectedPokemonId && !isLoading && !error && pokemonDetails && (
           <PokemonModalCard

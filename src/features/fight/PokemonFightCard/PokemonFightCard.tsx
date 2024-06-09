@@ -48,6 +48,7 @@ const PokemonFightCard = ({
         subheadText={subheadText}
         cornerText={cornerText}
         topCornerIcon={topCornerIcon}
+        style={{ width: "290px" }}
       />
       <HPContainer>
         <ThemeProvider theme={healthBarTheme}>

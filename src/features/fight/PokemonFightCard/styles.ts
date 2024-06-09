@@ -9,13 +9,14 @@ export const StyledFightCard = styled(StyledBasicCard)`
   align-items: center;
   height: 350px;
   gap: ${cssSpacings.s8};
+  padding:  ${cssSpacings.s30} ${cssSpacings.s40} ${cssSpacings.s20} ${cssSpacings.s40};
 `;
 
 export const HPContainer = styled(flexColumn)`
   display: flex;
   gap: ${cssSpacings.s4};
   height: ${cssSpacings.s40};
-  width: 70%;
+  width: 90%;
   align-items: center;
 `;
 

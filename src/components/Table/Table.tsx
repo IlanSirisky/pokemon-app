@@ -12,13 +12,18 @@ import { TablePaginationStyle, TableWrapper } from "./styles";
 import { IColumnLabels } from "./types";
 import EmptySearchIcon from "../../assets/icons/EmptySearch.svg";
 import { IPokemonData } from "../../types/pokemonTypes";
-import { SxProps, Theme } from '@mui/material/styles';
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface TableProps {
   columnTitles: IColumnLabels[];
   data: IPokemonData[];
   rowPerPageOptions?: number[];
   sx?: SxProps<Theme>;
+  rowsPerPage: number;
+  page: number;
+  count: number;
+  onPageChange: (event: unknown, newPage: number) => void;
+  onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Table = ({
@@ -26,24 +31,12 @@ const Table = ({
   data,
   rowPerPageOptions = [5, 10, 20],
   sx = {},
+  rowsPerPage,
+  page,
+  count,
+  onPageChange,
+  onRowsPerPageChange,
 }: TableProps) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(rowPerPageOptions[0]);
-
-  const handleChangePage = (
-    _event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
     <TableWrapper>
       <Paper sx={{ width: "100%", boxShadow: "none", ...sx }}>
@@ -57,23 +50,18 @@ const Table = ({
                 img={EmptySearchIcon}
               />
             ) : (
-              <TableBody
-                data={data}
-                columnTitles={columnTitles}
-                page={page}
-                rowsPerPage={rowsPerPage}
-              />
+              <TableBody data={data} columnTitles={columnTitles} />
             )}
           </MuiTable>
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={rowPerPageOptions}
           component="div"
-          count={data.length}
+          count={count}
           rowsPerPage={rowsPerPage}
           page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+          onPageChange={onPageChange}
+          onRowsPerPageChange={onRowsPerPageChange}
           labelDisplayedRows={({ from, to, count }) =>
             `${from}-${to} of ${count}`
           }

@@ -38,6 +38,8 @@ const MainPage = ({
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
   const [sortBy, setSortBy] = useState<SortByValues | "">("");
   const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const debouncedSearchValue = useDebouncedValue(searchValue, 500);
 
@@ -52,6 +54,8 @@ const MainPage = ({
         isOwnedFlag,
         searchValue: debouncedSearchValue,
         sortBy: sortBy || SortByValues.ID,
+        page,
+        limit: rowsPerPage,
       },
     ],
     queryFn: () =>
@@ -59,15 +63,19 @@ const MainPage = ({
         isOwned: isOwnedFlag,
         searchValue: debouncedSearchValue,
         sortBy: sortBy || SortByValues.ID,
+        page,
+        limit: rowsPerPage,
       }),
   });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
+    setPage(1);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
+    setPage(1);
   };
 
   const handleTabChange = (value: string) => {
@@ -76,6 +84,18 @@ const MainPage = ({
 
   const handleSortChange = (event: SelectChangeEvent<unknown>) => {
     setSortBy(event.target.value as SortByValues);
+    setPage(1);
+  };
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage + 1);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
   };
 
   return (
@@ -108,10 +128,19 @@ const MainPage = ({
         <HeadingLargeBold>Loading data...</HeadingLargeBold>
       ) : selectedTab === "List" ? (
         pokemonData && (
-          <Table columnTitles={pokemonTableColumnLabels} data={pokemonData} />
+          <Table
+            columnTitles={pokemonTableColumnLabels}
+            data={pokemonData.pokemons}
+            rowPerPageOptions={[5, 10, 20]}
+            rowsPerPage={rowsPerPage}
+            page={page - 1}
+            count={pokemonData.totalCount}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         )
       ) : (
-        pokemonData && <CardView data={pokemonData} />
+        pokemonData && <CardView data={pokemonData.pokemons} />
       )}
     </MainPageWrapper>
   );
