@@ -3,17 +3,33 @@ import { useQuery } from "@tanstack/react-query";
 import { IPokemonData } from "../../../types/pokemonTypes";
 import PokemonBasicCard from "../PokemonBasicCard/PokemonBasicCard";
 import strength from "../../../assets/icons/strength.svg";
-import { CardViewContainer, CardWrapper } from "./styles";
+import {
+  CardViewContainer,
+  CardWrapper,
+  PaginationStyle,
+  PaginationWrapper,
+} from "./styles";
 import Modal from "../../../components/Modal/Modal";
 import PokemonModalCard from "../../PokemonModalCard/PokemonModalCard";
 import { transformPokemonDataToAttributes } from "../../../utils/transformData";
 import { fetchPokemonById } from "../../../hooks/useFetchPokemonData";
+import Pagination from "@mui/material/Pagination";
 
 interface PokemonCardViewProps {
   data: IPokemonData[];
+  totalCount: number;
+  rowsPerPage: number;
+  page: number;
+  onPageChange: (event: React.ChangeEvent<unknown>, newPage: number) => void;
 }
 
-const PokemonCardView = ({ data }: PokemonCardViewProps) => {
+const PokemonCardView = ({
+  data,
+  totalCount,
+  rowsPerPage,
+  page,
+  onPageChange,
+}: PokemonCardViewProps) => {
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
     null
   );
@@ -37,31 +53,41 @@ const PokemonCardView = ({ data }: PokemonCardViewProps) => {
   };
 
   return (
-    <CardViewContainer>
-      {data.map((item) => (
-        <CardWrapper key={item.id}>
-          <PokemonBasicCard
-            handleClick={() => handleOpenModal(+item.id)} 
-            pokemon={item}
-            topCornerIcon={strength}
-            style={{ cursor: "pointer" }}
-          />
-        </CardWrapper>
-      ))}
-      <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
-        {selectedPokemonId && !isLoading && !error && pokemonDetails && (
-          <PokemonModalCard
-            title={pokemonDetails.name}
-            subheadText={`#${pokemonDetails.id}`}
-            image={pokemonDetails.image}
-            description={pokemonDetails.description}
-            attributes={transformPokemonDataToAttributes(pokemonDetails)}
-          />
-        )}
-        {isLoading && <p>Loading...</p>}
-        {error && <p>Error loading data</p>}
-      </Modal>
-    </CardViewContainer>
+    <>
+      <CardViewContainer>
+        {data.map((item) => (
+          <CardWrapper key={item.id}>
+            <PokemonBasicCard
+              handleClick={() => handleOpenModal(+item.id)}
+              pokemon={item}
+              topCornerIcon={strength}
+              style={{ cursor: "pointer" }}
+            />
+          </CardWrapper>
+        ))}
+        <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
+          {selectedPokemonId && !isLoading && !error && pokemonDetails && (
+            <PokemonModalCard
+              title={pokemonDetails.name}
+              subheadText={`#${pokemonDetails.id}`}
+              image={pokemonDetails.image}
+              description={pokemonDetails.description}
+              attributes={transformPokemonDataToAttributes(pokemonDetails)}
+            />
+          )}
+          {isLoading && <p>Loading...</p>}
+          {error && <p>Error loading data</p>}
+        </Modal>
+      </CardViewContainer>
+      <PaginationWrapper>
+        <Pagination
+          count={Math.ceil(totalCount / rowsPerPage)}
+          page={page}
+          onChange={onPageChange}
+          sx={PaginationStyle}
+        />
+      </PaginationWrapper>
+    </>
   );
 };
 
