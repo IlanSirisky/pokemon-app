@@ -13,7 +13,7 @@ export const transformPokemonDataToOption = (
   }));
 };
 
-export const transformPokemonDataToAttributes = (
+export const transformPokemonDataToProfileAttributes = (
   pokemonData: IPokemonData
 ): IPokemonAttribute[] => {
   return [
@@ -21,5 +21,16 @@ export const transformPokemonDataToAttributes = (
     { label: "Weight", value: `${pokemonData.profile?.weight}` },
     { label: "Type", value: `${pokemonData.profile?.types}` },
     { label: "Abilities", value: `${pokemonData.profile?.ability}` },
+  ];
+};
+
+export const transformPokemonDataToStatsAttributes = (
+  pokemonData: IPokemonData
+): IPokemonAttribute[] => {
+  return [
+    { label: "HP", value: `${pokemonData.baseStats?.hp}` },
+    { label: "Attack", value: `${pokemonData.baseStats?.attack}` },
+    { label: "Defense", value: `${pokemonData.baseStats?.defense}` },
+    { label: "Speed", value: `${pokemonData.baseStats?.speed}` },
   ];
 };

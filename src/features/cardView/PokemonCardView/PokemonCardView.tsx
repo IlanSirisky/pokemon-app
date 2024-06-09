@@ -11,7 +11,10 @@ import {
 } from "./styles";
 import Modal from "../../../components/Modal/Modal";
 import PokemonModalCard from "../../PokemonModalCard/PokemonModalCard";
-import { transformPokemonDataToAttributes } from "../../../utils/transformData";
+import {
+  transformPokemonDataToProfileAttributes,
+  transformPokemonDataToStatsAttributes,
+} from "../../../utils/transformData";
 import { fetchPokemonById } from "../../../hooks/useFetchPokemonData";
 import Pagination from "@mui/material/Pagination";
 
@@ -72,7 +75,12 @@ const PokemonCardView = ({
               subheadText={`#${pokemonDetails.id}`}
               image={pokemonDetails.image}
               description={pokemonDetails.description}
-              attributes={transformPokemonDataToAttributes(pokemonDetails)}
+              profileAttributes={transformPokemonDataToProfileAttributes(
+                pokemonDetails
+              )}
+              statsAttributes={transformPokemonDataToStatsAttributes(
+                pokemonDetails
+              )}
             />
           )}
           {isLoading && <p>Loading...</p>}

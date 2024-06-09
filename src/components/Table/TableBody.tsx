@@ -6,10 +6,13 @@ import { IColumnLabels } from "./types";
 import { IPokemonData } from "../../types/pokemonTypes";
 import Modal from "../Modal/Modal";
 import PokemonModalCard from "../../features/PokemonModalCard/PokemonModalCard";
-import { transformPokemonDataToAttributes } from "../../utils/transformData";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPokemonById } from "../../hooks/useFetchPokemonData";
 import { getNestedValue } from "../../utils/getNestedValue";
+import {
+  transformPokemonDataToProfileAttributes,
+  transformPokemonDataToStatsAttributes,
+} from "../../utils/transformData";
 
 interface TableBodyProps {
   data: IPokemonData[];
@@ -67,7 +70,12 @@ const TableBody = ({ data, columnTitles }: TableBodyProps) => {
             subheadText={`#${pokemonDetails.id}`}
             image={pokemonDetails.image}
             description={pokemonDetails.description}
-            attributes={transformPokemonDataToAttributes(pokemonDetails)}
+            profileAttributes={transformPokemonDataToProfileAttributes(
+              pokemonDetails
+            )}
+            statsAttributes={transformPokemonDataToStatsAttributes(
+              pokemonDetails
+            )}
           />
         )}
         {isLoading && <p>Loading...</p>}

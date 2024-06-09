@@ -5,10 +5,11 @@ import {
   StyledImage,
   AttributesContainer,
   ModalCardContentContainer,
-  Attribute,
   CardContentWrapper,
   ModalCardTextStyles,
   ImageWrapper,
+  ProfileAttribute,
+  StatAttribute,
 } from "./styles";
 import {
   BodyRegular,
@@ -23,7 +24,8 @@ interface PokemonModalCardProps {
   subheadText: string;
   image: string;
   description: string;
-  attributes: IPokemonAttribute[];
+  profileAttributes?: IPokemonAttribute[];
+  statsAttributes?: IPokemonAttribute[];
   style?: CSSProperties;
 }
 
@@ -32,7 +34,8 @@ const PokemonModalCard = ({
   subheadText,
   image,
   description,
-  attributes,
+  profileAttributes,
+  statsAttributes,
   style,
 }: PokemonModalCardProps) => {
   return (
@@ -55,20 +58,33 @@ const PokemonModalCard = ({
           </HeadingMediumRegular>
           <hr style={ModalCardTextStyles.hr} />
           <AttributesContainer>
-            {attributes.map((attr) => (
-              <Attribute key={attr.label}>
+            {statsAttributes?.map((attr) => (
+              <StatAttribute key={attr.label}>
+                <BodyRegular style={ModalCardTextStyles.attributeLabel}>
+                  {attr.label}:
+                </BodyRegular>
+                <HeadingMediumRegular
+                  style={ModalCardTextStyles.attributeValue}>
+                  {attr.value}
+                </HeadingMediumRegular>
+              </StatAttribute>
+            ))}
+          </AttributesContainer>
+          <hr style={ModalCardTextStyles.hr} />
+          <AttributesContainer>
+            {profileAttributes?.map((attr) => (
+              <ProfileAttribute key={attr.label}>
                 <BodyRegular style={ModalCardTextStyles.attributeLabel}>
                   {attr.label}
                 </BodyRegular>
-                {attr.value.split(',').map((val, index) => (
+                {attr.value.split(",").map((val, index) => (
                   <HeadingMediumRegular
                     key={index}
-                    style={ModalCardTextStyles.attributeValue}
-                  >
+                    style={ModalCardTextStyles.attributeValue}>
                     {val.trim()}
                   </HeadingMediumRegular>
                 ))}
-              </Attribute>
+              </ProfileAttribute>
             ))}
           </AttributesContainer>
         </ModalCardContentContainer>
