@@ -13,7 +13,6 @@ import {
 } from "./styles";
 import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
 import { SelectChangeEvent } from "@mui/material";
-
 import { pokemonTableColumnLabels } from "../../constants/table";
 import {
   SortByValues,
@@ -23,6 +22,8 @@ import { tabsOptions } from "../../constants/tabs";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
 import useDebouncedValue from "../../hooks/useDebouncedValue";
+// import SkeletonTable from "../../components/Table/skeletonTable";
+// import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
 
 interface MainPageProps {
   headerText: string;
@@ -132,6 +133,11 @@ const MainPage = ({
       {error ? (
         <HeadingLargeBold>Error loading data</HeadingLargeBold>
       ) : isLoading ? (
+        // selectedTab === "List" ? (
+        //   <SkeletonTable />
+        // ) : (
+        //   <SkeletonCardView itemsPerPage={itemsPerPage}/>
+        // )
         <HeadingLargeBold>Loading data...</HeadingLargeBold>
       ) : selectedTab === "List" ? (
         pokemonData && (
