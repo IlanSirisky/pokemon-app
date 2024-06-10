@@ -17,19 +17,14 @@ import Button from "../../components/Button/Button";
 import { useState, useEffect } from "react";
 import { IPokemonData } from "../../types/pokemonTypes";
 import { transformPokemonDataToOption } from "../../utils/transformData";
-import {
-  calculateCatchRate,
-  calculateDamage,
-  determineInitialTurn,
-  getRandomPokemon,
-} from "../../utils/fightPageFunctions";
 import { PlayerTurn } from "./types";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchMyPokemons,
   fetchRandomPokemon,
 } from "../../hooks/useFetchPokemonData";
-import { useCatchPokemon } from "../../hooks/useCatchPokemon";
+import { useHandleFight, useCatchPokemon } from "../../hooks/useHandleFight";
+import { determineInitialTurn } from "../../utils/fightPageFunctions";
 
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
@@ -46,6 +41,8 @@ const FightPage = () => {
   const [message, setMessage] = useState<string | null>(null);
 
   const { mutate: catchPokemon } = useCatchPokemon();
+  const { startFightMutation, playerAttackMutation, opponentAttackMutation } =
+    useHandleFight();
 
   const {
     data: myPokemons,
@@ -60,21 +57,28 @@ const FightPage = () => {
     data: opponentPokemon,
     isLoading: opponentPokemonLoading,
     error: opponentPokemonError,
-    // refetch: refetchOpponentPokemon,
   } = useQuery({
     queryKey: ["randomPokemon", false],
     queryFn: () => fetchRandomPokemon(false),
   });
 
+  const {
+    data: randomOwnedPokemon,
+    isLoading: randomOwnedPokemonLoading,
+    error: randomOwnedPokemonError,
+  } = useQuery({
+    queryKey: ["randomPokemon", true],
+    queryFn: () => fetchRandomPokemon(true),
+  });
+
   useEffect(() => {
-    if (myPokemons && opponentPokemon) {
-      const initialSelectedPokemon = getRandomPokemon(myPokemons);
-      setSelectedPokemon(initialSelectedPokemon);
-      setSelectedPokemonCurrentHp(initialSelectedPokemon.baseStats?.hp || 0);
+    if (randomOwnedPokemon && opponentPokemon) {
+      setSelectedPokemon(randomOwnedPokemon);
+      setSelectedPokemonCurrentHp(randomOwnedPokemon.baseStats?.hp || 0);
       setOpponentPokemonCurrentHp(opponentPokemon.baseStats?.hp || 0);
-      setTurn(determineInitialTurn(initialSelectedPokemon, opponentPokemon));
+      setTurn(determineInitialTurn(randomOwnedPokemon, opponentPokemon));
     }
-  }, [myPokemons, opponentPokemon]);
+  }, [randomOwnedPokemon, opponentPokemon]);
 
   useEffect(() => {
     if (!isActiveFight) return;
@@ -100,11 +104,23 @@ const FightPage = () => {
 
   const handleStartFight = () => {
     if (selectedPokemon && opponentPokemon) {
-      setSelectedPokemonCurrentHp(selectedPokemon.baseStats?.hp || 0);
-      setOpponentPokemonCurrentHp(opponentPokemon.baseStats?.hp || 0);
-      setCanCatch(false);
-      setTurn(determineInitialTurn(selectedPokemon, opponentPokemon));
-      setIsActiveFight(true);
+      startFightMutation.mutate(
+        {
+          playerPokemonId: selectedPokemon.id,
+          opponentPokemonId: opponentPokemon.id,
+        },
+        {
+          onSuccess: (data) => {
+            setSelectedPokemonCurrentHp(data.playerCurrentHp);
+            setOpponentPokemonCurrentHp(data.opponentCurrentHp);
+            setTurn(
+              determineInitialTurn(data.playerPokemon, data.opponentPokemon)
+            );
+            setIsActiveFight(true);
+            setCanCatch(false);
+          },
+        }
+      );
     }
   };
 
@@ -129,50 +145,52 @@ const FightPage = () => {
   };
 
   const handlePlayerAttack = () => {
-    if (turn !== PlayerTurn.Player || !selectedPokemon || !opponentPokemon)
-      return;
+    if (turn !== PlayerTurn.Player) return;
 
-    const damage = calculateDamage(selectedPokemon, opponentPokemon);
-    if (damage === 0) {
-      showMessage("You missed!", 1500);
-    }
-    setOpponentPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
+    playerAttackMutation.mutate(undefined, {
+      onSuccess: (data) => {
+        if (data.opponentCurrentHp <= 0) {
+          setOpponentPokemonCurrentHp(-1);
+          showMessage("Opponent Pokémon is defeated!", 2500);
+          setIsActiveFight(false);
+          return;
+        }
+        setOpponentPokemonCurrentHp(data.opponentCurrentHp);
+        setTurn(PlayerTurn.Opponent);
 
-    if (
-      opponentPokemonCurrentHp - damage <
-      0.3 * (opponentPokemon.baseStats?.hp || 0)
-    ) {
-      setCanCatch(true);
-    }
+        if (data.opponentCurrentHp === opponentPokemonCurrentHp) {
+          showMessage("Your attack missed!", 1500);
+        }
 
-    if (opponentPokemonCurrentHp - damage <= 0) {
-      showMessage("Opponent Pokémon is defeated!", 2500);
-      setOpponentPokemonCurrentHp(-1); // Ensure health is never exactly 0
-      setIsActiveFight(false);
-      return;
-    }
-
-    setTurn(PlayerTurn.Opponent);
+        if (
+          data.opponentCurrentHp <
+          0.3 * (opponentPokemon?.baseStats?.hp || 30)
+        ) {
+          setCanCatch(true);
+        }
+      },
+    });
   };
 
   const handleOpponentAttack = () => {
-    if (turn !== PlayerTurn.Opponent || !selectedPokemon || !opponentPokemon)
-      return;
+    if (turn !== PlayerTurn.Opponent) return;
 
-    const damage = calculateDamage(opponentPokemon, selectedPokemon);
-    if (damage === 0) {
-      showMessage("Opponent missed!", 1500);
-    }
-    setSelectedPokemonCurrentHp((hp) => Math.max(-1, hp - damage));
+    opponentAttackMutation.mutate(undefined, {
+      onSuccess: (data) => {
+        if (data.playerCurrentHp <= 0) {
+          setSelectedPokemonCurrentHp(-1);
+          showMessage("Your Pokémon is defeated!", 2500);
+          setIsActiveFight(false);
+          return;
+        }
+        setSelectedPokemonCurrentHp(data.playerCurrentHp);
+        setTurn(PlayerTurn.Player);
 
-    if (selectedPokemonCurrentHp - damage <= 0) {
-      showMessage("Your Pokémon is defeated!", 2500);
-      setSelectedPokemonCurrentHp(-1); // Ensure health is never exactly 0
-      setIsActiveFight(false);
-      return;
-    }
-
-    setTurn(PlayerTurn.Player);
+        if (data.playerCurrentHp === selectedPokemonCurrentHp) {
+          showMessage("Opponent's attack missed!", 1500);
+        }
+      },
+    });
   };
 
   const handleNextTurn = () => {
@@ -185,33 +203,35 @@ const FightPage = () => {
 
   const handleCatch = () => {
     if (canCatch && opponentPokemon) {
-      const catchRate = calculateCatchRate(
-        opponentPokemonCurrentHp,
-        opponentPokemon.baseStats?.hp || 0
+      catchPokemon(
+        {
+          currentHp: opponentPokemonCurrentHp,
+          maxHp: opponentPokemon.baseStats?.hp || 30,
+        },
+        {
+          onSuccess: (data) => {
+            if (data.caught) {
+              showMessage("Caught the Pokémon!", 2500);
+              setIsActiveFight(false);
+            } else {
+              showMessage("Failed to catch the Pokémon.", 1500);
+              setTurn(PlayerTurn.Opponent);
+            }
+          },
+        }
       );
-      const catchSuccess = Math.random() < catchRate;
-      if (catchSuccess) {
-        showMessage("Caught the Pokémon!", 2500);
-        setIsActiveFight(false);
-        setTimeout(() => {
-          catchPokemon(opponentPokemon.id);
-        }, 2500);
-      } else {
-        showMessage("Failed to catch the Pokémon.", 1500);
-        setTurn(PlayerTurn.Opponent);
-      }
     }
   };
 
-  // const handleNewOpponent = () => {
-  //   refetchOpponentPokemon();
-  // };
-
-  if (myPokemonsLoading || opponentPokemonLoading) {
+  if (
+    myPokemonsLoading ||
+    opponentPokemonLoading ||
+    randomOwnedPokemonLoading
+  ) {
     return <HeadingMediumRegular>Loading...</HeadingMediumRegular>;
   }
 
-  if (myPokemonsError || opponentPokemonError) {
+  if (myPokemonsError || opponentPokemonError || randomOwnedPokemonError) {
     return <HeadingMediumRegular>Error loading data</HeadingMediumRegular>;
   }
 
