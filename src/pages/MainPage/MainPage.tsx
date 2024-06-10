@@ -12,7 +12,7 @@ import {
   MainPageWrapper,
 } from "./styles";
 import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
-import { SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent, Skeleton } from "@mui/material";
 import { pokemonTableColumnLabels } from "../../constants/table";
 import {
   SortByValues,
@@ -22,8 +22,7 @@ import { tabsOptions } from "../../constants/tabs";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
 import useDebouncedValue from "../../hooks/useDebouncedValue";
-// import SkeletonTable from "../../components/Table/skeletonTable";
-// import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
+import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
 
 interface MainPageProps {
   headerText: string;
@@ -106,6 +105,25 @@ const MainPage = ({
     setPage(1);
   };
 
+  const renderError = () => (
+    <HeadingLargeBold>Error loading data</HeadingLargeBold>
+  );
+
+  const renderLoading = (selectedTab: string, itemsPerPage: number) => {
+    if (selectedTab === "List") {
+      return (
+        <Skeleton
+          variant="rectangular"
+          height={600}
+          width={"100%"}
+          sx={{ borderRadius: "8px" }}
+        />
+      );
+    } else {
+      return <SkeletonCardView itemsPerPage={itemsPerPage} />;
+    }
+  };
+
   return (
     <MainPageWrapper style={style}>
       <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
@@ -130,39 +148,32 @@ const MainPage = ({
           setSelectedOption={handleSortChange}
         />
       </InputToolsWrapper>
-      {error ? (
-        <HeadingLargeBold>Error loading data</HeadingLargeBold>
-      ) : isLoading ? (
-        // selectedTab === "List" ? (
-        //   <SkeletonTable />
-        // ) : (
-        //   <SkeletonCardView itemsPerPage={itemsPerPage}/>
-        // )
-        <HeadingLargeBold>Loading data...</HeadingLargeBold>
-      ) : selectedTab === "List" ? (
-        pokemonData && (
-          <Table
-            columnTitles={pokemonTableColumnLabels}
-            data={pokemonData.pokemons}
-            rowPerPageOptions={[5, 10, 20]}
-            rowsPerPage={itemsPerPage}
-            page={page - 1}
-            count={pokemonData.totalCount}
-            onPageChange={handleTablePageChange}
-            onRowsPerPageChange={handleChangeItemsPerPage}
-          />
-        )
-      ) : (
-        pokemonData && (
-          <CardView
-            data={pokemonData.pokemons}
-            totalCount={pokemonData.totalCount}
-            rowsPerPage={itemsPerPage}
-            page={page}
-            onPageChange={handleCardViewPageChange}
-          />
-        )
-      )}
+      {error
+        ? renderError()
+        : isLoading
+        ? renderLoading(selectedTab, itemsPerPage)
+        : selectedTab === "List"
+        ? pokemonData && (
+            <Table
+              columnTitles={pokemonTableColumnLabels}
+              data={pokemonData.pokemons}
+              rowPerPageOptions={[5, 10, 20]}
+              rowsPerPage={itemsPerPage}
+              page={page - 1}
+              count={pokemonData.totalCount}
+              onPageChange={handleTablePageChange}
+              onRowsPerPageChange={handleChangeItemsPerPage}
+            />
+          )
+        : pokemonData && (
+            <CardView
+              data={pokemonData.pokemons}
+              totalCount={pokemonData.totalCount}
+              rowsPerPage={itemsPerPage}
+              page={page}
+              onPageChange={handleCardViewPageChange}
+            />
+          )}
     </MainPageWrapper>
   );
 };
