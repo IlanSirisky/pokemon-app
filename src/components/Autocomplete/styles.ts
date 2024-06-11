@@ -35,7 +35,7 @@ export const StyledTextField = styled(TextField)(() => ({
   "& .MuiInputLabel-root.Mui-focused": {
     color: `${Neutrals.N300}`,
   },
-  minWidth: `200px !important`,
+  minWidth: `210px !important`,
   width: `auto !important`,
 }));
 
