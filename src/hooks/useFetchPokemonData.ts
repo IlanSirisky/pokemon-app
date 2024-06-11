@@ -2,7 +2,7 @@ import axios from "axios";
 import { SortByValues } from "../constants/tableSortbyOptions";
 import { IPokemonData } from "../types/pokemonTypes";
 
-const URL = "http://localhost:3000/api";
+const URL = "http://localhost:3000/api/pokemons";
 
 // fetch pokemons by isOwned flag, search value, and sortBy value
 export const fetchPokemons = async ({
@@ -24,13 +24,14 @@ export const fetchPokemons = async ({
       : "/search-pokemons";
     const response = await axios.get(URL + endpoint, {
       params: {
-        q: searchValue,
+        searchValue,
         sortBy,
         page,
         limit,
       },
     });
-    return response.data;
+    
+    return response.data.data;
   } catch (error) {
     console.error("Error fetching pokemons:", error);
     throw new Error("Failed to fetch pokemons");
@@ -40,8 +41,8 @@ export const fetchPokemons = async ({
 // fetch pokemon by id
 export const fetchPokemonById = async (id: number): Promise<IPokemonData> => {
   try {
-    const response = await axios.get(`${URL}/pokemons/${id}`);
-    return response.data;
+    const response = await axios.get(`${URL}/${id}`);
+    return response.data.data;
   } catch (error) {
     console.error(`Error fetching pokemon with ID ${id}:`, error);
     throw new Error("Failed to fetch pokemon by ID");
@@ -58,7 +59,7 @@ export const fetchRandomPokemon = async (
         isOwned,
       },
     });
-    return response.data;
+    return response.data.data;
   } catch (error) {
     console.error("Error fetching random pokemon:", error);
     throw new Error("Failed to fetch random pokemon");
@@ -66,12 +67,14 @@ export const fetchRandomPokemon = async (
 };
 
 // fetch my pokemons
-export const fetchMyPokemons = async (): Promise<IPokemonData[]> => {
+export const fetchOwnedPokemons = async (isOwned?: boolean): Promise<IPokemonData[]> => {
   try {
-    const response = await axios.get(`${URL}/pokemons/owned`);
-    return response.data;
+    const response = await axios.get(`${URL}`, {
+      params: { isOwned }
+    });
+    return response.data.data;
   } catch (error) {
-    console.error("Error fetching my pokemons:", error);
-    throw new Error("Failed to fetch my pokemons");
+    console.error("Error fetching pokemons:", error);
+    throw new Error("Failed to fetch pokemons");
   }
 };

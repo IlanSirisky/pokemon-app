@@ -20,7 +20,7 @@ import { transformPokemonDataToOption } from "../../utils/transformData";
 import { PlayerTurn } from "./types";
 import { useQuery } from "@tanstack/react-query";
 import {
-  fetchMyPokemons,
+  fetchOwnedPokemons,
   fetchRandomPokemon,
 } from "../../hooks/useFetchPokemonData";
 import { useHandleFight, useCatchPokemon } from "../../hooks/useHandleFight";
@@ -50,7 +50,7 @@ const FightPage = () => {
     error: myPokemonsError,
   } = useQuery({
     queryKey: ["myPokemons"],
-    queryFn: fetchMyPokemons,
+    queryFn: () => fetchOwnedPokemons(true),
   });
 
   const {
@@ -111,10 +111,10 @@ const FightPage = () => {
         },
         {
           onSuccess: (data) => {
-            setSelectedPokemonCurrentHp(data.playerCurrentHp);
-            setOpponentPokemonCurrentHp(data.opponentCurrentHp);
+            setSelectedPokemonCurrentHp(data.data.playerCurrentHp);
+            setOpponentPokemonCurrentHp(data.data.opponentCurrentHp);
             setTurn(
-              determineInitialTurn(data.playerPokemon, data.opponentPokemon)
+              determineInitialTurn(data.data.playerPokemon, data.data.opponentPokemon)
             );
             setIsActiveFight(true);
             setCanCatch(false);
@@ -149,21 +149,21 @@ const FightPage = () => {
 
     playerAttackMutation.mutate(undefined, {
       onSuccess: (data) => {
-        if (data.opponentCurrentHp <= 0) {
+        if (data.data.opponentCurrentHp <= 0) {
           setOpponentPokemonCurrentHp(-1);
           showMessage("Opponent Pokémon is defeated!", 2500);
           setIsActiveFight(false);
           return;
         }
-        setOpponentPokemonCurrentHp(data.opponentCurrentHp);
+        setOpponentPokemonCurrentHp(data.data.opponentCurrentHp);
         setTurn(PlayerTurn.Opponent);
 
-        if (data.opponentCurrentHp === opponentPokemonCurrentHp) {
+        if (data.data.opponentCurrentHp === opponentPokemonCurrentHp) {
           showMessage("Your attack missed!", 1500);
         }
 
         if (
-          data.opponentCurrentHp <
+          data.data.opponentCurrentHp <
           0.3 * (opponentPokemon?.baseStats?.hp || 30)
         ) {
           setCanCatch(true);
@@ -177,16 +177,16 @@ const FightPage = () => {
 
     opponentAttackMutation.mutate(undefined, {
       onSuccess: (data) => {
-        if (data.playerCurrentHp <= 0) {
+        if (data.data.playerCurrentHp <= 0) {
           setSelectedPokemonCurrentHp(-1);
           showMessage("Your Pokémon is defeated!", 2500);
           setIsActiveFight(false);
           return;
         }
-        setSelectedPokemonCurrentHp(data.playerCurrentHp);
+        setSelectedPokemonCurrentHp(data.data.playerCurrentHp);
         setTurn(PlayerTurn.Player);
 
-        if (data.playerCurrentHp === selectedPokemonCurrentHp) {
+        if (data.data.playerCurrentHp === selectedPokemonCurrentHp) {
           showMessage("Opponent's attack missed!", 1500);
         }
       },
@@ -203,14 +203,10 @@ const FightPage = () => {
 
   const handleCatch = () => {
     if (canCatch && opponentPokemon) {
-      catchPokemon(
-        {
-          currentHp: opponentPokemonCurrentHp,
-          maxHp: opponentPokemon.baseStats?.hp || 30,
-        },
+      catchPokemon(undefined,
         {
           onSuccess: (data) => {
-            if (data.caught) {
+            if (data.data.caught) {
               showMessage("Caught the Pokémon!", 2500);
               setIsActiveFight(false);
             } else {

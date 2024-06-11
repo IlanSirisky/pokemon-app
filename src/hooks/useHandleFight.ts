@@ -4,16 +4,19 @@ import { IPokemonData } from "../types/pokemonTypes";
 
 const URL = "http://localhost:3000/api/battle";
 
-interface StartFightResponse {
-  playerPokemon: IPokemonData;
-  opponentPokemon: IPokemonData;
-  playerCurrentHp: number;
-  opponentCurrentHp: number;
+interface IFightState {
+  message: string;
+  data: {
+    playerPokemon: IPokemonData;
+    opponentPokemon: IPokemonData;
+    playerCurrentHp: number;
+    opponentCurrentHp: number;
+  };
 }
 
-interface AttackResponse {
-  playerCurrentHp: number;
-  opponentCurrentHp: number;
+interface CatchResponse {
+  message: string;
+  data: { message: string; caught: boolean; pokemon?: IPokemonData };
 }
 
 export const startFight = async ({
@@ -22,28 +25,21 @@ export const startFight = async ({
 }: {
   playerPokemonId: number;
   opponentPokemonId: number;
-}): Promise<StartFightResponse> => {
-  const response = await axios.post<StartFightResponse>(
-    `${URL}/start-fight`,
-    {
-      playerPokemonId,
-      opponentPokemonId,
-    }
-  );
+}): Promise<IFightState> => {
+  const response = await axios.post<IFightState>(`${URL}/start-fight`, {
+    playerPokemonId,
+    opponentPokemonId,
+  });
   return response.data;
 };
 
-export const playerAttack = async (): Promise<AttackResponse> => {
-  const response = await axios.post<AttackResponse>(
-    `${URL}/player-attack`
-  );
+export const playerAttack = async (): Promise<IFightState> => {
+  const response = await axios.get<IFightState>(`${URL}/player-attack`);
   return response.data;
 };
 
-export const opponentAttack = async (): Promise<AttackResponse> => {
-  const response = await axios.post<AttackResponse>(
-    `${URL}/opponent-attack`
-  );
+export const opponentAttack = async (): Promise<IFightState> => {
+  const response = await axios.get<IFightState>(`${URL}/opponent-attack`);
   return response.data;
 };
 
@@ -76,14 +72,8 @@ export const useHandleFight = () => {
   };
 };
 
-const catchPokemon = async (
-  currentHp: number,
-  maxHp: number
-): Promise<{ message: string; caught: boolean; pokemon?: IPokemonData }> => {
-  const response = await axios.post(`${URL}/catch`, {
-    currentHp,
-    maxHp,
-  });
+const catchPokemon = async (): Promise<CatchResponse> => {
+  const response = await axios.get<CatchResponse>(`${URL}/catch`);
   return response.data;
 };
 
@@ -91,10 +81,9 @@ export const useCatchPokemon = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ currentHp, maxHp }: { currentHp: number; maxHp: number }) =>
-      catchPokemon(currentHp, maxHp),
+    mutationFn: catchPokemon,
     onSuccess: (data) => {
-      if (data.caught) {
+      if (data.data.caught) {
         // Invalidate and refetch queries that could be affected by this mutation
         setTimeout(() => {
           queryClient.invalidateQueries({ queryKey: ["myPokemons"] });
