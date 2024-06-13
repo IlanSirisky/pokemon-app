@@ -8,9 +8,9 @@ const URL = "http://localhost:3000/api/pokemons";
 export const fetchPokemons = async ({
   isOwned,
   searchValue,
-  sortBy,
-  page,
-  limit,
+  sortBy = SortByValues.ID,
+  page = 1,
+  limit = 10,
 }: {
   isOwned: boolean;
   searchValue: string;
@@ -30,7 +30,7 @@ export const fetchPokemons = async ({
         limit,
       },
     });
-    
+
     return response.data.data;
   } catch (error) {
     console.error("Error fetching pokemons:", error);
@@ -67,12 +67,15 @@ export const fetchRandomPokemon = async (
 };
 
 // fetch my pokemons
-export const fetchOwnedPokemons = async (isOwned?: boolean): Promise<IPokemonData[]> => {
+export const fetchOwnedPokemons = async (): Promise<IPokemonData[]> => {
   try {
-    const response = await axios.get(`${URL}`, {
-      params: { isOwned }
+    const response = await axios.get(URL + "/search-pokemons?isOwned=true", {
+      params: {
+        page: 1,
+        limit: 10000,
+      },
     });
-    return response.data.data;
+    return response.data.data.pokemons;
   } catch (error) {
     console.error("Error fetching pokemons:", error);
     throw new Error("Failed to fetch pokemons");

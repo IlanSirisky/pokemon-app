@@ -51,7 +51,7 @@ const FightPage = () => {
     error: myPokemonsError,
   } = useQuery({
     queryKey: ["myPokemons"],
-    queryFn: () => fetchOwnedPokemons(true),
+    queryFn: fetchOwnedPokemons,
   });
 
   const {
