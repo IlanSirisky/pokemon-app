@@ -17,6 +17,7 @@ import {
 } from "../../../utils/transformData";
 import { fetchPokemonById } from "../../../hooks/useFetchPokemonData";
 import Pagination from "@mui/material/Pagination";
+import { Skeleton } from "@mui/material";
 
 interface PokemonCardViewProps {
   data: IPokemonData[];
@@ -83,7 +84,14 @@ const PokemonCardView = ({
               )}
             />
           )}
-          {isLoading && <p>Loading...</p>}
+          {isLoading && (
+          <Skeleton
+            variant="rectangular"
+            height={600}
+            width={"100%"}
+            sx={{ borderRadius: "8px" }}
+          />
+        )}
           {error && <p>Error loading data</p>}
         </Modal>
       </CardViewContainer>

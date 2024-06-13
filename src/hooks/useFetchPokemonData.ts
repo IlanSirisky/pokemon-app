@@ -2,7 +2,7 @@ import axios from "axios";
 import { SortByValues } from "../constants/tableSortbyOptions";
 import { IPokemonData } from "../types/pokemonTypes";
 
-const URL = "http://localhost:3000/api/pokemons";
+const URL = import.meta.env.VITE_POKEMONS_URL;
 
 // fetch pokemons by isOwned flag, search value, and sortBy value
 export const fetchPokemons = async ({
@@ -12,18 +12,16 @@ export const fetchPokemons = async ({
   page = 1,
   limit = 10,
 }: {
-  isOwned: boolean;
+  isOwned: boolean | undefined;
   searchValue: string;
   sortBy: SortByValues | "";
   page: number;
   limit: number;
 }): Promise<{ pokemons: IPokemonData[]; totalCount: number }> => {
   try {
-    const endpoint = isOwned
-      ? "/search-pokemons?isOwned=true"
-      : "/search-pokemons";
-    const response = await axios.get(URL + endpoint, {
+    const response = await axios.get(URL + "/search-pokemons", {
       params: {
+        isOwned,
         searchValue,
         sortBy,
         page,
@@ -69,8 +67,9 @@ export const fetchRandomPokemon = async (
 // fetch my pokemons
 export const fetchOwnedPokemons = async (): Promise<IPokemonData[]> => {
   try {
-    const response = await axios.get(URL + "/search-pokemons?isOwned=true", {
+    const response = await axios.get(URL + "/search-pokemons", {
       params: {
+        isOwned: true,
         page: 1,
         limit: 10000,
       },

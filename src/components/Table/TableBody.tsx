@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
+import {
+  TableBody as MuiTableBody,
+  Skeleton,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import { DataCellStyle, DataCellWrapper } from "./styles";
 import { BodyRegular } from "../../styles/typography";
 import { IColumnLabels } from "./types";
@@ -78,7 +83,14 @@ const TableBody = ({ data, columnTitles }: TableBodyProps) => {
             )}
           />
         )}
-        {isLoading && <p>Loading...</p>}
+        {isLoading && (
+          <Skeleton
+            variant="rectangular"
+            height={600}
+            width={"100%"}
+            sx={{ borderRadius: "8px" }}
+          />
+        )}
         {error && <p>Error loading data</p>}
       </Modal>
     </MuiTableBody>

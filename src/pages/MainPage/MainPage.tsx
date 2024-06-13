@@ -31,11 +31,7 @@ interface MainPageProps {
   style?: CSSProperties;
 }
 
-const MainPage = ({
-  isOwnedFlag = false,
-  headerText,
-  style,
-}: MainPageProps) => {
+const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
   const [sortBy, setSortBy] = useState<SortByValues | "">("");
   const [searchValue, setSearchValue] = useState("");

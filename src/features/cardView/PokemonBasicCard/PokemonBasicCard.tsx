@@ -4,7 +4,7 @@ import CardBody from "../../../components/CardBody/CardBody";
 import { IPokemonData } from "../../../types/pokemonTypes";
 import pokeballIcon from "../../../assets/icons/pokeball.svg";
 
-interface BasicCardProps {
+interface PokemonBasicCardProps {
   pokemon: IPokemonData;
   topCornerIcon: string;
   handleClick?: () => void;
@@ -16,7 +16,7 @@ const PokemonBasicCard = ({
   topCornerIcon,
   handleClick,
   style,
-}: BasicCardProps) => {
+}: PokemonBasicCardProps) => {
   return (
     <StyledBasicCard style={style} onClick={handleClick}>
       <CardBody

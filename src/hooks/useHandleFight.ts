@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { IPokemonData } from "../types/pokemonTypes";
 
-const URL = "http://localhost:3000/api/battle";
+const URL = import.meta.env.VITE_FIGHT_URL;
 
 interface IFightState {
   message: string;

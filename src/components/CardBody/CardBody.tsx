@@ -46,7 +46,7 @@ const CardBody = ({
         {iconFlag && bottomIcon && (
           <Avatar
             image={bottomIcon}
-            alt="pokeball"
+            alt="bottomIcon"
             avatarSize={avatarSizes.small}
           />
         )}
