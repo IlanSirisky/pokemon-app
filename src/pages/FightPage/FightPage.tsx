@@ -58,6 +58,7 @@ const FightPage = () => {
     data: opponentPokemon,
     isLoading: opponentPokemonLoading,
     error: opponentPokemonError,
+    refetch: refetchOpponentPokemon,
   } = useQuery({
     queryKey: ["randomPokemon", false],
     queryFn: () => fetchRandomPokemon(false),
@@ -221,6 +222,10 @@ const FightPage = () => {
     }
   };
 
+  const handleNewOpponent = () => {
+    refetchOpponentPokemon();
+  };
+
   if (
     myPokemonsLoading ||
     opponentPokemonLoading ||
@@ -311,6 +316,9 @@ const FightPage = () => {
             subheadText={`#${opponentPokemon?.id}`}
             cornerText={`${opponentPokemon?.baseStats?.attack}atk`}
             topCornerIcon={strengthIcon}
+            opponent
+            activeFight={isActiveFight}
+            onClick={handleNewOpponent}
             style={{
               boxShadow:
                 turn === PlayerTurn.Opponent ? "0px 0px 0px 2px red" : "none",
