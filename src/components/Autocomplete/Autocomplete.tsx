@@ -32,9 +32,15 @@ const Autocomplete = ({
     return option.value === value.value;
   };
 
+  const combinedSx : SxProps<Theme> = {
+    ...sx,
+    opacity: disabled ? 0.5 : 1,
+    pointerEvents: disabled ? "none" : "auto",
+  };
+
   return (
     <MuiAutocomplete
-      sx={sx}
+      sx={combinedSx}
       disabled={disabled}
       options={options}
       autoHighlight
