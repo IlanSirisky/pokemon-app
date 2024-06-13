@@ -3,8 +3,13 @@ import { flexColumn, flexRow } from "../../styles/globalStyles";
 import { COLORS, MISC_COLORS } from "../../styles/colors";
 import { StyledParagraph } from "../../styles/typography";
 import { cssFontWeights, cssSpacings } from "../../styles/stylingValues";
-import yellowBg from "../../assets/yellow-bg.jpeg";
 import { CSSProperties } from "react";
+import yellowBg from "../../assets/yellow-bg.jpeg";
+import purpleBg from "../../assets/purple-bg.jpeg";
+import blueBg from "../../assets/blue-bg.jpeg";
+
+const backgroundImages = [yellowBg, purpleBg, blueBg];
+const randomBackground = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
 
 const { Neutrals } = COLORS;
 
@@ -32,7 +37,7 @@ export const PokemonDropdownStyle = {
 };
 
 export const StyledFightArea = styled(flexRow)`
-  background-image: url(${yellowBg});
+  background-image: url(${randomBackground});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
