@@ -23,6 +23,7 @@ import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
 import useDebouncedValue from "../../hooks/useDebouncedValue";
 import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
+import arrowIcon from "../../assets/icons/ArrowIcon.svg";
 
 interface MainPageProps {
   headerText: string;
@@ -146,6 +147,7 @@ const MainPage = ({
           placeholder="Sort By"
           selectedOption={sortBy}
           setSelectedOption={handleSortChange}
+          arrowIcon={arrowIcon}
         />
       </InputToolsWrapper>
       {error
