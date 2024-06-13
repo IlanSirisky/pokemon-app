@@ -25,6 +25,7 @@ import {
 } from "../../hooks/useFetchPokemonData";
 import { useHandleFight, useCatchPokemon } from "../../hooks/useHandleFight";
 import { determineInitialTurn } from "../../utils/fightPageFunctions";
+import arrowIcon from "../../assets/icons/ArrowIcon.svg";
 
 const FightPage = () => {
   const [isActiveFight, setIsActiveFight] = useState(false);
@@ -114,7 +115,10 @@ const FightPage = () => {
             setSelectedPokemonCurrentHp(data.data.playerCurrentHp);
             setOpponentPokemonCurrentHp(data.data.opponentCurrentHp);
             setTurn(
-              determineInitialTurn(data.data.playerPokemon, data.data.opponentPokemon)
+              determineInitialTurn(
+                data.data.playerPokemon,
+                data.data.opponentPokemon
+              )
             );
             setIsActiveFight(true);
             setCanCatch(false);
@@ -203,19 +207,17 @@ const FightPage = () => {
 
   const handleCatch = () => {
     if (canCatch && opponentPokemon) {
-      catchPokemon(undefined,
-        {
-          onSuccess: (data) => {
-            if (data.data.caught) {
-              showMessage("Caught the Pokémon!", 2500);
-              setIsActiveFight(false);
-            } else {
-              showMessage("Failed to catch the Pokémon.", 1500);
-              setTurn(PlayerTurn.Opponent);
-            }
-          },
-        }
-      );
+      catchPokemon(undefined, {
+        onSuccess: (data) => {
+          if (data.data.caught) {
+            showMessage("Caught the Pokémon!", 2500);
+            setIsActiveFight(false);
+          } else {
+            showMessage("Failed to catch the Pokémon.", 1500);
+            setTurn(PlayerTurn.Opponent);
+          }
+        },
+      });
     }
   };
 
@@ -250,6 +252,7 @@ const FightPage = () => {
         disabled={isActiveFight}
         sx={PokemonDropdownStyle}
         placeholder="Choose a Pokemon"
+        arrowIcon={arrowIcon}
       />
       <StyledFightArea>
         {selectedPokemon && (

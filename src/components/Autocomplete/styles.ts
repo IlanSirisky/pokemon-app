@@ -25,11 +25,13 @@ export const StyledTextField = styled(TextField)(() => ({
       border: `1px solid ${Neutrals.N300}`,
       color: `${Neutrals.N300}`,
     },
+    height: "38px",
     padding: `${cssSpacings.s8} !important`,
   },
   "& .MuiInputLabel-root": {
     color: `${Neutrals.N200}`,
     fontFamily: `'Mulish', 'sans-serif'`,
+    top: `-${cssSpacings.s8}`,
     lineHeight: "22px",
   },
   "& .MuiInputLabel-root.Mui-focused": {
