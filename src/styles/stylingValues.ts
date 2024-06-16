@@ -17,6 +17,7 @@ export const cssSpacings = {
   s32: "32px",
   s38: "38px",
   s40: "40px",
+  s44: "44px",
   s48: "48px",
   s58: "58px",
   s60: "60px",

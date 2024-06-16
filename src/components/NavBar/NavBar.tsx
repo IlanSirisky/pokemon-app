@@ -5,6 +5,8 @@ import {
   StyledNavBar,
   ButtonsContainer,
   ActiveButtonStyle,
+  EndContainer,
+  loginButtonStyles,
 } from "./styles";
 import { INavBarOptions } from "./types";
 
@@ -38,11 +40,16 @@ const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
           ))}
         </ButtonsContainer>
       </StyledMenu>
-      <Link to={endButton.path}>
-        <Button type="primary" size="large">
-          {endButton.label}
+      <EndContainer>
+        <Button type="secondary" size="large" style={loginButtonStyles}>
+          I
         </Button>
-      </Link>
+        <Link to={endButton.path}>
+          <Button type="primary" size="large">
+            {endButton.label}
+          </Button>
+        </Link>
+      </EndContainer>
     </StyledNavBar>
   );
 };

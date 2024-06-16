@@ -26,6 +26,18 @@ export const ButtonsContainer = styled(flexRow)`
 
 export const ActiveButtonStyle = {
   backgroundColor: `${Primary.P50}`,
-  fontWeight: `${cssFontWeights.bold}`
-}
+  fontWeight: `${cssFontWeights.bold}`,
+};
 
+export const EndContainer = styled(flexRow)`
+  gap: ${cssSpacings.s16};
+`;
+
+export const loginButtonStyles = {
+  borderRadius: "50%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: `${cssSpacings.s44}`,
+  height: `${cssSpacings.s44}`,
+};
