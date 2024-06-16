@@ -8,3 +8,8 @@ export interface SignUpFormValues {
   email: string;
   password: string;
 }
+
+export interface ConfirmFormValues {
+  username: string;
+  code: string;
+}

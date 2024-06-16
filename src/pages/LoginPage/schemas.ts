@@ -27,3 +27,8 @@ export const signUpSchema = yup.object().shape({
     )
     .required("Required"),
 });
+
+export const confirmSchema = yup.object().shape({
+  username: yup.string().required("Required"),
+  code: yup.string().required("Required"),
+});

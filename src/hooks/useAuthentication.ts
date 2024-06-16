@@ -1,6 +1,10 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
-import { LoginFormValues, SignUpFormValues } from "../types/formTypes";
+import {
+  ConfirmFormValues,
+  LoginFormValues,
+  SignUpFormValues,
+} from "../types/formTypes";
 import { useNavigate } from "react-router";
 
 const URL = import.meta.env.VITE_AUTH_URL;
@@ -50,7 +54,6 @@ export const useSignUp = () => {
     try {
       const response = await axios.post(`${URL}/register`, values);
       console.log("Sign up successful", response.data);
-      window.alert("Sign up successful");
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
       console.error("Error signing up", err);
@@ -62,5 +65,26 @@ export const useSignUp = () => {
     }
   };
 
-  return { signUp, isLoading, error };
+  const confirmSignUp = async (
+    values: ConfirmFormValues,
+    switchState: () => void
+  ) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(`${URL}/confirm-signup`, values);
+      console.log("User confirmed successfully", response.data);
+      switchState();
+    } catch (error) {
+      const err = error as AxiosError<ErrorResponse>;
+      console.error("Error confirming user", err);
+      setError(
+        err.response?.data?.message || "An error occurred during confirmation"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { signUp, confirmSignUp, isLoading, error };
 };
