@@ -21,8 +21,8 @@ const SkeletonCardView = ({
         <Box key={index} width={customWidth} height={customHeight}>
           <Skeleton
             variant="rectangular"
-            width={322}
-            height={314}
+            width={customWidth}
+            height={customHeight}
             sx={{ borderRadius: cssSpacings.s8 }}
           />
         </Box>
