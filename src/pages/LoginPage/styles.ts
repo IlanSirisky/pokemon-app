@@ -20,7 +20,7 @@ export const StyledImage = styled.img`
   width: 60%;
 `;
 
-export const LoginFormWrapper = styled.div`
+export const BackgroundWrapper = styled.div`
   width: 67%;
   display: flex;
   background-image: url(${yellowBg});
@@ -30,7 +30,7 @@ export const LoginFormWrapper = styled.div`
   justify-content: center;
 `;
 
-export const LoginForm = styled(flexColumn)`
+export const StyledFormWrapper = styled(flexColumn)`
   width: 33%;
   background-color: ${COLORS.Neutrals.White};
   padding: ${cssSpacings.s24};
@@ -52,6 +52,8 @@ export const buttonStyles = {
 export const ForgotPassContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   border-radius: ${cssSpacings.s4};
   padding: ${cssSpacings.s9} ${cssSpacings.s16};
   gap: ${cssSpacings.s4};
