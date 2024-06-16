@@ -1,69 +1,97 @@
-import { TableBody as MuiTableBody, TableCell, TableRow } from "@mui/material";
+import { useState } from "react";
+import {
+  TableBody as MuiTableBody,
+  Skeleton,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import { DataCellStyle, DataCellWrapper } from "./styles";
 import { BodyRegular } from "../../styles/typography";
 import { IColumnLabels } from "./types";
 import { IPokemonData } from "../../types/pokemonTypes";
-import { useState } from "react";
 import Modal from "../Modal/Modal";
 import PokemonModalCard from "../../features/PokemonModalCard/PokemonModalCard";
-import { transformPokemonDataToAttributes } from "../../utils/transformData";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPokemonById } from "../../hooks/useFetchPokemonData";
+import { getNestedValue } from "../../utils/getNestedValue";
+import {
+  transformPokemonDataToProfileAttributes,
+  transformPokemonDataToStatsAttributes,
+} from "../../utils/transformData";
 
 interface TableBodyProps {
   data: IPokemonData[];
   columnTitles: IColumnLabels[];
-  page: number;
-  rowsPerPage: number;
 }
 
-const TableBody = ({
-  data,
-  columnTitles,
-  page,
-  rowsPerPage,
-}: TableBodyProps) => {
-  const [selectedRow, setSelectedRow] = useState<IPokemonData | null>(null);
+const TableBody = ({ data, columnTitles }: TableBodyProps) => {
+  const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(
+    null
+  );
 
-  const handleOpenModal = (row: IPokemonData) => {
-    setSelectedRow(row);
+  const {
+    data: pokemonDetails,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["pokemon", selectedPokemonId],
+    queryFn: () => fetchPokemonById(selectedPokemonId!),
+    enabled: !!selectedPokemonId,
+  });
+
+  const handleOpenModal = (id: number) => {
+    setSelectedPokemonId(id);
   };
 
   const handleCloseModal = () => {
-    setSelectedRow(null);
+    setSelectedPokemonId(null);
   };
 
   return (
     <MuiTableBody>
-      {data
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        .map((row, index) => (
-          <TableRow
-            hover
-            key={index}
-            onClick={() => handleOpenModal(row)}
-            sx={{ cursor: "pointer" }}>
-            {columnTitles.map((column) => (
-              <TableCell key={column.value} sx={DataCellStyle} align="left">
-                {column.component ? (
-                  column.component(row)
-                ) : (
-                  <DataCellWrapper>
-                    <BodyRegular>{row[column.value]}</BodyRegular>
-                  </DataCellWrapper>
-                )}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      <Modal isOpen={!!selectedRow} onClose={handleCloseModal}>
-        {selectedRow && (
+      {data.map((row, index) => (
+        <TableRow
+          hover
+          key={index}
+          onClick={() => handleOpenModal(+row.id)}
+          sx={{ cursor: "pointer" }}>
+          {columnTitles.map((column) => (
+            <TableCell key={column.value} sx={DataCellStyle} align="left">
+              {column.component ? (
+                column.component(row)
+              ) : (
+                <DataCellWrapper>
+                  <BodyRegular>{getNestedValue(row, column.value)}</BodyRegular>
+                </DataCellWrapper>
+              )}
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
+      <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
+        {selectedPokemonId && !isLoading && !error && pokemonDetails && (
           <PokemonModalCard
-            title={selectedRow.name}
-            subheadText={selectedRow.id}
-            image={selectedRow.imageSrc}
-            description={selectedRow.description}
-            attributes={transformPokemonDataToAttributes(selectedRow)}
+            title={pokemonDetails.name}
+            subheadText={`#${pokemonDetails.id}`}
+            image={pokemonDetails.image}
+            description={pokemonDetails.description}
+            profileAttributes={transformPokemonDataToProfileAttributes(
+              pokemonDetails
+            )}
+            statsAttributes={transformPokemonDataToStatsAttributes(
+              pokemonDetails
+            )}
           />
         )}
+        {isLoading && (
+          <Skeleton
+            variant="rectangular"
+            height={600}
+            width={"100%"}
+            sx={{ borderRadius: "8px" }}
+          />
+        )}
+        {error && <p>Error loading data</p>}
       </Modal>
     </MuiTableBody>
   );

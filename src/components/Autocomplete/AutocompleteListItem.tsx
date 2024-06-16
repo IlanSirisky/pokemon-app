@@ -12,7 +12,9 @@ const AutocompleteListItem = ({ option, props }: AutocompleteListItemProps) => {
   return (
     <Box component="li" {...props} sx={listItemSyles} key={option.value}>
       <AvatarLabelContainer>
-        {option.avatar && <Avatar image={option.avatar} alt={option.value} />}
+        {option.avatar && (
+          <Avatar image={option.avatar} alt={`${option.value}`} />
+        )}
         {option.label}
       </AvatarLabelContainer>
       {option.endText ? <Box sx={endTextStyle}>{option.endText}</Box> : null}

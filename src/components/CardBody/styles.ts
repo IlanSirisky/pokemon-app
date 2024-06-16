@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../../styles/colors";
+import { COLORS, MISC_COLORS } from "../../styles/colors";
 import { flexRow } from "../../styles/globalStyles";
 import { SubheadingMedium } from "../../styles/typography";
 import { cssSpacings } from "../../styles/stylingValues";
@@ -8,6 +8,11 @@ const { Neutrals } = COLORS;
 
 export const ImagePowerContainer = styled.div`
   position: relative;
+  background-color: ${MISC_COLORS.cardImageBackground};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 188px;
 `;
 
 export const PowerContainer = styled(flexRow)`
@@ -23,8 +28,13 @@ export const StyledIdText = styled(SubheadingMedium)`
 `;
 
 export const StyledPokemonImage = styled.img`
-  width: 274px;
-  height: 188px;
+  width: 180px;
+  height: 160px;
   border-radius: 2px;
   position: relative;
+`;
+
+export const StyledHeaderWrapper = styled(flexRow)`
+  gap: ${cssSpacings.s8};
+  align-items: center;
 `;

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPokemons } from "../../hooks/useFetchPokemonData";
 import InputField from "../../components/InpuField/InputField";
 import Table from "../../components/Table/Table";
 import Tabs from "../../components/Tabs/Tabs";
@@ -9,46 +11,68 @@ import {
   InputToolsWrapper,
   MainPageWrapper,
 } from "./styles";
-import { HeadingLargeMedium } from "../../styles/typography";
-import { SelectChangeEvent } from "@mui/material";
-
+import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
+import { SelectChangeEvent, Skeleton } from "@mui/material";
 import { pokemonTableColumnLabels } from "../../constants/table";
-import { tableSortByOptions } from "../../constants/tableSortbyOptions";
+import {
+  SortByValues,
+  tableSortByOptions,
+} from "../../constants/tableSortbyOptions";
 import { tabsOptions } from "../../constants/tabs";
-import { sortData } from "../../utils/sortPokemonData";
-import { IPokemonData } from "../../types/pokemonTypes";
 import CardView from "../../features/cardView/PokemonCardView/PokemonCardView";
 import { CSSProperties } from "styled-components";
+import useDebouncedValue from "../../hooks/useDebouncedValue";
+import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
+import arrowIcon from "../../assets/icons/ArrowIcon.svg";
 
 interface MainPageProps {
-  pokemonData: IPokemonData[];
   headerText: string;
+  isOwnedFlag?: boolean;
   style?: CSSProperties;
 }
 
-const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
+const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
   const [selectedTab, setSelectedTab] = useState<string>(tabsOptions[0].label);
-  const [sortBy, setSortBy] = useState<string>("");
+  const [sortBy, setSortBy] = useState<SortByValues | "">("");
   const [searchValue, setSearchValue] = useState("");
-  const [filteredData, setFilteredData] = useState(pokemonData);
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const debouncedSearchValue = useDebouncedValue(searchValue, 500);
+
+  const {
+    data: pokemonData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [
+      "pokemons",
+      {
+        isOwnedFlag,
+        searchValue: debouncedSearchValue,
+        sortBy: sortBy || SortByValues.ID,
+        page,
+        limit: itemsPerPage,
+      },
+    ],
+    queryFn: () =>
+      fetchPokemons({
+        isOwned: isOwnedFlag,
+        searchValue: debouncedSearchValue,
+        sortBy: sortBy || SortByValues.ID,
+        page,
+        limit: itemsPerPage,
+      }),
+  });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchValue(value);
-    let data = pokemonData;
-
-    if (value) {
-      data = data.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-
-    setFilteredData(data);
+    setSearchValue(event.target.value);
+    setPage(1);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
-    setFilteredData(pokemonData);
+    setPage(1);
   };
 
   const handleTabChange = (value: string) => {
@@ -56,8 +80,45 @@ const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
   };
 
   const handleSortChange = (event: SelectChangeEvent<unknown>) => {
-    setSortBy(event.target.value as string);
-    setFilteredData(sortData(filteredData, event.target.value as string));
+    setSortBy(event.target.value as SortByValues);
+    setPage(1);
+  };
+
+  const handleTablePageChange = (_event: unknown, newPage: number) => {
+    setPage(newPage + 1);
+  };
+
+  const handleCardViewPageChange = (
+    _event: React.ChangeEvent<unknown>,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeItemsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setItemsPerPage(parseInt(event.target.value, 10));
+    setPage(1);
+  };
+
+  const renderError = () => (
+    <HeadingLargeBold>Error loading data</HeadingLargeBold>
+  );
+
+  const renderLoading = (selectedTab: string, itemsPerPage: number) => {
+    if (selectedTab === "List") {
+      return (
+        <Skeleton
+          variant="rectangular"
+          height={600}
+          width={"100%"}
+          sx={{ borderRadius: "8px" }}
+        />
+      );
+    } else {
+      return <SkeletonCardView itemsPerPage={itemsPerPage} />;
+    }
   };
 
   return (
@@ -82,13 +143,35 @@ const MainPage = ({ pokemonData, headerText, style }: MainPageProps) => {
           placeholder="Sort By"
           selectedOption={sortBy}
           setSelectedOption={handleSortChange}
+          arrowIcon={arrowIcon}
         />
       </InputToolsWrapper>
-      {selectedTab === "List" ? (
-        <Table columnTitles={pokemonTableColumnLabels} data={filteredData} />
-      ) : (
-        <CardView data={filteredData} />
-      )}
+      {error
+        ? renderError()
+        : isLoading
+        ? renderLoading(selectedTab, itemsPerPage)
+        : selectedTab === "List"
+        ? pokemonData && (
+            <Table
+              columnTitles={pokemonTableColumnLabels}
+              data={pokemonData.pokemons}
+              rowPerPageOptions={[5, 10, 20]}
+              rowsPerPage={itemsPerPage}
+              page={page - 1}
+              count={pokemonData.totalCount}
+              onPageChange={handleTablePageChange}
+              onRowsPerPageChange={handleChangeItemsPerPage}
+            />
+          )
+        : pokemonData && (
+            <CardView
+              data={pokemonData.pokemons}
+              totalCount={pokemonData.totalCount}
+              rowsPerPage={itemsPerPage}
+              page={page}
+              onPageChange={handleCardViewPageChange}
+            />
+          )}
     </MainPageWrapper>
   );
 };

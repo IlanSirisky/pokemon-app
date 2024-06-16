@@ -11,5 +11,5 @@ export const StyledBasicCard = styled(flexColumn)`
   border-radius: ${cssSpacings.s8};
   padding: ${cssSpacings.s24};
   gap: ${cssSpacings.s10};
+  width: 274px;
 `;
-

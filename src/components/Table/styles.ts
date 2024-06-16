@@ -48,7 +48,7 @@ export const DataCellWrapper = styled.div`
   text-overflow: ellipsis;
 `;
 
-const paginationFontStyle = {
+export const paginationFontStyle = {
   fontFamily: "Mulish, sans-serif",
   fontSize: `${cssFontSizes.f12}`,
   color: `${COLORS.Neutrals.N300}`,

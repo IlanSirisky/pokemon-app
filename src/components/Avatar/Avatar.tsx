@@ -1,14 +1,24 @@
-import { StyledAvatar } from "./styles";
+import { AvatarWrapper, StyledAvatar } from "./styles";
 import { avatarSizes } from "../../styles/stylingValues";
 
 interface AvatarProps {
   image: string;
   alt?: string;
-  size?: number,
+  wrapperSize?: number;
+  avatarSize?: number;
 }
 
-const Avatar = ({ image, alt = "Avatar", size = avatarSizes.small }: AvatarProps) => {
-  return <StyledAvatar $size={size} src={image} alt={alt} />;
+const Avatar = ({
+  image,
+  alt = "Avatar",
+  wrapperSize = avatarSizes.small,
+  avatarSize = avatarSizes.small,
+}: AvatarProps) => {
+  return (
+    <AvatarWrapper $size={wrapperSize}>
+      <StyledAvatar $size={avatarSize} src={image} alt={alt} />
+    </AvatarWrapper>
+  );
 };
 
 export default Avatar;

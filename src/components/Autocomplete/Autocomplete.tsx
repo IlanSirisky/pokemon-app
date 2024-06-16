@@ -12,6 +12,7 @@ interface AutocompleteProps {
   placeholder?: string;
   value?: AutocompleteOptionsType;
   sx?: SxProps<Theme>;
+  arrowIcon?: string;
 }
 
 const Autocomplete = ({
@@ -22,6 +23,7 @@ const Autocomplete = ({
   placeholder = "Search",
   value,
   sx,
+  arrowIcon,
 }: AutocompleteProps) => {
   const isOptionEqualToValue = (
     option: AutocompleteOptionsType,
@@ -30,9 +32,15 @@ const Autocomplete = ({
     return option.value === value.value;
   };
 
+  const combinedSx : SxProps<Theme> = {
+    ...sx,
+    opacity: disabled ? 0.5 : 1,
+    pointerEvents: disabled ? "none" : "auto",
+  };
+
   return (
     <MuiAutocomplete
-      sx={sx}
+      sx={combinedSx}
       disabled={disabled}
       options={options}
       autoHighlight
@@ -41,6 +49,7 @@ const Autocomplete = ({
       value={value}
       onInputChange={onInputChange}
       isOptionEqualToValue={isOptionEqualToValue}
+      popupIcon={arrowIcon && <img src={arrowIcon} alt="arrow-icon" />}
       renderOption={(props, option) => (
         <AutocompleteListItem
           option={option}

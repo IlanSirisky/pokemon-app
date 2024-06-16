@@ -4,27 +4,31 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  IconButton,
 } from "@mui/material";
-import styled from "styled-components";
+import { styled } from "@mui/system";
 import { COLORS } from "../../styles/colors";
 import { cssFontSizes, cssSpacings } from "../../styles/stylingValues";
 
 const { Neutrals } = COLORS;
 
 export const StyledFormControl = styled(FormControl)`
-  min-width: 100px !important;
   gap: ${cssSpacings.s16} !important;
+  position: relative;
+  width: auto !important;
+  max-width: 220px !important;
 `;
 
 export const StyledSelect = styled(Select)`
-  height: 38px !important;
+  height: ${cssSpacings.s38} !important;
+  border-radius: ${cssSpacings.s8} !important;
   width: auto !important;
 
-  &.MuiSelect-select {
+  & .MuiSelect-select {
     padding: ${cssSpacings.s4} ${cssSpacings.s8} !important;
+    padding-right: ${cssSpacings.s40} !important;
   }
-  &.MuiOutlinedInput-root {
-    border-radius: ${cssSpacings.s8};
+  & .MuiOutlinedInput-root {
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: ${Neutrals.N300} !important;
     }
@@ -48,7 +52,6 @@ export const StyledInputLabel = styled(InputLabel)`
   font-size: ${cssFontSizes.f14} !important;
   line-height: 22px !important;
   top: -8px !important;
-  width: auto !important;
 
   &.Mui-focused {
     color: ${Neutrals.N300} !important;
@@ -60,9 +63,21 @@ export const StyledOutlinedInput = styled(OutlinedInput)`
   font-size: ${cssFontSizes.f14} !important;
   line-height: 22px !important;
   padding: ${cssSpacings.s12} ${cssSpacings.s8} !important;
-  width: auto !important;
 
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: ${Neutrals.N300} !important;
   }
+`;
+
+export const StyledClearIconButton = styled(IconButton)`
+  position: absolute !important;
+  right: ${cssSpacings.s20} !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+`;
+
+export const ArrowIconWrapper = styled("div")<{ $open: boolean }>`
+  display: flex;
+  transform: ${({ $open }) => ($open ? "rotate(180deg)" : "rotate(0)")};
+  transition: transform 0.3s;
 `;

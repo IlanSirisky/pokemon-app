@@ -22,8 +22,15 @@ export const CardContentWrapper = styled(flexColumn)`
   border-radius: ${cssSpacings.s8};
 `;
 
+export const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const StyledImage = styled.img`
-  height: 158px;
+  width: 180px;
+  height: 160px;
 `;
 
 export const ModalCardContentContainer = styled(flexColumn)`
@@ -39,8 +46,13 @@ export const AttributesContainer = styled(flexRow)`
   width: 100%;
 `;
 
-export const Attribute = styled(flexColumn)`
+export const ProfileAttribute = styled(flexColumn)`
   gap: ${cssSpacings.s8};
+`;
+
+export const StatAttribute = styled(flexRow)`
+  gap: ${cssSpacings.s8};
+  align-items: center;
 `;
 
 export const ModalCardTextStyles = {

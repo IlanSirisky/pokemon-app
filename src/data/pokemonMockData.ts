@@ -1,6 +1,4 @@
-import { IPokemonData } from "../types/pokemonTypes";
-
-const pokemonsMockData: IPokemonData[] = [
+const pokemonsMockData = [
   {
     id: "#001",
     type: ["Grass"],

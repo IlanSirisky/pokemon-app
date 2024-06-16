@@ -12,12 +12,21 @@ interface PokemonAvatarTableCellProps {
 const PokemonAvatarTableCell = ({ row }: PokemonAvatarTableCellProps) => {
   return (
     <TitleDataCellStyle>
-      {row.avatar && (
-        <Avatar alt={row.name} image={row.avatar} size={avatarSizes.large} />
+      {row.image && (
+        <Avatar
+          alt={row.name}
+          image={row.image}
+          avatarSize={avatarSizes.medium}
+          wrapperSize={avatarSizes.large}
+        />
       )}
       <HeadingMediumRegular>{row.name}</HeadingMediumRegular>
       {row.isOwned && (
-        <Avatar image={pokeballIcon} alt="pokeball" size={avatarSizes.small} />
+        <Avatar
+          image={pokeballIcon}
+          alt="pokeball"
+          avatarSize={avatarSizes.small}
+        />
       )}
     </TitleDataCellStyle>
   );

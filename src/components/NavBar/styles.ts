@@ -10,6 +10,10 @@ export const StyledNavBar = styled(flexRow)`
   align-items: center;
   padding: ${cssSpacings.s12} 40px;
   background-color: ${Neutrals.White};
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 1px ${COLORS.Neutrals.N100};
 `;
 
 export const StyledMenu = styled(flexRow)`

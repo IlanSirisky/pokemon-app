@@ -1,33 +1,31 @@
 import { StyledBasicCard } from "./styles";
 import { CSSProperties } from "styled-components";
 import CardBody from "../../../components/CardBody/CardBody";
+import { IPokemonData } from "../../../types/pokemonTypes";
+import pokeballIcon from "../../../assets/icons/pokeball.svg";
 
-interface BasicCardProps {
-  cardTitle: string;
-  image: string;
+interface PokemonBasicCardProps {
+  pokemon: IPokemonData;
+  topCornerIcon: string;
   handleClick?: () => void;
-  subheadText?: string;
-  cornerText?: string;
-  topCornerIcon?: string;
   style?: CSSProperties;
 }
 
 const PokemonBasicCard = ({
-  cardTitle,
-  image,
-  handleClick,
-  subheadText,
-  cornerText,
+  pokemon,
   topCornerIcon,
+  handleClick,
   style,
-}: BasicCardProps) => {
+}: PokemonBasicCardProps) => {
   return (
     <StyledBasicCard style={style} onClick={handleClick}>
       <CardBody
-        cardTitle={cardTitle}
-        image={image}
-        subheadText={subheadText}
-        cornerText={cornerText}
+        cardTitle={pokemon.name}
+        image={pokemon.image}
+        subheadText={`#${pokemon.id}`}
+        cornerText={`${pokemon.baseStats?.attack}atk`}
+        iconFlag={pokemon.isOwned}
+        bottomIcon={pokeballIcon}
         topCornerIcon={topCornerIcon}
       />
     </StyledBasicCard>

@@ -26,19 +26,20 @@ const TestCards = () => {
         <Card key={poke.id}>
           <PokemonBasicCard
             cardTitle={poke.name}
-            image={poke.imageSrc}
+            image={poke.image}
             subheadText={`#${poke.id}`}
-            cornerText={`${poke.px}px`}
+            cornerText={`${poke.baseStats?.attack}atk`}
             topCornerIcon={strengthIcon}
           />
           <hr style={{ width: "90%" }} />
           <PokemonFightCard
             cardTitle={poke.name}
-            image={poke.imageSrc}
-            hp={poke.hp}
+            image={poke.image}
+            hp={poke.baseStats?.hp || 0}
             playerName={"You"}
             subheadText={`#${poke.id}`}
-            cornerText={`${poke.px}px`}
+            cornerText={`${poke.baseStats?.attack}atk`}
+            currentHp={poke.baseStats?.hp || 0}
             topCornerIcon={strengthIcon}
           />
         </Card>

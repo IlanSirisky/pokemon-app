@@ -16,7 +16,7 @@ const PokemonIdTableCell = ({ row }: PokemonIdTableCellProps) => {
         style={{
           color: Neutrals.N300,
         }}>
-        {row.id}
+        {`#${row.id}`}
       </BodyRegular>
     </DataCellWrapper>
   );
