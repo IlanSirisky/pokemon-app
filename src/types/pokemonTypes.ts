@@ -46,3 +46,7 @@ export type PokemonType =
   | "Dark"
   | "Steel"
   | "Fairy";
+
+export type PokemonTypesCount = {
+  [key in PokemonType]?: number;
+};

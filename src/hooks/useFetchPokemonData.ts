@@ -1,5 +1,5 @@
 import { SortByValues } from "../constants/tableSortbyOptions";
-import { IPokemonData } from "../types/pokemonTypes";
+import { IPokemonData, PokemonTypesCount } from "../types/pokemonTypes";
 import axiosInstance from "../configs/axiosConfig";
 
 const ENDPOINT = import.meta.env.VITE_POKEMONS_ENDPOINT;
@@ -39,7 +39,7 @@ export const fetchPokemons = async ({
 // fetch pokemon by id
 export const fetchPokemonById = async (id: number): Promise<IPokemonData> => {
   try {
-    const response = await axiosInstance.get(ENDPOINT +`/${id}`);
+    const response = await axiosInstance.get(ENDPOINT + `/${id}`);
     return response.data.data;
   } catch (error) {
     console.error(`Error fetching pokemon with ID ${id}:`, error);
@@ -78,5 +78,15 @@ export const fetchOwnedPokemons = async (): Promise<IPokemonData[]> => {
   } catch (error) {
     console.error("Error fetching pokemons:", error);
     throw new Error("Failed to fetch pokemons");
+  }
+};
+
+export const fetchPokemonTypesCount = async (): Promise<PokemonTypesCount> => {
+  try {
+    const response = await axiosInstance.get(ENDPOINT + "/pokemon-types-count");
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching pokemon types count:", error);
+    throw new Error("Failed to fetch pokemon types count");
   }
 };
