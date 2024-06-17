@@ -76,6 +76,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
   } = useQuery({
     queryKey: ["pokemonTypesCount"],
     queryFn: fetchPokemonTypesCount,
+    enabled: isOwnedFlag === true,
   });
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
