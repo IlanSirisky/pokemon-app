@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import {
   StyledMenu,
@@ -9,6 +9,9 @@ import {
   loginButtonStyles,
 } from "./styles";
 import { INavBarOptions } from "./types";
+import { useEffect, useState } from "react";
+import { deleteToken, getToken } from "../../utils/tokenFunctions";
+import { PagePaths } from "../../constants/navBar";
 
 interface NavBarProps {
   pathOptions: INavBarOptions[];
@@ -17,7 +20,23 @@ interface NavBarProps {
 }
 
 const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
+  const [userName, setUserName] = useState<string>("");
+
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      setUserName(decodedToken.username);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    deleteToken();
+    navigate(PagePaths.LOGIN);
+  };
 
   return (
     <StyledNavBar>
@@ -42,7 +61,7 @@ const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
       </StyledMenu>
       <EndContainer>
         <Button type="secondary" size="large" style={loginButtonStyles}>
-          I
+          {userName && userName[0].toUpperCase()}
         </Button>
         <Link to={endButton.path}>
           <Button type="primary" size="large">
