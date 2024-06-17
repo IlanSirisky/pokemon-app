@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { IPokemonData } from "../types/pokemonTypes";
+import axiosInstance from "../configs/axiosConfig";
 
-const URL = import.meta.env.VITE_FIGHT_URL;
+const ENDPOINT = import.meta.env.VITE_FIGHT_ENDPOINT;
 
 interface IFightState {
   message: string;
@@ -26,7 +26,7 @@ export const startFight = async ({
   playerPokemonId: number;
   opponentPokemonId: number;
 }): Promise<IFightState> => {
-  const response = await axios.post<IFightState>(`${URL}/start-fight`, {
+  const response = await axiosInstance.post<IFightState>(`${ENDPOINT}/start-fight`, {
     playerPokemonId,
     opponentPokemonId,
   });
@@ -34,12 +34,12 @@ export const startFight = async ({
 };
 
 export const playerAttack = async (): Promise<IFightState> => {
-  const response = await axios.get<IFightState>(`${URL}/player-attack`);
+  const response = await axiosInstance.get<IFightState>(`${ENDPOINT}/player-attack`);
   return response.data;
 };
 
 export const opponentAttack = async (): Promise<IFightState> => {
-  const response = await axios.get<IFightState>(`${URL}/opponent-attack`);
+  const response = await axiosInstance.get<IFightState>(`${ENDPOINT}/opponent-attack`);
   return response.data;
 };
 
@@ -73,7 +73,7 @@ export const useHandleFight = () => {
 };
 
 const catchPokemon = async (): Promise<CatchResponse> => {
-  const response = await axios.get<CatchResponse>(`${URL}/catch`);
+  const response = await axiosInstance.get<CatchResponse>(`${ENDPOINT}/catch`);
   return response.data;
 };
 

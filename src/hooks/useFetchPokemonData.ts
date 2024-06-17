@@ -1,8 +1,8 @@
-import axios from "axios";
 import { SortByValues } from "../constants/tableSortbyOptions";
 import { IPokemonData } from "../types/pokemonTypes";
+import axiosInstance from "../configs/axiosConfig";
 
-const URL = import.meta.env.VITE_POKEMONS_URL;
+const ENDPOINT = import.meta.env.VITE_POKEMONS_ENDPOINT;
 
 // fetch pokemons by isOwned flag, search value, and sortBy value
 export const fetchPokemons = async ({
@@ -19,7 +19,7 @@ export const fetchPokemons = async ({
   limit: number;
 }): Promise<{ pokemons: IPokemonData[]; totalCount: number }> => {
   try {
-    const response = await axios.get(URL + "/search-pokemons", {
+    const response = await axiosInstance.get(ENDPOINT + "/search-pokemons", {
       params: {
         isOwned,
         searchValue,
@@ -39,7 +39,7 @@ export const fetchPokemons = async ({
 // fetch pokemon by id
 export const fetchPokemonById = async (id: number): Promise<IPokemonData> => {
   try {
-    const response = await axios.get(`${URL}/${id}`);
+    const response = await axiosInstance.get(ENDPOINT +`/${id}`);
     return response.data.data;
   } catch (error) {
     console.error(`Error fetching pokemon with ID ${id}:`, error);
@@ -52,7 +52,7 @@ export const fetchRandomPokemon = async (
   isOwned: boolean
 ): Promise<IPokemonData> => {
   try {
-    const response = await axios.get(`${URL}/random-pokemon`, {
+    const response = await axiosInstance.get(ENDPOINT + "/random-pokemon", {
       params: {
         isOwned,
       },
@@ -67,7 +67,7 @@ export const fetchRandomPokemon = async (
 // fetch my pokemons
 export const fetchOwnedPokemons = async (): Promise<IPokemonData[]> => {
   try {
-    const response = await axios.get(URL + "/search-pokemons", {
+    const response = await axiosInstance.get(ENDPOINT + "/search-pokemons", {
       params: {
         isOwned: true,
         page: 1,

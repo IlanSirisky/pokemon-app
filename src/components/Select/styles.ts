@@ -65,7 +65,7 @@ export const StyledOutlinedInput = styled(OutlinedInput)`
   padding: ${cssSpacings.s12} ${cssSpacings.s8} !important;
 
   &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: ${Neutrals.N300} !important;
+    border: 1px solid ${Neutrals.N300} !important;
   }
 `;
 
