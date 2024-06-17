@@ -27,7 +27,7 @@ import { CSSProperties } from "styled-components";
 import useDebouncedValue from "../../hooks/useDebouncedValue";
 import SkeletonCardView from "../../features/cardView/PokemonCardView/SkeletonCardView";
 import arrowIcon from "../../assets/icons/ArrowIcon.svg";
-import PokemonTypesPieChart from "../../components/PieChart/PokemonTypesPieChart";
+import PokemonTypesPieChart from "../../features/PokemonPieChart/PokemonTypesPieChart";
 
 interface MainPageProps {
   headerText: string;

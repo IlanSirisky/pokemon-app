@@ -1,8 +1,11 @@
 import { HeadingLargeBold } from "../../styles/typography";
 import { PokemonTypesCount } from "../../types/pokemonTypes";
 import { transformPokemonDataToPieChart } from "../../utils/transformData";
-import PieChart from "./PieChart";
-import { StyledPieContainer } from "./styles";
+import PieChart from "../../components/PieChart/PieChart";
+import {
+  PieWrapper,
+  StyledPieContainer,
+} from "../../components/PieChart/styles";
 
 type PokemonTypesPieChartProps = {
   data: PokemonTypesCount;
@@ -11,8 +14,12 @@ type PokemonTypesPieChartProps = {
 const PokemonTypesPieChart = ({ data }: PokemonTypesPieChartProps) => {
   return (
     <StyledPieContainer>
-      <HeadingLargeBold>Types</HeadingLargeBold>
-      <PieChart data={data} transformData={transformPokemonDataToPieChart} />
+      <HeadingLargeBold>
+        Types
+      </HeadingLargeBold>
+      <PieWrapper>
+        <PieChart data={data} transformData={transformPokemonDataToPieChart} />
+      </PieWrapper>
     </StyledPieContainer>
   );
 };
