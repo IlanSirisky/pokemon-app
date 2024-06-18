@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { flexColumn } from "../../styles/globalStyles";
 import { cssSpacings } from "../../styles/stylingValues";
 import { COLORS, MISC_COLORS } from "../../styles/colors";
+import { Form } from "formik";
 
 export const CustomInputWrapper = styled(flexColumn)`
   gap: ${cssSpacings.s6};
@@ -22,4 +23,14 @@ export const StyledInput = styled.input`
 
 export const ErrorStyles = {
   color: `${MISC_COLORS.HealthBar.red}`,
+};
+
+export const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: ${cssSpacings.s24};
+`;
+
+export const buttonStyles = {
+  width: "100%",
 };

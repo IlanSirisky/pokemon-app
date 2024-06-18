@@ -1,40 +1,27 @@
-import { useState } from "react";
-import { Formik } from "formik";
-import CustomInput from "../../components/CustomInput/CustomInput";
+import { CSSProperties, useState } from "react";
+import { signUpSchema, confirmSchema } from "./schemas";
+import { useSignUp } from "../../hooks/useAuthentication";
+import {
+  confirmFields,
+  confirmInitialValues,
+  signUpFields,
+  signUpInitialValues,
+} from "../../constants/formValues";
+import Form from "../../components/Form/Form";
 import {
   StyledFormWrapper,
-  StyledForm,
-  buttonStyles,
-  ForgotPassContainer,
-  forgotPassStyles,
+  UnderFormContainer,
+  underFormButtonStyles,
 } from "./styles";
-import {
-  BodyMedium,
-  HeadingXLargeBold,
-  XSmallRegular,
-} from "../../styles/typography";
-import Button from "../../components/Button/Button";
-import { signUpSchema, confirmSchema } from "./schemas";
-import { SignUpFormValues, ConfirmFormValues } from "../../types/formTypes";
-import { useSignUp } from "../../hooks/useAuthentication";
-import { ErrorStyles } from "../../components/CustomInput/styles";
-
-const initialSignUpValues: SignUpFormValues = {
-  username: "",
-  email: "",
-  password: "",
-};
-
-const initialConfirmValues: ConfirmFormValues = {
-  username: "",
-  code: "",
-};
+import { BodyMedium, HeadingXLargeBold } from "../../styles/typography";
+import { ConfirmFormValues, SignUpFormValues } from "../../types/formTypes";
 
 interface SignUpFormProps {
   switchState: () => void;
+  style?: CSSProperties;
 }
 
-const SignUpForm = ({ switchState }: SignUpFormProps) => {
+const SignUpForm = ({ switchState, style }: SignUpFormProps) => {
   const { signUp, confirmSignUp, isLoading, error } = useSignUp();
   const [isConfirmationStep, setIsConfirmationStep] = useState(false);
 
@@ -49,91 +36,43 @@ const SignUpForm = ({ switchState }: SignUpFormProps) => {
 
   const handleConfirmSubmit = async (
     values: ConfirmFormValues,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     await confirmSignUp(values, switchState);
     setSubmitting(false);
   };
 
   return (
-    <StyledFormWrapper>
-      <HeadingXLargeBold>{isConfirmationStep ? "Confirm User":"Sign Up"}</HeadingXLargeBold>
+    <StyledFormWrapper style={style}>
+      <HeadingXLargeBold>
+        {isConfirmationStep ? "Confirm User" : "Sign Up"}
+      </HeadingXLargeBold>
       {!isConfirmationStep ? (
-        <Formik
-          initialValues={initialSignUpValues}
+        <Form
+          initialValues={signUpInitialValues}
+          validationSchema={signUpSchema}
           onSubmit={handleSignUpSubmit}
-          validationSchema={signUpSchema}>
-          {({ isSubmitting }) => (
-            <StyledForm>
-              <CustomInput
-                label="Username"
-                name="username"
-                type="text"
-                placeholder="Enter a username"
-              />
-              <CustomInput
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="Enter an email"
-              />
-              <CustomInput
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="Enter a password"
-              />
-              {error && (
-                <XSmallRegular style={ErrorStyles}>{error}</XSmallRegular>
-              )}
-              <Button
-                type="primary"
-                size="large"
-                style={buttonStyles}
-                disabled={isSubmitting || isLoading}>
-                Sign Up
-              </Button>
-            </StyledForm>
-          )}
-        </Formik>
+          fields={signUpFields}
+          submitLabel="Sign Up"
+          error={error}
+          isLoading={isLoading}
+        />
       ) : (
-        <Formik
-          initialValues={initialConfirmValues}
+        <Form
+          initialValues={confirmInitialValues}
+          validationSchema={confirmSchema}
           onSubmit={handleConfirmSubmit}
-          validationSchema={confirmSchema}>
-          {({ isSubmitting }) => (
-            <StyledForm>
-              <CustomInput
-                label="Username"
-                name="username"
-                type="text"
-                placeholder="Enter your username"
-              />
-              <CustomInput
-                label="Confirmation Code"
-                name="code"
-                type="text"
-                placeholder="Enter the confirmation code"
-              />
-              {error && (
-                <XSmallRegular style={ErrorStyles}>{error}</XSmallRegular>
-              )}
-              <Button
-                type="primary"
-                size="large"
-                style={buttonStyles}
-                disabled={isSubmitting || isLoading}>
-                Confirm
-              </Button>
-            </StyledForm>
-          )}
-        </Formik>
+          fields={confirmFields}
+          submitLabel="Confirm"
+          error={error}
+          isLoading={isLoading}
+        />
       )}
-      <ForgotPassContainer>
-        <BodyMedium style={forgotPassStyles} onClick={switchState}>
+      <UnderFormContainer>
+        <BodyMedium style={underFormButtonStyles} onClick={switchState}>
           Login
         </BodyMedium>
-      </ForgotPassContainer>
+      </UnderFormContainer>
     </StyledFormWrapper>
   );
 };

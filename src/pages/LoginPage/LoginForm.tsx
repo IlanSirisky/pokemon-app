@@ -1,33 +1,22 @@
-import { Formik } from "formik";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import {
-  ForgotPassContainer,
-  StyledFormWrapper,
-  StyledForm,
-  buttonStyles,
-  forgotPassStyles,
-} from "./styles";
-import {
-  BodyMedium,
-  HeadingXLargeBold,
-  XSmallRegular,
-} from "../../styles/typography";
-import Button from "../../components/Button/Button";
 import { loginSchema } from "./schemas";
-import { LoginFormValues } from "../../types/formTypes";
 import { useLogin } from "../../hooks/useAuthentication";
-import { ErrorStyles } from "../../components/CustomInput/styles";
-
-const initialValues: LoginFormValues = {
-  username: "",
-  password: "",
-};
+import Form from "../../components/Form/Form";
+import { loginFields, loginInitialValues } from "../../constants/formValues";
+import {
+  UnderFormContainer,
+  StyledFormWrapper,
+  underFormButtonStyles,
+} from "./styles";
+import { BodyMedium, HeadingXLargeBold } from "../../styles/typography";
+import { LoginFormValues } from "../../types/formTypes";
+import { CSSProperties } from "react";
 
 interface LoginFormProps {
   switchState: () => void;
+  style?: CSSProperties;
 }
 
-const LoginForm = ({ switchState }: LoginFormProps) => {
+const LoginForm = ({ switchState, style }: LoginFormProps) => {
   const { login, isLoading, error } = useLogin();
 
   const handleSubmit = async (
@@ -39,49 +28,27 @@ const LoginForm = ({ switchState }: LoginFormProps) => {
   };
 
   return (
-    <StyledFormWrapper>
+    <StyledFormWrapper style={style}>
       <HeadingXLargeBold>Login</HeadingXLargeBold>
-      <Formik
-        initialValues={initialValues}
+      <Form
+        initialValues={loginInitialValues}
+        validationSchema={loginSchema}
         onSubmit={handleSubmit}
-        validationSchema={loginSchema}>
-        {({ isSubmitting }) => (
-          <StyledForm>
-            <CustomInput
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="Enter your email"
-            />
-            <CustomInput
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-            />
-            {error && (
-              <XSmallRegular style={ErrorStyles}>{error}</XSmallRegular>
-            )}
-            <Button
-              type="primary"
-              size="large"
-              style={buttonStyles}
-              disabled={isSubmitting || isLoading}>
-              Login
-            </Button>
-          </StyledForm>
-        )}
-      </Formik>
-      <ForgotPassContainer>
+        fields={loginFields}
+        submitLabel="Login"
+        error={error}
+        isLoading={isLoading}
+      />
+      <UnderFormContainer>
         <BodyMedium
-          style={forgotPassStyles}
+          style={underFormButtonStyles}
           onClick={() => console.log("Forgot Password")}>
           Forgot Password?
         </BodyMedium>
-        <BodyMedium style={forgotPassStyles} onClick={switchState}>
+        <BodyMedium style={underFormButtonStyles} onClick={switchState}>
           Sign Up Now
         </BodyMedium>
-      </ForgotPassContainer>
+      </UnderFormContainer>
     </StyledFormWrapper>
   );
 };

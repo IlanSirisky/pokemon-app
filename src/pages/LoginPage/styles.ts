@@ -3,7 +3,6 @@ import { flexColumn, flexRow } from "../../styles/globalStyles";
 import { COLORS } from "../../styles/colors";
 import yellowBg from "../../assets/yellow-bg.jpeg";
 import { cssSpacings } from "../../styles/stylingValues";
-import { Form } from "formik";
 
 export const LoginPageWrapper = styled(flexRow)`
   height: 100vh;
@@ -39,27 +38,15 @@ export const StyledFormWrapper = styled(flexColumn)`
   gap: ${cssSpacings.s24};
 `;
 
-export const StyledForm = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  gap: ${cssSpacings.s24};
-`;
-
-export const buttonStyles = {
-  width: "100%",
-};
-
-export const ForgotPassContainer = styled.div`
-  display: flex;
+export const UnderFormContainer = styled(flexColumn)`
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   border-radius: ${cssSpacings.s4};
   padding: ${cssSpacings.s9} ${cssSpacings.s16};
   gap: ${cssSpacings.s4};
 `;
 
-export const forgotPassStyles = {
+export const underFormButtonStyles = {
   color: `${COLORS.Primary.P300}`,
   cursor: "pointer",
 };
