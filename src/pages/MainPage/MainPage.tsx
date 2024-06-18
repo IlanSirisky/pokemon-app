@@ -190,7 +190,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
             <CardView
               data={pokemonData.pokemons}
               totalCount={pokemonData.totalCount}
-              rowsPerPage={10}
+              rowsPerPage={itemsPerPage}
               page={page}
               onPageChange={handleCardViewPageChange}
             />
