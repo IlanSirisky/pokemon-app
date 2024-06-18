@@ -9,8 +9,6 @@ import { flexColumn, flexRow } from "../../styles/globalStyles";
 
 export const TableWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  margin-bottom: ${cssSpacings.s38};
 `;
 
 export const TableHeadRowStyle = {

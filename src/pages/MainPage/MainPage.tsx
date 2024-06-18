@@ -13,6 +13,8 @@ import {
   InputFieldWrapper,
   InputToolsWrapper,
   MainPageWrapper,
+  SkeletonStyle,
+  TablePieChartStyles,
 } from "./styles";
 import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
 import { SelectChangeEvent, Skeleton } from "@mui/material";
@@ -126,8 +128,8 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
         <Skeleton
           variant="rectangular"
           height={600}
-          width={"100%"}
-          sx={{ borderRadius: "8px" }}
+          width={isOwnedFlag ? "70%" : "100%"}
+          sx={SkeletonStyle}
         />
       );
     } else {
@@ -138,7 +140,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
   return (
     <MainPageWrapper style={style}>
       <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
-      <InputToolsWrapper>
+      <InputToolsWrapper $tab={selectedTab} $myPokemons={isOwnedFlag || false}>
         <InputFieldWrapper>
           <InputField
             placeholder="Search Pokemon"
@@ -166,17 +168,19 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
         ? renderLoading(selectedTab, itemsPerPage)
         : selectedTab === "List"
         ? pokemonData && (
-            <div>
-              <Table
-                columnTitles={pokemonTableColumnLabels}
-                data={pokemonData.pokemons}
-                rowPerPageOptions={[5, 10, 20]}
-                rowsPerPage={itemsPerPage}
-                page={page - 1}
-                count={pokemonData.totalCount}
-                onPageChange={handleTablePageChange}
-                onRowsPerPageChange={handleChangeItemsPerPage}
-              />
+            <div style={TablePieChartStyles}>
+              <div style={{ width: isOwnedFlag ? "70%" : "100%" }}>
+                <Table
+                  columnTitles={pokemonTableColumnLabels}
+                  data={pokemonData.pokemons}
+                  rowPerPageOptions={[5, 10, 20]}
+                  rowsPerPage={itemsPerPage}
+                  page={page - 1}
+                  count={pokemonData.totalCount}
+                  onPageChange={handleTablePageChange}
+                  onRowsPerPageChange={handleChangeItemsPerPage}
+                />
+              </div>
               {isOwnedFlag && pokemonTypesCount && (
                 <PokemonTypesPieChart data={pokemonTypesCount} />
               )}
@@ -186,7 +190,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
             <CardView
               data={pokemonData.pokemons}
               totalCount={pokemonData.totalCount}
-              rowsPerPage={itemsPerPage}
+              rowsPerPage={10}
               page={page}
               onPageChange={handleCardViewPageChange}
             />

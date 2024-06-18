@@ -1,24 +1,8 @@
 import { ResponsivePie, PieSvgProps } from "@nivo/pie";
-import { BodyRegular, HeadingLargeMedium } from "../../styles/typography";
-import {
-  LegendColorIndicator,
-  LegendItem,
-  LegendItemContainer,
-  StyledLegendContainer,
-  SumStyle,
-} from "./styles";
-import { COLORS } from "../../styles/colors";
-
-type CountData = {
-  [key: string]: number;
-};
-
-type ChartDatum = {
-  id: string;
-  label: string;
-  value: number;
-  color: string;
-};
+import { HeadingLargeMedium } from "../../styles/typography";
+import { SumStyle } from "./styles";
+import PieChartLegend from "./PieChartLegend";
+import { ChartDatum, CountData } from "./types";
 
 type PieChartProps<T extends CountData> = {
   data: T;
@@ -32,8 +16,8 @@ const PieChart = <T extends CountData>({
   data,
   transformData,
   generateFillPatterns,
-  width = "20%",
-  height = "400px",
+  width = "22.5%",
+  height = "300px",
 }: PieChartProps<T>) => {
   const chartData = transformData(data);
   const fillPatterns = generateFillPatterns ? generateFillPatterns(data) : [];
@@ -44,7 +28,7 @@ const PieChart = <T extends CountData>({
   // Calculate percentages for legend
   const legendData = chartData.map((datum) => ({
     ...datum,
-    percentage: ((datum.value / totalValue) * 100).toFixed(0),
+    percentage: Math.round((datum.value / totalValue) * 100),
   }));
 
   return (
@@ -56,7 +40,7 @@ const PieChart = <T extends CountData>({
       }}>
       <ResponsivePie
         data={chartData}
-        margin={{ top: 40, right: 20, bottom: 40, left: 20 }}
+        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         innerRadius={0.9}
         padAngle={0}
         cornerRadius={1}
@@ -74,19 +58,7 @@ const PieChart = <T extends CountData>({
       <div style={SumStyle}>
         <HeadingLargeMedium>{totalValue}</HeadingLargeMedium>
       </div>
-      <StyledLegendContainer>
-        {legendData.map((datum) => (
-          <LegendItemContainer key={datum.id}>
-            <LegendItem>
-              <LegendColorIndicator $color={datum.color} />
-              <BodyRegular>{datum.label}</BodyRegular>
-            </LegendItem>
-            <BodyRegular style={{ color: `${COLORS.Neutrals.N300}` }}>
-              {datum.percentage}%
-            </BodyRegular>
-          </LegendItemContainer>
-        ))}
-      </StyledLegendContainer>
+      <PieChartLegend data={legendData} />
     </div>
   );
 };

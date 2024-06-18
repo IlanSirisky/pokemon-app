@@ -6,6 +6,7 @@ import {
   PieWrapper,
   StyledPieContainer,
 } from "../../components/PieChart/styles";
+import { HeadingStyles } from "./styles";
 
 type PokemonTypesPieChartProps = {
   data: PokemonTypesCount;
@@ -14,9 +15,7 @@ type PokemonTypesPieChartProps = {
 const PokemonTypesPieChart = ({ data }: PokemonTypesPieChartProps) => {
   return (
     <StyledPieContainer>
-      <HeadingLargeBold>
-        Types
-      </HeadingLargeBold>
+      <HeadingLargeBold style={HeadingStyles}>Pokemon Types</HeadingLargeBold>
       <PieWrapper>
         <PieChart data={data} transformData={transformPokemonDataToPieChart} />
       </PieWrapper>
