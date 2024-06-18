@@ -8,8 +8,8 @@ export const StyledPieContainer = styled.div`
   background-color: ${COLORS.Neutrals.White};
   width: 30%;
   gap: ${cssSpacings.s24};
-  border-radius: ${cssSpacings.s4};
-  height: 575px;
+  border-radius: ${cssSpacings.s20};
+  height: 590px;
 `;
 
 export const PieWrapper = styled.div`
@@ -47,6 +47,29 @@ export const StyledLegendContainer = styled(flexColumn)`
   gap: ${cssSpacings.s4};
   max-height: 200px;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: ${cssSpacings.s6};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${COLORS.Neutrals.N200};
+    border-radius: ${cssSpacings.s4};
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${COLORS.Neutrals.N100};
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
 `;
 
 export const LegendPercentageStyle: CSSProperties = {

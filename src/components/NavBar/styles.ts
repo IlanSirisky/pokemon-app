@@ -8,7 +8,7 @@ const { Neutrals, Primary } = COLORS;
 export const StyledNavBar = styled(flexRow)`
   justify-content: space-between;
   align-items: center;
-  padding: ${cssSpacings.s12} 40px;
+  padding: ${cssSpacings.s12} ${cssSpacings.s40};
   background-color: ${Neutrals.White};
   position: sticky;
   top: 0;
@@ -30,14 +30,5 @@ export const ActiveButtonStyle = {
 };
 
 export const EndContainer = styled(flexRow)`
-  gap: ${cssSpacings.s16};
+  gap: ${cssSpacings.s24};
 `;
-
-export const loginButtonStyles = {
-  borderRadius: "50%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  width: `${cssSpacings.s44}`,
-  height: `${cssSpacings.s44}`,
-};

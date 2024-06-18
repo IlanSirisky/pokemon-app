@@ -56,7 +56,7 @@ const PieChart = <T extends CountData>({
         colors={{ datum: "data.color" }}
       />
       <div style={SumStyle}>
-        <HeadingLargeMedium>{totalValue}</HeadingLargeMedium>
+        <HeadingLargeMedium>{chartData.length}</HeadingLargeMedium>
       </div>
       <PieChartLegend data={legendData} />
     </div>

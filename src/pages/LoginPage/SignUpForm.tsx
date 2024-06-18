@@ -57,7 +57,7 @@ const SignUpForm = ({ switchState }: SignUpFormProps) => {
 
   return (
     <StyledFormWrapper>
-      <HeadingXLargeBold>Sign Up</HeadingXLargeBold>
+      <HeadingXLargeBold>{isConfirmationStep ? "Confirm User":"Sign Up"}</HeadingXLargeBold>
       {!isConfirmationStep ? (
         <Formik
           initialValues={initialSignUpValues}
