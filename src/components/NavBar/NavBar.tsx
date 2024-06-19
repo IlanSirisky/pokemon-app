@@ -1,12 +1,16 @@
 import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
 import Button from "../Button/Button";
 import {
   StyledMenu,
   StyledNavBar,
   ButtonsContainer,
   ActiveButtonStyle,
+  EndContainer,
 } from "./styles";
 import { INavBarOptions } from "./types";
+import UserMenu from "../UserMenu/UserMenu";
+import { AuthContext } from "../../contexts/AuthContext";
 
 interface NavBarProps {
   pathOptions: INavBarOptions[];
@@ -15,6 +19,7 @@ interface NavBarProps {
 }
 
 const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
+  const { user } = useContext(AuthContext);
   const location = useLocation();
 
   return (
@@ -38,11 +43,14 @@ const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
           ))}
         </ButtonsContainer>
       </StyledMenu>
-      <Link to={endButton.path}>
-        <Button type="primary" size="large">
-          {endButton.label}
-        </Button>
-      </Link>
+      <EndContainer>
+        <UserMenu userName={user?.username} />
+        <Link to={endButton.path}>
+          <Button type="primary" size="large">
+            {endButton.label}
+          </Button>
+        </Link>
+      </EndContainer>
     </StyledNavBar>
   );
 };

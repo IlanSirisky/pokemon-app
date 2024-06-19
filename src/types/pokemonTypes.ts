@@ -1,7 +1,7 @@
 export interface IPokemonData {
   id: number;
   name: string;
-  isOwned: boolean;
+  isOwned?: boolean;
   description: string;
   image: string;
   profile: Profile | null;
@@ -46,3 +46,7 @@ export type PokemonType =
   | "Dark"
   | "Steel"
   | "Fairy";
+
+export type PokemonTypesCount = {
+  [key in PokemonType]?: number;
+};

@@ -8,12 +8,27 @@ export const MainPageWrapper = styled(flexColumn)`
   height: 100%;
 `;
 
-export const InputToolsWrapper = styled(flexRow)`
+export const InputToolsWrapper = styled(flexRow)<{
+  $tab: string;
+  $myPokemons: boolean;
+}>`
   align-items: center;
   align-content: center;
   justify-content: space-between;
+  width: ${({ $tab, $myPokemons }) =>
+    $tab === "List" && $myPokemons ? "69%" : "auto"};
 `;
 
-export const InputFieldWrapper = styled(InputToolsWrapper)`
+export const InputFieldWrapper = styled(flexRow)`
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
   gap: ${cssSpacings.s32};
 `;
+
+export const TablePieChartStyles = {
+  display: "flex",
+  gap: "20px",
+};
+
+export const SkeletonStyle = { borderRadius: `${cssSpacings.s8}` };

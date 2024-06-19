@@ -1,6 +1,11 @@
 import { IPokemonAttribute } from "../features/PokemonModalCard/types";
+import { typeColorMapping } from "../styles/colors";
 import { AutocompleteOptionsType } from "../types/optionsTypes";
-import { IPokemonData } from "../types/pokemonTypes";
+import {
+  IPokemonData,
+  PokemonType,
+  PokemonTypesCount,
+} from "../types/pokemonTypes";
 
 export const transformPokemonDataToOption = (
   data: IPokemonData[]
@@ -33,4 +38,14 @@ export const transformPokemonDataToStatsAttributes = (
     { label: "Defense", value: `${pokemonData.baseStats?.defense}` },
     { label: "Speed", value: `${pokemonData.baseStats?.speed}` },
   ];
+};
+
+// Transform the data to the format required by Nivo Pie
+export const transformPokemonDataToPieChart = (data: PokemonTypesCount) => {
+  return Object.entries(data).map(([type, count]) => ({
+    id: type,
+    label: type,
+    value: count,
+    color: typeColorMapping[type as PokemonType],
+  }));
 };

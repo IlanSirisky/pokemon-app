@@ -8,7 +8,7 @@ const { Neutrals, Primary } = COLORS;
 export const StyledNavBar = styled(flexRow)`
   justify-content: space-between;
   align-items: center;
-  padding: ${cssSpacings.s12} 40px;
+  padding: ${cssSpacings.s12} ${cssSpacings.s40};
   background-color: ${Neutrals.White};
   position: sticky;
   top: 0;
@@ -26,6 +26,9 @@ export const ButtonsContainer = styled(flexRow)`
 
 export const ActiveButtonStyle = {
   backgroundColor: `${Primary.P50}`,
-  fontWeight: `${cssFontWeights.bold}`
-}
+  fontWeight: `${cssFontWeights.bold}`,
+};
 
+export const EndContainer = styled(flexRow)`
+  gap: ${cssSpacings.s24};
+`;

@@ -6,6 +6,7 @@ export enum PagePaths {
   MY_POKEMONS = "/my-pokemons",
   FIGHT = "/fight",
   REST = "*",
+  LOGIN = "/login",
 }
 
 export const navBarOptions: INavBarOptions[] = [
