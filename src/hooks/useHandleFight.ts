@@ -87,7 +87,7 @@ export const useCatchPokemon = () => {
         // Invalidate and refetch queries that could be affected by this mutation
         setTimeout(() => {
           queryClient.invalidateQueries({ queryKey: ["myPokemons"] });
-          queryClient.invalidateQueries({ queryKey: ["randomPokemon"] });
+          queryClient.invalidateQueries({ queryKey: ["randomPokemon", false] });
           queryClient.invalidateQueries({ queryKey: ["pokemons"] });
         }, 2500);
       }

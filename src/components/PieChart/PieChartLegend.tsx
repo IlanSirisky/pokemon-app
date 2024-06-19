@@ -17,19 +17,21 @@ const PieChartLegend = ({ data }: PieChartLegendProps) => {
     (a, b) => b.percentage - a.percentage
   );
   return (
-    <StyledLegendContainer>
-      {sortedData.map((datum) => (
-        <LegendItemContainer key={datum.id}>
-          <LegendItem>
-            <LegendColorIndicator $color={datum.color} />
-            <BodyRegular>{datum.label}</BodyRegular>
-          </LegendItem>
-          <BodyRegular style={LegendPercentageStyle}>
-            {datum.percentage}%
-          </BodyRegular>
-        </LegendItemContainer>
-      ))}
-    </StyledLegendContainer>
+    <div style={{overflowY: 'auto'}}>
+      <StyledLegendContainer>
+        {sortedData.map((datum) => (
+          <LegendItemContainer key={datum.id}>
+            <LegendItem>
+              <LegendColorIndicator $color={datum.color} />
+              <BodyRegular>{datum.label}</BodyRegular>
+            </LegendItem>
+            <BodyRegular style={LegendPercentageStyle}>
+              {datum.percentage}%
+            </BodyRegular>
+          </LegendItemContainer>
+        ))}
+      </StyledLegendContainer>
+    </div>
   );
 };
 

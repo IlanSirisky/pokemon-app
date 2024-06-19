@@ -9,7 +9,7 @@ export const StyledPieContainer = styled.div`
   width: 30%;
   gap: ${cssSpacings.s24};
   border-radius: ${cssSpacings.s20};
-  height: 590px;
+  max-height: 590px;
 `;
 
 export const PieWrapper = styled.div`
@@ -44,8 +44,10 @@ export const LegendItem = styled(flexRow)`
 `;
 
 export const StyledLegendContainer = styled(flexColumn)`
+  margin-top: ${cssSpacings.s300};
+  padding: 0 ${cssSpacings.s24} ${cssSpacings.s12} ${cssSpacings.s24};
   gap: ${cssSpacings.s4};
-  max-height: 200px;
+  max-height: ${cssSpacings.s200};
   overflow-y: auto;
 
   &::-webkit-scrollbar {

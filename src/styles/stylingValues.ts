@@ -28,6 +28,7 @@ export const cssSpacings = {
   s120: "120px",
   s150: "150px",
   s200: "200px",
+  s300: "300px",
 };
 
 export const cssFontWeights = {

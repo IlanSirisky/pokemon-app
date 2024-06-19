@@ -1,35 +1,26 @@
 import { ResponsivePie, PieSvgProps } from "@nivo/pie";
 import { HeadingLargeMedium } from "../../styles/typography";
 import { SumStyle } from "./styles";
-import PieChartLegend from "./PieChartLegend";
-import { ChartDatum, CountData } from "./types";
+import { ChartDatum } from "./types";
 
-type PieChartProps<T extends CountData> = {
-  data: T;
-  transformData: (data: T) => ChartDatum[];
-  generateFillPatterns?: (data: T) => PieSvgProps<ChartDatum>["fill"];
+type PieChartProps = {
+  data: ChartDatum[];
+  generateFillPatterns?: (
+    data: ChartDatum[]
+  ) => PieSvgProps<ChartDatum>["fill"];
+  centeredText?: number | string;
   width?: string;
   height?: string;
 };
 
-const PieChart = <T extends CountData>({
+const PieChart = ({
   data,
-  transformData,
   generateFillPatterns,
+  centeredText,
   width = "22.5%",
   height = "300px",
-}: PieChartProps<T>) => {
-  const chartData = transformData(data);
+}: PieChartProps) => {
   const fillPatterns = generateFillPatterns ? generateFillPatterns(data) : [];
-
-  // Calculate total value for percentage calculation
-  const totalValue = chartData.reduce((total, datum) => total + datum.value, 0);
-
-  // Calculate percentages for legend
-  const legendData = chartData.map((datum) => ({
-    ...datum,
-    percentage: Math.round((datum.value / totalValue) * 100),
-  }));
 
   return (
     <div
@@ -39,7 +30,7 @@ const PieChart = <T extends CountData>({
         height: `${height}`,
       }}>
       <ResponsivePie
-        data={chartData}
+        data={data}
         margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         innerRadius={0.9}
         padAngle={0}
@@ -56,9 +47,8 @@ const PieChart = <T extends CountData>({
         colors={{ datum: "data.color" }}
       />
       <div style={SumStyle}>
-        <HeadingLargeMedium>{chartData.length}</HeadingLargeMedium>
+        <HeadingLargeMedium>{centeredText}</HeadingLargeMedium>
       </div>
-      <PieChartLegend data={legendData} />
     </div>
   );
 };
