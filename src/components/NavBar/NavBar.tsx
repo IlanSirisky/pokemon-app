@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import Button from "../Button/Button";
 import {
   StyledMenu,
@@ -9,8 +9,8 @@ import {
   EndContainer,
 } from "./styles";
 import { INavBarOptions } from "./types";
-import { getToken } from "../../utils/tokenFunctions";
 import UserMenu from "../UserMenu/UserMenu";
+import { AuthContext } from "../../contexts/AuthContext";
 
 interface NavBarProps {
   pathOptions: INavBarOptions[];
@@ -19,17 +19,8 @@ interface NavBarProps {
 }
 
 const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
-  const [userName, setUserName] = useState<string>("");
-
+  const { user } = useContext(AuthContext);
   const location = useLocation();
-
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      const decodedToken = JSON.parse(atob(token.split(".")[1]));
-      setUserName(decodedToken.username);
-    }
-  }, []);
 
   return (
     <StyledNavBar>
@@ -53,7 +44,7 @@ const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
         </ButtonsContainer>
       </StyledMenu>
       <EndContainer>
-        <UserMenu userName={userName} />
+        <UserMenu userName={user?.username} />
         <Link to={endButton.path}>
           <Button type="primary" size="large">
             {endButton.label}

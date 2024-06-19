@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AxiosError } from "axios";
 import {
   ConfirmFormValues,
   LoginFormValues,
   SignUpFormValues,
 } from "../types/formTypes";
-import { useNavigate } from "react-router";
-import { saveToken } from "../utils/tokenFunctions";
 import axiosInstance from "../configs/axiosConfig";
+import { AuthContext } from "../contexts/AuthContext";
+import { User } from "../types/userTypes";
 
 const ENDPOINT = import.meta.env.VITE_AUTH_ENDPOINT;
 
@@ -24,16 +24,18 @@ interface ErrorResponse {
 export const useLogin = (): UseLoginReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const { login: loginUser } = useContext(AuthContext);
 
   const login = async (values: LoginFormValues) => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await axiosInstance.post(`${ENDPOINT}/login`, values);
+      const username = response.data.data.idToken.payload.preferred_username;
+      const email = response.data.data.idToken.payload.email;
+      const user: User = { username, email };
       const authToken = response.data.data.accessToken.jwtToken;
-      saveToken(authToken);
-      navigate("/all-pokemons");
+      loginUser(user, authToken);
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
       console.error("Error logging in", err);
@@ -74,7 +76,10 @@ export const useSignUp = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axiosInstance.post(`${ENDPOINT}/confirm-signup`, values);
+      const response = await axiosInstance.post(
+        `${ENDPOINT}/confirm-signup`,
+        values
+      );
       console.log("User confirmed successfully", response.data);
       switchState();
     } catch (error) {

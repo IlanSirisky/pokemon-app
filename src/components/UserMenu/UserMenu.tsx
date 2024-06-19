@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { deleteToken } from "../../utils/tokenFunctions";
-import { PagePaths } from "../../constants/navBar";
+import { useContext, useState } from "react";
+
 import { Button as MUIButton, Menu, MenuItem } from "@mui/material";
 import { loginButtonStyles } from "./styles";
 import { COLORS } from "../../styles/colors";
+import { AuthContext } from "../../contexts/AuthContext";
 
 interface UserMenuProps {
   userName?: string;
@@ -12,19 +11,13 @@ interface UserMenuProps {
 
 const UserMenu = ({ userName }: UserMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const navigate = useNavigate();
-
+  const { logout } = useContext(AuthContext);
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
-    deleteToken();
-    navigate(PagePaths.LOGIN);
   };
 
   return (
@@ -58,7 +51,7 @@ const UserMenu = ({ userName }: UserMenuProps) => {
           vertical: "top",
           horizontal: "center",
         }}>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </>
   );

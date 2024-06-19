@@ -1,5 +1,5 @@
 import axios from "axios";
-import { deleteToken, getToken } from "../utils/tokenFunctions";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 const URL = import.meta.env.VITE_API_URL;
 
@@ -9,7 +9,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    const { getItem } = useSessionStorage();
+    const token = getItem("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,7 +27,8 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401 || error.response.status === 403) {
-      deleteToken();
+      const { deleteItem } = useSessionStorage();
+      deleteItem("accessToken");
       window.location.href = "/login";
     }
     return Promise.reject(error);

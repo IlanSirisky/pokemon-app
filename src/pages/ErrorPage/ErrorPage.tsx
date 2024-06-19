@@ -1,19 +1,21 @@
 import { HeadingLargeBold, HeadingLargeMedium } from "../../styles/typography";
 import { StyledErrorPage, StyledErrorImage } from "./styles";
 import confusedPikachu from "../../assets/confused.jpeg";
-import { getToken } from "../../utils/tokenFunctions";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useSessionStorage } from "../../hooks/useSessionStorage";
+import { PagePaths } from "../../constants/navBar";
 
 const ErrorPage = () => {
+  const { getItem } = useSessionStorage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const accessToken = getToken();
+    const accessToken = getItem("accessToken");
     if (!accessToken) {
-      navigate("/login");
+      navigate(PagePaths.LOGIN);
     }
-  }, [navigate]);
+  }, [navigate, getItem]);
 
   return (
     <StyledErrorPage>
