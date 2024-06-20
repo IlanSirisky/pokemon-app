@@ -14,11 +14,24 @@ export const StyledNavBar = styled(flexRow)`
   top: 0;
   z-index: 10;
   box-shadow: 0 1px 1px ${COLORS.Neutrals.N100};
+
+  @media (max-width: 760px) {
+    flex-direction: column;
+    align-items: center;
+    gap: ${cssSpacings.s16};
+  }
 `;
 
 export const StyledMenu = styled(flexRow)`
   align-items: center;
   gap: 40px;
+
+  @media (max-width: 570px) {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: ${cssSpacings.s16};
+  }
 `;
 export const ButtonsContainer = styled(flexRow)`
   gap: ${cssSpacings.s16};
@@ -33,6 +46,12 @@ export const ActiveButtonStyle = {
 
 export const EndContainer = styled(flexRow)`
   gap: ${cssSpacings.s24};
+
+  @media (max-width: 760px) {
+    width: 100%;
+    justify-content: center;
+  }
+
 `;
 
 export const ButtonChildrenContainer = styled(flexRow)`

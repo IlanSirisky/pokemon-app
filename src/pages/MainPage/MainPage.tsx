@@ -185,7 +185,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
     <MainPageWrapper style={style}>
       <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
       <InputToolsWrapper $tab={selectedTab} $myPokemons={isOwnedFlag || false}>
-        <InputFieldWrapper>
+        <InputFieldWrapper $tab={selectedTab} $myPokemons={isOwnedFlag || false}>
           <InputField
             placeholder="Search Pokemon Name"
             onChange={handleSearchChange}
