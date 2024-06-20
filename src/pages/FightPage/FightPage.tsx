@@ -75,8 +75,10 @@ const FightPage = () => {
 
   useEffect(() => {
     if (randomOwnedPokemon && opponentPokemon) {
-      setSelectedPokemon(randomOwnedPokemon);
-      setSelectedPokemonCurrentHp(randomOwnedPokemon.baseStats?.hp || 0);
+      if (!selectedPokemon) {
+        setSelectedPokemon(randomOwnedPokemon);
+        setSelectedPokemonCurrentHp(randomOwnedPokemon.baseStats?.hp || 0);
+      }
       setOpponentPokemonCurrentHp(opponentPokemon.baseStats?.hp || 0);
       setTurn(determineInitialTurn(randomOwnedPokemon, opponentPokemon));
     }

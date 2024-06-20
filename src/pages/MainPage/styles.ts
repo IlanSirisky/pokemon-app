@@ -20,7 +20,7 @@ export const InputToolsWrapper = styled(flexRow)<{
   @media (max-width: ${({ $tab, $myPokemons }) => $tab === "List" && $myPokemons ? "1120px" : "810px"}) {
     gap: ${cssSpacings.s12};
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
   }
 `;
@@ -36,7 +36,7 @@ export const InputFieldWrapper = styled(flexRow)<{
 
   @media (max-width: ${({ $tab, $myPokemons }) => $tab === "List" && $myPokemons ? "850px" : "610px"}) {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: ${cssSpacings.s16};
     width: 100%;
   }
