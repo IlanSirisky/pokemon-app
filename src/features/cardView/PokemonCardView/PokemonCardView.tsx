@@ -5,7 +5,6 @@ import PokemonBasicCard from "../PokemonBasicCard/PokemonBasicCard";
 import strength from "../../../assets/icons/strength.svg";
 import {
   CardViewContainer,
-  CardWrapper,
   PaginationStyle,
   PaginationWrapper,
 } from "./styles";
@@ -60,14 +59,13 @@ const PokemonCardView = ({
     <>
       <CardViewContainer>
         {data.map((item) => (
-          <CardWrapper key={item.id}>
             <PokemonBasicCard
+            key={item.id}
               handleClick={() => handleOpenModal(+item.id)}
               pokemon={item}
               topCornerIcon={strength}
               style={{ cursor: "pointer" }}
             />
-          </CardWrapper>
         ))}
         <Modal isOpen={!!selectedPokemonId} onClose={handleCloseModal}>
           {selectedPokemonId && !isLoading && !error && pokemonDetails && (

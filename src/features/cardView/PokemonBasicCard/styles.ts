@@ -12,4 +12,7 @@ export const StyledBasicCard = styled(flexColumn)`
   padding: ${cssSpacings.s24};
   gap: ${cssSpacings.s10};
   width: 274px;
+  &:hover {
+    box-shadow: 0px 0px 0px 1px ${COLORS.Neutrals.N300};
+  }
 `;
