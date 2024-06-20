@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useField } from "formik";
 import {
   CustomInputWrapper,
+  ErrorContainer,
   ErrorStyles,
   InputContainer,
   InputLabelContainer,
@@ -54,9 +55,11 @@ const CustomInput = ({ label, required, ...props }: CustomInputProps) => {
           </ToggleButton>
         )}
       </CustomInputWrapper>
-      {meta.touched && meta.error && (
-        <XSmallRegular style={ErrorStyles}>{meta.error}</XSmallRegular>
-      )}
+      <ErrorContainer>
+        {meta.touched && meta.error && (
+          <XSmallRegular style={ErrorStyles}>{meta.error}</XSmallRegular>
+        )}
+      </ErrorContainer>
     </InputContainer>
   );
 };

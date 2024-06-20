@@ -40,11 +40,6 @@ const LoginForm = ({ switchState, style }: LoginFormProps) => {
         isLoading={isLoading}
       />
       <UnderFormContainer>
-        <BodyMedium
-          style={underFormButtonStyles}
-          onClick={() => console.log("Forgot Password")}>
-          Forgot Password?
-        </BodyMedium>
         <BodyMedium style={underFormButtonStyles} onClick={switchState}>
           Sign Up Now
         </BodyMedium>

@@ -29,6 +29,10 @@ export const StyledInput = styled.input`
   }
 `;
 
+export const ErrorContainer = styled.div`
+  min-height: ${cssSpacings.s16};
+`;
+
 export const ErrorStyles = {
   color: `${MISC_COLORS.HealthBar.red}`,
 };
@@ -47,7 +51,7 @@ export const ToggleButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 8px 0 0;
+  padding: 0 ${cssSpacings.s8} 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
