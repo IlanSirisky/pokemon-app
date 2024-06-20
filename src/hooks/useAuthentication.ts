@@ -19,6 +19,7 @@ interface UseLoginReturn {
 
 interface ErrorResponse {
   message: string;
+  error?: string;
 }
 
 export const useLogin = (): UseLoginReturn => {
@@ -39,7 +40,7 @@ export const useLogin = (): UseLoginReturn => {
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
       console.error("Error logging in", err);
-      setError(err.response?.data?.message || "An error occurred during login");
+      setError(err.response?.data?.error || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
@@ -62,8 +63,9 @@ export const useSignUp = () => {
       const err = error as AxiosError<ErrorResponse>;
       console.error("Error signing up", err);
       setError(
-        err.response?.data?.message || "An error occurred during sign up"
+        err.response?.data?.error || "An error occurred during sign up"
       );
+      return err.response?.data?.error;
     } finally {
       setIsLoading(false);
     }
@@ -86,7 +88,7 @@ export const useSignUp = () => {
       const err = error as AxiosError<ErrorResponse>;
       console.error("Error confirming user", err);
       setError(
-        err.response?.data?.message || "An error occurred during confirmation"
+        err.response?.data?.error || "An error occurred during confirmation"
       );
     } finally {
       setIsLoading(false);

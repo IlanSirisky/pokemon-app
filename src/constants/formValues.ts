@@ -14,6 +14,7 @@ export const signUpInitialValues: SignUpFormValues = {
   username: "",
   email: "",
   password: "",
+  confirmPassword: "",
 };
 
 export const confirmInitialValues: ConfirmFormValues = {
@@ -42,18 +43,28 @@ export const signUpFields: IformFields[] = [
     name: "username",
     type: "text",
     placeholder: "Enter a username",
+    required: true,
   },
   {
     label: "Email",
     name: "email",
     type: "email",
     placeholder: "Enter an email",
+    required: true,
   },
   {
     label: "Password",
     name: "password",
     type: "password",
     placeholder: "Enter a password",
+    required: true,
+  },
+  {
+    label: "Confirm Password",
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "Confirm your password",
+    required: true,
   },
 ];
 
@@ -63,11 +74,13 @@ export const confirmFields: IformFields[] = [
     name: "username",
     type: "text",
     placeholder: "Enter your username",
+    required: true,
   },
   {
     label: "Confirmation Code",
     name: "code",
     type: "text",
     placeholder: "Enter the confirmation code",
+    required: true,
   },
 ];

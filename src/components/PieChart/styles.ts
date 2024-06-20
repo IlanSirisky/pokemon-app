@@ -8,7 +8,7 @@ export const StyledPieContainer = styled.div`
   background-color: ${COLORS.Neutrals.White};
   width: 30%;
   gap: ${cssSpacings.s24};
-  border-radius: ${cssSpacings.s20};
+  border-radius: ${cssSpacings.s4};
   max-height: 590px;
 `;
 

@@ -42,7 +42,7 @@ export const StyledFightArea = styled(flexRow)`
   background-repeat: no-repeat;
   background-position: center;
   width: 100%;
-  height: 65vh;
+  height: 70vh;
   justify-content: space-evenly;
   align-items: center;
   border-radius: ${cssSpacings.s8};

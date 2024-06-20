@@ -4,7 +4,7 @@ import confusedPikachu from "../../assets/confused.jpeg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSessionStorage } from "../../hooks/useSessionStorage";
-import { PagePaths } from "../../constants/navBar";
+import { PagePaths } from "../../constants/navBarConstants";
 
 const ErrorPage = () => {
   const { getItem } = useSessionStorage();

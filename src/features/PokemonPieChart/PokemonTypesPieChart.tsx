@@ -29,7 +29,7 @@ const PokemonTypesPieChart = ({ data }: PokemonTypesPieChartProps) => {
     <StyledPieContainer>
       <HeadingLargeBold style={HeadingStyles}>Pokemon Types</HeadingLargeBold>
       <PieWrapper>
-        <PieChart data={chartData} centeredText={chartData.length} />
+        <PieChart data={chartData} centeredText={`${chartData.length} Types`} />
       </PieWrapper>
       <PieChartLegend data={legendData} />
     </StyledPieContainer>

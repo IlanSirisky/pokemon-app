@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexColumn } from "../../styles/globalStyles";
+import { flexColumn, flexRow } from "../../styles/globalStyles";
 import { cssSpacings } from "../../styles/stylingValues";
 import { COLORS, MISC_COLORS } from "../../styles/colors";
 import { Form } from "formik";
@@ -7,11 +7,19 @@ import { Form } from "formik";
 export const CustomInputWrapper = styled(flexColumn)`
   gap: ${cssSpacings.s6};
   width: 100%;
+  position: relative;
+`;
+
+export const InputContainer = styled(flexColumn)`
+  gap: ${cssSpacings.s8};
+`;
+
+export const InputLabelContainer = styled(flexRow)`
+  gap: ${cssSpacings.s4};
 `;
 
 export const StyledInput = styled.input`
-  padding: ${cssSpacings.s9} ${cssSpacings.s6} ${cssSpacings.s9} ${cssSpacings.s8};
-  gap: ${cssSpacings.s4};
+  padding: ${cssSpacings.s9} ${cssSpacings.s60} ${cssSpacings.s9} ${cssSpacings.s8};
   border: 1px solid ${COLORS.Neutrals.N200};
   border-radius: ${cssSpacings.s8};
   height: ${cssSpacings.s20};
@@ -34,3 +42,13 @@ export const StyledForm = styled(Form)`
 export const buttonStyles = {
   width: "100%",
 };
+
+export const ToggleButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 8px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

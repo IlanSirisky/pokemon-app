@@ -21,4 +21,5 @@ export const StyledCloseButton = styled.img`
   position: absolute;
   top: ${cssSpacings.s16};
   right: ${cssSpacings.s24};
+  cursor: pointer;
 `;

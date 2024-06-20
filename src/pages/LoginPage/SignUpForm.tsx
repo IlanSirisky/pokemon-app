@@ -29,9 +29,11 @@ const SignUpForm = ({ switchState, style }: SignUpFormProps) => {
     values: SignUpFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
-    await signUp(values);
+    const res = await signUp(values);
     setSubmitting(false);
-    setIsConfirmationStep(true);
+    if (!res) {
+      setIsConfirmationStep(true);
+    }
   };
 
   const handleConfirmSubmit = async (
@@ -56,6 +58,9 @@ const SignUpForm = ({ switchState, style }: SignUpFormProps) => {
           submitLabel="Sign Up"
           error={error}
           isLoading={isLoading}
+          passwordRequirements="*Password must be 8+ characters, with at least one uppercase,
+          one lowercase, one number, and one special character."
+          showPasswordRequirements
         />
       ) : (
         <Form
@@ -70,7 +75,7 @@ const SignUpForm = ({ switchState, style }: SignUpFormProps) => {
       )}
       <UnderFormContainer>
         <BodyMedium style={underFormButtonStyles} onClick={switchState}>
-          Login
+          Back to Login
         </BodyMedium>
       </UnderFormContainer>
     </StyledFormWrapper>

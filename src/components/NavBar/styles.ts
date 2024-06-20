@@ -22,6 +22,8 @@ export const StyledMenu = styled(flexRow)`
 `;
 export const ButtonsContainer = styled(flexRow)`
   gap: ${cssSpacings.s16};
+  display: flex;
+  align-items: center;
 `;
 
 export const ActiveButtonStyle = {
@@ -31,4 +33,9 @@ export const ActiveButtonStyle = {
 
 export const EndContainer = styled(flexRow)`
   gap: ${cssSpacings.s24};
+`;
+
+export const ButtonChildrenContainer = styled(flexRow)`
+  align-items: "center";
+  gap: ${cssSpacings.s6};
 `;

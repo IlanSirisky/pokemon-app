@@ -7,6 +7,7 @@ import {
   ButtonsContainer,
   ActiveButtonStyle,
   EndContainer,
+  ButtonChildrenContainer,
 } from "./styles";
 import { INavBarOptions } from "./types";
 import UserMenu from "../UserMenu/UserMenu";
@@ -37,7 +38,9 @@ const NavBar = ({ pathOptions, endButton, headerImage }: NavBarProps) => {
                 style={
                   location.pathname === option.path ? ActiveButtonStyle : {}
                 }>
-                {option.label}
+                <ButtonChildrenContainer>
+                  {option.label} {option?.icon}
+                </ButtonChildrenContainer>
               </Button>
             </Link>
           ))}

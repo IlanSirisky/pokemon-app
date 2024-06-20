@@ -13,4 +13,5 @@ export const loginButtonStyles: CSSProperties = {
   justifyContent: "center",
   padding: 0,
   color: `${COLORS.Primary.P300}`,
+  lineHeight: `${cssSpacings.s12}`,
 };

@@ -50,7 +50,9 @@ const UserMenu = ({ userName }: UserMenuProps) => {
         transformOrigin={{
           vertical: "top",
           horizontal: "center",
-        }}>
+        }}
+        sx={{mt:1}}>
+          
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
     </>

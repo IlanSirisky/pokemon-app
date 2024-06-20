@@ -137,13 +137,57 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
     }
   };
 
+  let renderedContent;
+
+  if (error) {
+    renderedContent = renderError();
+  }
+
+  if (isLoading) {
+    renderedContent = renderLoading(selectedTab, itemsPerPage);
+  }
+
+  if (pokemonData) {
+    if (selectedTab === "List") {
+      renderedContent = (
+        <div style={TablePieChartStyles}>
+          <div style={{ width: isOwnedFlag ? "70%" : "100%" }}>
+            <Table
+              columnTitles={pokemonTableColumnLabels}
+              data={pokemonData.pokemons}
+              rowPerPageOptions={[5, 10, 20]}
+              rowsPerPage={itemsPerPage}
+              page={page - 1}
+              count={pokemonData.totalCount}
+              onPageChange={handleTablePageChange}
+              onRowsPerPageChange={handleChangeItemsPerPage}
+            />
+          </div>
+          {isOwnedFlag && pokemonTypesCount && (
+            <PokemonTypesPieChart data={pokemonTypesCount} />
+          )}
+        </div>
+      );
+    } else {
+      renderedContent = (
+        <CardView
+          data={pokemonData.pokemons}
+          totalCount={pokemonData.totalCount}
+          rowsPerPage={itemsPerPage}
+          page={page}
+          onPageChange={handleCardViewPageChange}
+        />
+      );
+    }
+  }
+  
   return (
     <MainPageWrapper style={style}>
       <HeadingLargeMedium>{headerText}</HeadingLargeMedium>
       <InputToolsWrapper $tab={selectedTab} $myPokemons={isOwnedFlag || false}>
         <InputFieldWrapper>
           <InputField
-            placeholder="Search Pokemon"
+            placeholder="Search Pokemon Name"
             onChange={handleSearchChange}
             onEndIconClick={handleClearSearch}
             value={searchValue}
@@ -162,39 +206,7 @@ const MainPage = ({ isOwnedFlag, headerText, style }: MainPageProps) => {
           arrowIcon={arrowIcon}
         />
       </InputToolsWrapper>
-      {error
-        ? renderError()
-        : isLoading
-        ? renderLoading(selectedTab, itemsPerPage)
-        : selectedTab === "List"
-        ? pokemonData && (
-            <div style={TablePieChartStyles}>
-              <div style={{ width: isOwnedFlag ? "70%" : "100%" }}>
-                <Table
-                  columnTitles={pokemonTableColumnLabels}
-                  data={pokemonData.pokemons}
-                  rowPerPageOptions={[5, 10, 20]}
-                  rowsPerPage={itemsPerPage}
-                  page={page - 1}
-                  count={pokemonData.totalCount}
-                  onPageChange={handleTablePageChange}
-                  onRowsPerPageChange={handleChangeItemsPerPage}
-                />
-              </div>
-              {isOwnedFlag && pokemonTypesCount && (
-                <PokemonTypesPieChart data={pokemonTypesCount} />
-              )}
-            </div>
-          )
-        : pokemonData && (
-            <CardView
-              data={pokemonData.pokemons}
-              totalCount={pokemonData.totalCount}
-              rowsPerPage={itemsPerPage}
-              page={page}
-              onPageChange={handleCardViewPageChange}
-            />
-          )}
+      {renderedContent}
     </MainPageWrapper>
   );
 };

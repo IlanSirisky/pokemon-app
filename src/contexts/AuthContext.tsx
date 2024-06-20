@@ -2,7 +2,7 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../types/userTypes";
 import { useSessionStorage } from "../hooks/useSessionStorage";
-import { PagePaths } from "../constants/navBar";
+import { PagePaths } from "../constants/navBarConstants";
 
 interface AuthContextType {
   user: User | null;

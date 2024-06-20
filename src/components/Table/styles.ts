@@ -50,7 +50,7 @@ export const paginationFontStyle = {
   fontFamily: "Mulish, sans-serif",
   fontSize: `${cssFontSizes.f12}`,
   color: `${COLORS.Neutrals.N300}`,
-}
+};
 
 export const TablePaginationStyle = {
   "& .MuiTablePagination-actions": {
@@ -84,4 +84,13 @@ export const StyledEmptySearchIcon = styled.div`
 export const EmptyStateStyles = {
   TableCell: { padding: `${cssSpacings.s120} 0`, gap: `${cssSpacings.s16}` },
   text: { color: `${COLORS.Neutrals.N300}` },
+};
+
+export const customTooltipStyles = {
+  maxWidth: 450,
+  fontSize: 14,
+  backgroundColor: "rgba(60, 60, 60, 0.9)",
+  color: `${COLORS.Neutrals.White}`,
+  borderRadius: 4,
+  fontFamily: "'Mulish', sans-serif",
 };

@@ -3,12 +3,14 @@ import CustomInput from "./CustomInput";
 import { buttonStyles, ErrorStyles, StyledForm } from "./styles";
 import Button from "../Button/Button";
 import { XSmallRegular } from "../../styles/typography";
+import { cssSpacings } from "../../styles/stylingValues";
 
 export interface IformFields {
   label: string;
   name: string;
   type: string;
   placeholder?: string;
+  required?: boolean;
 }
 
 interface FormComponentProps {
@@ -19,6 +21,8 @@ interface FormComponentProps {
   submitLabel: string;
   error: string | null;
   isLoading: boolean;
+  passwordRequirements?: string;
+  showPasswordRequirements?: boolean;
 }
 
 const Form = ({
@@ -29,6 +33,8 @@ const Form = ({
   submitLabel,
   error,
   isLoading,
+  passwordRequirements,
+  showPasswordRequirements = false,
 }: FormComponentProps) => {
   return (
     <Formik
@@ -38,13 +44,24 @@ const Form = ({
       {({ isSubmitting }) => (
         <StyledForm>
           {fields.map((field) => (
-            <CustomInput
+            <div
               key={field.name}
-              label={field.label}
-              name={field.name}
-              type={field.type}
-              placeholder={field.placeholder}
-            />
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: `${cssSpacings.s8}`,
+              }}>
+              <CustomInput
+                label={field.label}
+                name={field.name}
+                type={field.type}
+                required={field.required}
+                placeholder={field.placeholder}
+              />
+              {showPasswordRequirements && field.name === "password" && (
+                <XSmallRegular>{passwordRequirements}</XSmallRegular>
+              )}
+            </div>
           ))}
           {error && <XSmallRegular style={ErrorStyles}>{error}</XSmallRegular>}
           <Button

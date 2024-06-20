@@ -5,14 +5,7 @@ const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Required"),
-  password: yup
-    .string()
-    .min(8)
-    .matches(
-      passwordRules,
-      "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
-    )
-    .required("Required"),
+  password: yup.string().required("Required"),
 });
 
 export const signUpSchema = yup.object().shape({
@@ -26,6 +19,9 @@ export const signUpSchema = yup.object().shape({
       "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
     )
     .required("Required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
 export const confirmSchema = yup.object().shape({

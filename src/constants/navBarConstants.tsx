@@ -1,4 +1,6 @@
 import { INavBarOptions } from "../components/NavBar/types";
+import pokeball from "../assets/icons/pokeball.svg";
+import Avatar from "../components/Avatar/Avatar";
 
 export enum PagePaths {
   HOME = "/",
@@ -17,6 +19,14 @@ export const navBarOptions: INavBarOptions[] = [
   {
     label: "My Pokemons",
     path: PagePaths.MY_POKEMONS,
+    icon: (
+      <Avatar
+        image={pokeball}
+        alt="Pokeball icon"
+        avatarSize={15}
+        wrapperSize={15}
+      />
+    ),
   },
 ];
 
